@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AEXIS — Sample AI-Threat Readiness Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0F17;--ink-2:#11151F;--ink-3:#1A2030;
+  --surface:#FFFFFF;--surface-2:#F4F6FA;--surface-3:#EAEEF5;
+  --line:#E2E6EE;--line-dark:#272D3D;
+  --muted:#5A6473;--muted-light:#9AA3B2;
+  --violet:#6B2BF6;--violet-2:#3D1FD6;--violet-soft:#EFE9FF;
+  --teal:#00C2A8;--teal-soft:#E0F7F3;--amber:#FFB020;--amber-soft:#FFF4E0;--rose:#FF4D6D;--rose-soft:#FFEEF1;
+  --maxw:1040px;--r:16px;--r-lg:24px;
+  --shadow:0 1px 2px rgba(11,15,23,.04),0 12px 32px -12px rgba(11,15,23,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--surface);line-height:1.65;-webkit-font-smoothing:antialiased;font-size:16px}
+h1,h2,h3,h4{font-family:'Space Grotesk';letter-spacing:-.02em;line-height:1.12;font-weight:600}
+.mono{font-family:'Space Mono',monospace}
+a{color:var(--violet);text-decoration:none}a:hover{text-decoration:underline}
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--violet),var(--teal));z-index:200;transition:width .1s}
+
+/* ===== SHARED SITE NAV ===== */
+.sitenav{position:fixed;top:0;left:0;right:0;z-index:160;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.sitenav .brand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:700;letter-spacing:.18em;font-size:14px;color:var(--ink)}
+.sitenav .brand:hover{text-decoration:none}
+.sitenav .brand svg{width:28px;height:28px;border-radius:8px}
+.navlinks{display:flex;gap:2px;align-items:center}
+.navlinks a{font-size:13px;font-weight:500;color:var(--muted);padding:8px 11px;border-radius:8px}
+.navlinks a:hover{color:var(--ink);background:var(--surface-2);text-decoration:none}
+.navlinks a.active{color:var(--violet);background:var(--violet-soft)}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:9px}
+.burger span{width:24px;height:2px;background:var(--ink);border-radius:2px}
+.drawer{position:fixed;inset:0;z-index:170;background:rgba(11,15,23,.97);backdrop-filter:blur(10px);display:flex;flex-direction:column;justify-content:center;gap:2px;padding:46px 40px;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);visibility:hidden}
+.drawer.open{transform:none;visibility:visible}
+.drawer .dlabel{font-family:'Space Mono';font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+.drawer a{color:#fff;font-family:'Space Grotesk';font-size:23px;font-weight:600;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1);letter-spacing:-.01em;display:flex;justify-content:space-between;align-items:center}
+.drawer a:hover{color:var(--teal);text-decoration:none}
+.drawer a.active{color:var(--teal)}
+.drawer a span{font-family:'Space Mono';font-size:12px;color:var(--muted-light);font-weight:400}
+.drawer .close{position:absolute;top:22px;right:28px;font-size:26px;color:#fff;background:none;border:0;cursor:pointer;line-height:1;font-family:'Space Grotesk'}
+@media(max-width:980px){.navlinks{display:none}.burger{display:flex}}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px}
+section{padding:62px 0;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:'Space Mono';font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--violet);font-weight:700}
+h2.s{font-size:clamp(24px,3.2vw,34px);margin:10px 0 6px}
+.deck{color:var(--muted);font-size:17px;max-width:660px;margin-bottom:22px}
+
+/* sample banner */
+.sample-banner{position:fixed;top:53px;left:0;right:0;z-index:140;background:var(--amber-soft);border-bottom:1px solid #f0d28a;text-align:center;padding:7px 14px;font-family:'Space Mono';font-size:11px;letter-spacing:.06em;color:#8a5b00;font-weight:700}
+
+/* hero / cover */
+.cover{background:var(--ink);color:#fff;padding:150px 0 56px;position:relative;overflow:hidden;border:none}
+.cover .wrap{position:relative;z-index:2}
+.glow{position:absolute;border-radius:50%;filter:blur(95px)}
+.glow.v{width:520px;height:520px;background:#5B2EFF;opacity:.4;top:-180px;right:-100px}
+.glow.t{width:380px;height:380px;background:#00C2A8;opacity:.2;bottom:-160px;left:-120px}
+.cover .tag{font-family:'Space Mono';letter-spacing:.18em;color:var(--teal);font-size:12px;text-transform:uppercase}
+.cover h1{font-size:clamp(30px,4.6vw,52px);color:#fff;font-weight:700;letter-spacing:-.03em;margin:14px 0 8px}
+.cover .meta{display:flex;gap:30px;flex-wrap:wrap;margin-top:26px;color:#AEB6C6;font-size:14px}
+.cover .meta b{color:#fff;display:block;font-family:'Space Grotesk';font-size:16px;font-weight:500}
+.cover .meta .lab{font-family:'Space Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-light);margin-bottom:3px}
+
+/* score block */
+.scoreblock{display:grid;grid-template-columns:230px 1fr;gap:34px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:34px;box-shadow:var(--shadow);margin-top:-40px;position:relative;z-index:5}
+@media(max-width:760px){.scoreblock{grid-template-columns:1fr;text-align:center;justify-items:center}}
+.gauge{position:relative;width:200px;height:200px}
+.gauge svg{transform:rotate(-90deg)}
+.gauge .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.gauge .center .v{font-family:'Space Grotesk';font-size:52px;font-weight:700;line-height:1}
+.gauge .center .o{font-size:13px;color:var(--muted)}
+.gauge .center .r{font-family:'Space Mono';font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--amber);margin-top:6px;text-transform:uppercase}
+.scoreblock h3{font-size:21px;margin-bottom:8px}
+.scoreblock p{font-size:15px;color:var(--muted)}
+.scale{display:flex;gap:0;margin-top:14px;border-radius:8px;overflow:hidden;height:8px;max-width:380px}
+.scale i{flex:1}
+.scalelabels{display:flex;justify-content:space-between;max-width:380px;font-family:'Space Mono';font-size:9.5px;color:var(--muted-light);margin-top:5px;letter-spacing:.04em}
+
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:860px){.g3,.g2{grid-template-columns:1fr}}
+
+/* domain bars */
+.domain{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
+.domain .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.domain .name{font-weight:600;font-size:15px}
+.domain .val{font-family:'Space Grotesk';font-weight:600;font-size:20px}
+.domain .track{height:8px;background:var(--surface-3);border-radius:6px;overflow:hidden}
+.domain .fill{height:100%;border-radius:6px}
+.domain .rate{font-family:'Space Mono';font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;margin-top:8px}
+
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin:6px 0 14px;background:#fff}
+th,td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:'Space Mono';font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:700}
+tr:hover td{background:var(--surface-2)}
+.sev{display:inline-flex;align-items:center;gap:6px;font-family:'Space Mono';font-size:10px;font-weight:700;letter-spacing:.04em;padding:4px 9px;border-radius:100px;text-transform:uppercase;white-space:nowrap}
+.sev.crit{background:var(--rose-soft);color:#c0173a}
+.sev.high{background:var(--amber-soft);color:#9a6500}
+.sev.med{background:var(--surface-3);color:#41506b}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+
+/* attack narrative */
+.steps{counter-reset:st;margin-top:10px}
+.stepc{display:flex;gap:18px;padding:18px 0;border-bottom:1px dashed var(--line)}
+.stepc:last-child{border-bottom:none}
+.stepc .no{counter-increment:st;flex:0 0 38px;height:38px;border-radius:11px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk';font-weight:600}
+.stepc .no::before{content:counter(st)}
+.stepc h4{font-size:16px;margin-bottom:3px}
+.stepc p{font-size:14.5px;color:var(--muted);margin:0}
+.stepc .t{font-family:'Space Mono';font-size:10px;color:var(--violet);font-weight:700;letter-spacing:.05em}
+
+.panel{background:var(--ink);color:#fff;border-radius:var(--r-lg);padding:34px;position:relative;overflow:hidden}
+.panel h3{color:#fff;font-size:21px;margin-bottom:8px}.panel p{color:#C2C9D6;margin:0}
+.panel .accent{color:var(--teal)}
+.pill{display:inline-flex;align-items:center;gap:7px;font-family:'Space Mono';font-size:10.5px;letter-spacing:.06em;padding:6px 12px;border-radius:100px;text-transform:uppercase;font-weight:700}
+.pill.dark{background:var(--ink-3);color:#fff}.pill.v{background:var(--violet-soft);color:var(--violet-2)}
+
+/* remediation timeline */
+.remed{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:860px){.remed{grid-template-columns:1fr}}
+.phase{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow)}
+.phase .ph{font-family:'Space Mono';font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--violet)}
+.phase h4{font-size:17px;margin:6px 0 12px}
+.phase ul{list-style:none;margin:0}
+.phase li{display:flex;gap:9px;padding:7px 0;font-size:14px;color:#2A3242;align-items:flex-start}
+.phase li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--teal);margin-top:8px}
+
+.reveal{opacity:0;transform:translateY(18px);transition:.6s cubic-bezier(.2,.7,.2,1)}.reveal.in{opacity:1;transform:none}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;padding:12px 22px;border-radius:100px;border:1px solid transparent;cursor:pointer}
+.btn.p{background:var(--violet);color:#fff}.btn.p:hover{background:var(--violet-2);text-decoration:none}
+.btn.g{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn.g:hover{border-color:var(--ink);text-decoration:none}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.note{font-family:'Space Mono';font-size:11px;color:var(--muted-light);letter-spacing:.02em}
+footer{background:var(--ink);color:#AEB6C6;padding:44px 0;font-size:13px;border:none}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center}
+.fbrand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:700;letter-spacing:.18em;font-size:14px;color:#fff}
+.fbrand svg{width:28px;height:28px;border-radius:8px}
+@media(max-width:980px){section{padding:48px 0}.wrap{padding:0 20px}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<!-- ===== SHARED SITE NAV ===== -->
+<nav class="sitenav">
+  <a class="brand" href="index.html"><svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="m1" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3DFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0B0F17"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#m1)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</a>
+  <div class="navlinks">
+    <a href="index.html">Overview</a>
+    <a href="pitch-deck.html">Pitch Deck</a>
+    <a href="business-plan.html">Business Plan</a>
+    <a href="sample-audit.html" class="active">Sample Audit</a>
+    <a href="financial-model.html">Financials</a>
+    <a href="brand-identity.html">Brand</a>
+    <a href="research/market-research.md">Research</a>
+  </div>
+  <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="drawer" id="drawer">
+  <button class="close" id="drawerClose" aria-label="Close menu">✕ Close</button>
+  <div class="dlabel">AEXIS · Investor Package</div>
+  <a href="index.html">Overview <span>Home</span></a>
+  <a href="pitch-deck.html">Pitch Deck <span>13 slides</span></a>
+  <a href="business-plan.html">Business Plan <span>Full case</span></a>
+  <a href="sample-audit.html" class="active">Sample Audit <span>Example deliverable</span></a>
+  <a href="financial-model.html">Financial Model <span>3-year</span></a>
+  <a href="brand-identity.html">Brand System <span>Design</span></a>
+  <a href="research/market-research.md">Research <span>Sourced</span></a>
+</div>
+
+<div class="sample-banner">⚠ ILLUSTRATIVE SAMPLE · fictional company &amp; example findings · shows the format of an AEXIS deliverable, not real client data</div>
+
+<!-- COVER -->
+<header class="cover">
+  <div class="glow v"></div><div class="glow t"></div>
+  <div class="wrap">
+    <div class="tag">AEXIS Signal · AI-Threat Readiness Audit</div>
+    <h1>What an AI attacker would find at<br>Nordlicht Privatbank AG.</h1>
+    <p style="color:#C2C9D6;font-size:18px;max-width:620px;margin-top:6px">A plain-English example of the report a customer receives after a 4–6 week AEXIS Signal engagement.</p>
+    <div class="meta">
+      <div><div class="lab">Client (fictional)</div><b>Nordlicht Privatbank AG</b></div>
+      <div><div class="lab">Sector</div><b>Private bank · ~1,400 staff</b></div>
+      <div><div class="lab">In scope of</div><b>DORA · NIS2</b></div>
+      <div><div class="lab">Engagement</div><b>5 weeks · Frankfurt + Cloud</b></div>
+    </div>
+  </div>
+</header>
+
+<section style="padding-top:0;border-top:none">
+  <div class="wrap">
+    <div class="scoreblock reveal">
+      <div class="gauge">
+        <svg width="200" height="200" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="84" fill="none" stroke="#EAEEF5" stroke-width="16"/>
+          <circle cx="100" cy="100" r="84" fill="none" stroke="#FFB020" stroke-width="16" stroke-linecap="round" stroke-dasharray="306 528" />
+        </svg>
+        <div class="center"><div class="v">58</div><div class="o">/ 100</div><div class="r">Elevated exposure</div></div>
+      </div>
+      <div>
+        <span class="pill v" style="margin-bottom:12px">AEXIS Exposure Score</span>
+        <h3>Elevated exposure. Fixable in 90 days.</h3>
+        <p>Higher is safer. At <strong>58/100</strong>, Nordlicht is not in crisis — but an AI-equipped attacker would very likely get in today, mainly through one unpatched gateway, weak admin sign-in, and ungoverned staff use of public AI tools. None of the top issues is expensive to fix; the risk is the <strong>speed</strong> at which AI could exploit them.</p>
+        <div class="scale"><i style="background:var(--rose)"></i><i style="background:var(--amber)"></i><i style="background:#9fd8cf"></i><i style="background:var(--teal)"></i></div>
+        <div class="scalelabels"><span>0 · Critical</span><span>40 · Elevated</span><span>70 · Solid</span><span>100 · Resilient</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOMAIN BREAKDOWN -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow reveal">Where the exposure sits</div>
+    <h2 class="s reveal">Score by area.</h2>
+    <p class="deck reveal">We test six areas the way an AI attacker would. Two are weak enough to act on first.</p>
+    <div class="grid g3">
+      <div class="domain reveal"><div class="top"><span class="name">AI &amp; staff tool use</span><span class="val" style="color:#c0173a">38</span></div><div class="track"><div class="fill" style="width:38%;background:var(--rose)"></div></div><div class="rate" style="color:#c0173a">Critical gap</div></div>
+      <div class="domain reveal"><div class="top"><span class="name">Identity &amp; sign-in</span><span class="val" style="color:#9a6500">47</span></div><div class="track"><div class="fill" style="width:47%;background:var(--amber)"></div></div><div class="rate" style="color:#9a6500">High exposure</div></div>
+      <div class="domain reveal"><div class="top"><span class="name">Internet-facing systems</span><span class="val" style="color:#9a6500">52</span></div><div class="track"><div class="fill" style="width:52%;background:var(--amber)"></div></div><div class="rate" style="color:#9a6500">High exposure</div></div>
+      <div class="domain reveal"><div class="top"><span class="name">Suppliers &amp; partners</span><span class="val" style="color:#9a6500">55</span></div><div class="track"><div class="fill" style="width:55%;background:var(--amber)"></div></div><div class="rate" style="color:#9a6500">High exposure</div></div>
+      <div class="domain reveal"><div class="top"><span class="name">Email &amp; staff awareness</span><span class="val" style="color:#41506b">61</span></div><div class="track"><div class="fill" style="width:61%;background:#9fb0cc"></div></div><div class="rate" style="color:#41506b">Medium</div></div>
+      <div class="domain reveal"><div class="top"><span class="name">Cloud &amp; infrastructure</span><span class="val" style="color:#067a6b">66</span></div><div class="track"><div class="fill" style="width:66%;background:var(--teal)"></div></div><div class="rate" style="color:#067a6b">Medium · stronger</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- KEY FINDINGS -->
+<section style="background:var(--surface-2)">
+  <div class="wrap">
+    <div class="eyebrow reveal">The findings</div>
+    <h2 class="s reveal">Six issues that matter. In plain words.</h2>
+    <p class="deck reveal">Each one is shown with what an AI attacker would do with it, and why it matters to the business.</p>
+    <table class="reveal">
+      <thead><tr><th>Severity</th><th>What we found</th><th>What an AI attacker does with it</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sev crit"><span class="dot" style="background:#FF4D6D"></span>Critical</span></td><td><strong>Internet-facing remote-access gateway is months behind on patches.</strong></td><td>AI scans the edge in minutes, builds a working break-in within hours, and gets a foothold inside the network.</td></tr>
+        <tr><td><span class="sev crit"><span class="dot" style="background:#FF4D6D"></span>Critical</span></td><td><strong>No rules on staff pasting data into public AI tools (ChatGPT, etc.).</strong></td><td>Confidential client and deal data leaks out through everyday use — invisible, constant, and outside any control.</td></tr>
+        <tr><td><span class="sev high"><span class="dot" style="background:#FFB020"></span>High</span></td><td><strong>Admin accounts use basic two-factor; some service accounts are over-powered.</strong></td><td>Using stolen passwords from public leak dumps, an attacker signs in and spreads sideways to the core systems.</td></tr>
+        <tr><td><span class="sev high"><span class="dot" style="background:#FFB020"></span>High</span></td><td><strong>A key payments supplier has weak security and broad access.</strong></td><td>The attacker enters through the trusted supplier instead of the front door — a DORA third-party risk gap.</td></tr>
+        <tr><td><span class="sev med"><span class="dot" style="background:#5A6473"></span>Medium</span></td><td><strong>Phishing-resistant sign-in is not enforced for all staff.</strong></td><td>AI writes flawless, personalised phishing emails at scale; a single click hands over a working login.</td></tr>
+        <tr><td><span class="sev med"><span class="dot" style="background:#5A6473"></span>Medium</span></td><td><strong>The incident-response plan has never been tested against an AI-speed attack.</strong></td><td>When minutes matter, the team is slow and unsure — missing DORA's 2-hour reporting clock.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ATTACK NARRATIVE -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow reveal">The attack story</div>
+    <h2 class="s reveal">How these add up to a breach — step by step.</h2>
+    <p class="deck reveal">On their own, the findings look manageable. Chained together by an AI attacker, they become one fast, quiet break-in.</p>
+    <div class="steps reveal">
+      <div class="stepc"><div class="no"></div><div><div class="t">MINUTES</div><h4>Find the open door</h4><p>An AI tool scans Nordlicht's internet edge and spots the unpatched remote-access gateway among thousands of systems.</p></div></div>
+      <div class="stepc"><div class="no"></div><div><div class="t">HOURS</div><h4>Build the break-in</h4><p>The AI writes a working exploit on its own — the exact capability Anthropic's "Mythos" showed in April 2026 — and gets inside.</p></div></div>
+      <div class="stepc"><div class="no"></div><div><div class="t">SAME DAY</div><h4>Sign in as an admin</h4><p>Using passwords from public leak dumps and weak two-factor, it reaches an admin account and gains real control.</p></div></div>
+      <div class="stepc"><div class="no"></div><div><div class="t">SAME DAY</div><h4>Reach the money systems</h4><p>Over-powered service accounts let it move sideways into the payments platform and the client database.</p></div></div>
+      <div class="stepc"><div class="no"></div><div><div class="t">ONGOING</div><h4>Steal data — twice over</h4><p>It quietly copies client data out. Meanwhile, staff pasting data into public AI tools is leaking more, every day.</p></div></div>
+      <div class="stepc"><div class="no"></div><div><div class="t">THE COST</div><h4>A reportable incident</h4><p>A DORA major incident: a 2-hour reporting clock, possible fines up to 10% of turnover, and damaged client trust.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REMEDIATION -->
+<section style="background:var(--surface-2)">
+  <div class="wrap">
+    <div class="eyebrow reveal">The fix-it plan</div>
+    <h2 class="s reveal">90 days to a much safer position.</h2>
+    <p class="deck reveal">Prioritised by impact. The first 30 days remove the critical risks; the rest builds lasting resilience.</p>
+    <div class="remed">
+      <div class="phase reveal"><div class="ph">DAYS 0–30 · STOP THE BLEEDING</div><h4>Close the critical gaps</h4><ul><li>Patch the remote-access gateway now</li><li>Set clear rules + safe tooling for staff AI use</li><li>Turn on phishing-resistant sign-in for all admins</li></ul></div>
+      <div class="phase reveal"><div class="ph">DAYS 31–60 · TIGHTEN</div><h4>Cut the attacker's options</h4><ul><li>Lock down over-powered service accounts</li><li>Review the payments supplier's security</li><li>Add AI-speed attack detection</li></ul></div>
+      <div class="phase reveal"><div class="ph">DAYS 61–90 · PROVE IT</div><h4>Resilient and audit-ready</h4><ul><li>Test the incident-response plan against an AI attack</li><li>Close the DORA &amp; NIS2 evidence gaps</li><li>Switch on continuous monitoring (AEXIS Shield)</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE MAP -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow reveal">The legal proof</div>
+    <h2 class="s reveal">Each finding mapped to the law.</h2>
+    <p class="deck reveal">So the board and the regulator can see exactly where the company stands — the part that makes this audit-ready.</p>
+    <table class="reveal">
+      <thead><tr><th>Finding</th><th>Law &amp; requirement</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Unpatched gateway</td><td>DORA — ICT risk management · NIS2 — technical measures</td><td><span class="sev crit">Gap</span></td></tr>
+        <tr><td>Ungoverned AI tool use</td><td>NIS2 — risk management &amp; governance</td><td><span class="sev crit">Gap</span></td></tr>
+        <tr><td>Weak admin sign-in</td><td>DORA — access controls</td><td><span class="sev high">Partial</span></td></tr>
+        <tr><td>Payments supplier risk</td><td>DORA — third-party risk management</td><td><span class="sev high">Partial</span></td></tr>
+        <tr><td>Untested incident response</td><td>DORA — incident reporting (2-hour clock)</td><td><span class="sev med">Needs test</span></td></tr>
+        <tr><td>Cloud configuration</td><td>NIS2 — technical measures</td><td><span class="sev" style="background:var(--teal-soft);color:#067a6b">Mostly met</span></td></tr>
+      </tbody>
+    </table>
+    <div class="panel reveal" style="margin-top:8px">
+      <div class="pill dark" style="margin-bottom:12px">The next step</div>
+      <h3>From a one-time score to always-safe.</h3>
+      <p style="margin-top:8px;max-width:720px">This audit is the start, not the end. With <span class="accent">AEXIS Shield</span>, Nordlicht moves from a single snapshot to continuous protection: we close these gaps, defend at AI speed, and keep the legal proof current — so the next regulator question is answered before it's asked.</p>
+      <div class="cta"><a class="btn p" href="business-plan.html">See how this fits the plan →</a><a class="btn g" href="index.html" style="border-color:rgba(255,255,255,.25);color:#fff">All documents</a></div>
+    </div>
+    <p class="note reveal" style="margin-top:22px">Illustrative sample only. "Nordlicht Privatbank AG" is fictional; all findings, scores and figures are examples to show the format of an AEXIS Signal deliverable. Real engagements produce findings specific to the client's own systems.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fbrand"><svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="mf" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3DFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#11151F"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#mf)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</div>
+    <div class="note">Sample AI-Threat Readiness Audit · fictional &amp; illustrative · © 2026</div>
+  </div>
+</footer>
+
+<script>
+const bar=document.getElementById('bar');
+addEventListener('scroll',()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const burger=document.getElementById('burger'),drawer=document.getElementById('drawer'),dc=document.getElementById('drawerClose');
+burger.addEventListener('click',()=>drawer.classList.add('open'));
+dc.addEventListener('click',()=>drawer.classList.remove('open'));
+drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>drawer.classList.remove('open')));
+</script>
+</body>
+</html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070A12">
+<title>AEXIS — Find out what an AI attacker would find, before they do</title>
+<meta name="description" content="AEXIS runs an AI-threat-native cyberattack vulnerability audit for regulated mid-market firms in Germany, the UK and Singapore. Get your exposure score, fix plan and compliance evidence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"AEXIS","description":"AI-threat-native cyber assurance for the regulated mid-market.","email":"office@digitalmovement.uk","telephone":"+49 176 23296439","areaServed":["DE","GB","SG"]}
+</script>
+<style>
+/* ============ DESIGN TOKENS ============ */
+:root{
+  --ink:#070A12;--ink-1:#0A0E1A;--ink-2:#0F1524;--ink-3:#161E30;
+  --line:rgba(255,255,255,.09);--line-2:rgba(255,255,255,.18);
+  --text:#EDF0F7;--muted:#A2ADC2;--muted-2:#6F7A8F;
+  --violet:#7B3DFF;--violet-br:#A98BFF;--indigo:#3D1FD6;--violet-soft:rgba(123,61,255,.13);
+  --teal:#00C2A8;--teal-br:#3FE9CE;--teal-soft:rgba(0,194,168,.12);
+  --amber:#FFB020;--rose:#FF4D6D;
+  --maxw:1140px;
+  --r-s:12px;--r:18px;--r-lg:28px;
+  --s1:8px;--s2:16px;--s3:24px;--s4:40px;--s5:64px;--s6:104px;
+  --fs-hero:clamp(42px,6.4vw,82px);
+  --fs-h2:clamp(30px,4vw,48px);
+  --fs-lead:clamp(16.5px,1.8vw,19px);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--ink);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:16px}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;letter-spacing:-.025em;line-height:1.06;font-weight:600;text-wrap:balance}
+p{text-wrap:pretty}
+.mono{font-family:'Space Mono',monospace}
+a{color:inherit;text-decoration:none}
+img,video,svg{display:block;max-width:100%}
+::selection{background:var(--violet);color:#fff}
+::-webkit-scrollbar{width:11px}
+::-webkit-scrollbar-track{background:var(--ink)}
+::-webkit-scrollbar-thumb{background:var(--ink-3);border-radius:8px;border:3px solid var(--ink)}
+::-webkit-scrollbar-thumb:hover{background:#232d45}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.num{font-variant-numeric:tabular-nums}
+
+/* eyebrow */
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'Space Mono';font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);font-weight:700}
+.eyebrow::before{content:"";width:22px;height:1px;background:linear-gradient(90deg,transparent,var(--teal))}
+.eyebrow::after{content:"";width:22px;height:1px;background:linear-gradient(90deg,var(--teal),transparent)}
+
+/* ============ BUTTONS ============ */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:600;font-size:15px;padding:14px 26px;border-radius:100px;cursor:pointer;transition:.24s var(--ease);border:1px solid transparent;white-space:nowrap;font-family:'Inter';overflow:hidden}
+.btn svg{width:17px;height:17px;flex:0 0 auto}
+.btn.primary{background:linear-gradient(120deg,var(--violet),var(--indigo));color:#fff;box-shadow:0 10px 34px -10px rgba(123,61,255,.75),inset 0 1px 0 rgba(255,255,255,.22)}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 18px 48px -12px rgba(123,61,255,.95),inset 0 1px 0 rgba(255,255,255,.22)}
+.btn.primary::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-20deg);transition:left .6s var(--ease)}
+.btn.primary:hover::after{left:130%}
+.btn.ghost{background:rgba(255,255,255,.045);border-color:var(--line-2);color:#fff;backdrop-filter:blur(8px)}
+.btn.ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.4);transform:translateY(-2px)}
+.btn.teal{background:linear-gradient(120deg,#0ad3b6,#079e89);color:#03241f;box-shadow:0 10px 34px -10px rgba(0,194,168,.6),inset 0 1px 0 rgba(255,255,255,.3)}
+.btn.teal:hover{transform:translateY(-2px);box-shadow:0 18px 48px -12px rgba(0,194,168,.8)}
+.btn.sm{padding:10px 19px;font-size:13.5px}
+
+/* ============ NAV ============ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 28px;transition:.32s var(--ease);background:transparent}
+.nav.scrolled{background:rgba(7,10,18,.84);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);padding:11px 28px}
+.brand{display:flex;align-items:center;gap:11px;font-family:'Space Grotesk';font-weight:700;letter-spacing:.2em;font-size:15px;color:#fff}
+.brand svg{width:32px;height:32px;border-radius:9px}
+.nav-links{display:flex;gap:4px;align-items:center;padding:5px;border-radius:100px;border:1px solid var(--line);background:rgba(255,255,255,.035);backdrop-filter:blur(12px)}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--muted);padding:8px 15px;border-radius:100px;transition:.2s}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.nav-cta-wrap{display:flex;align-items:center;gap:12px}
+.burger{display:none;align-items:center;justify-content:center;flex-direction:column;gap:5px;background:rgba(255,255,255,.06);border:1px solid var(--line-2);border-radius:12px;cursor:pointer;width:44px;height:44px;backdrop-filter:blur(8px)}
+.burger span{width:20px;height:2px;background:#fff;border-radius:2px;transition:.25s}
+@media(max-width:960px){.nav-links{display:none}.nav .btn.primary{display:none}.burger{display:flex}}
+.drawer{position:fixed;inset:0;z-index:130;background:rgba(7,10,18,.98);backdrop-filter:blur(14px);display:flex;flex-direction:column;justify-content:center;padding:56px 38px;transform:translateX(100%);transition:transform .36s var(--ease);visibility:hidden}
+.drawer.open{transform:none;visibility:visible}
+.drawer .dlabel{font-family:'Space Mono';font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+.drawer a{color:#fff;font-family:'Space Grotesk';font-size:26px;font-weight:600;padding:16px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.drawer a small{font-family:'Space Mono';font-size:11px;color:var(--muted-2);letter-spacing:.06em}
+.drawer a:hover{color:var(--teal-br)}
+.drawer .btn{margin-top:28px}
+.drawer .close{position:absolute;top:20px;right:24px;width:44px;height:44px;border-radius:12px;border:1px solid var(--line-2);background:rgba(255,255,255,.05);font-size:20px;color:#fff;cursor:pointer;font-family:'Space Grotesk'}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:130px 24px 110px;overflow:hidden;background:radial-gradient(110% 90% at 50% 0%,#241a52 0%,#10142a 55%,var(--ink) 100%)}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero .scrim{position:absolute;inset:0;z-index:1;background:
+  radial-gradient(130% 90% at 50% 10%, rgba(7,10,18,.18), rgba(7,10,18,.6) 58%, rgba(7,10,18,.97) 100%),
+  linear-gradient(180deg, rgba(7,10,18,.62) 0%, rgba(7,10,18,.14) 32%, rgba(7,10,18,.5) 72%, var(--ink) 100%)}
+.hero .grain{position:absolute;inset:0;z-index:2;opacity:.45;background:radial-gradient(circle at 16% 28%, rgba(123,61,255,.2), transparent 36%),radial-gradient(circle at 84% 72%, rgba(0,194,168,.13), transparent 38%);mix-blend-mode:screen;pointer-events:none}
+.hero .noise{position:absolute;inset:0;z-index:2;opacity:.05;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")}
+.hero-inner{position:relative;z-index:3;max-width:920px}
+.badge-row{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:100px;border:1px solid var(--line-2);background:rgba(10,14,26,.45);backdrop-filter:blur(10px);font-family:'Space Mono';font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text);margin-bottom:30px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.badge-row .pulse{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(0,194,168,.7);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,194,168,.6)}70%{box-shadow:0 0 0 11px rgba(0,194,168,0)}100%{box-shadow:0 0 0 0 rgba(0,194,168,0)}}
+.hero h1{font-size:var(--fs-hero);font-weight:700;color:#fff;letter-spacing:-.035em;line-height:1.02;max-width:18ch;margin:0 auto;text-shadow:0 2px 40px rgba(7,10,18,.45)}
+.hero h1 .g{background:linear-gradient(100deg,#C0A6FF 10%,#3FE9CE 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p.sub{font-size:clamp(17px,2vw,21px);color:#CDD4E2;max-width:620px;margin:26px auto 0;line-height:1.55}
+.hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+.hero-cta .btn.primary{padding:17px 32px;font-size:16.5px}
+.hero-cta .btn.ghost{padding:17px 28px;font-size:15.5px}
+.trust-line{margin-top:34px;display:flex;gap:10px 22px;justify-content:center;flex-wrap:wrap;align-items:center}
+.trust-line span{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted)}
+.trust-line svg{width:15px;height:15px;color:var(--teal)}
+.scrolldown{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:3;font-family:'Space Mono';font-size:10px;letter-spacing:.22em;color:var(--muted-2);text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px}
+.scrolldown .line{width:1px;height:30px;background:linear-gradient(var(--teal),transparent);animation:drop 1.8s infinite}
+@keyframes drop{0%{opacity:0;transform:scaleY(.3)}50%{opacity:1}100%{opacity:0;transform:scaleY(1) translateY(8px)}}
+@media(max-height:760px){.scrolldown{display:none}}
+@media(max-width:480px){.badge-geo{display:none}}
+
+/* ============ SECTION SYSTEM ============ */
+section{position:relative}
+.sec{padding:var(--s6) 0}
+.sec-head{max-width:720px;margin:0 auto var(--s5);text-align:center}
+.sec h2{font-size:var(--fs-h2);color:#fff;margin:16px 0 14px}
+.sec h2 .g{background:linear-gradient(100deg,var(--violet-br),var(--teal-br));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sec .lead{font-size:var(--fs-lead);color:var(--muted);line-height:1.62;max-width:640px;margin:0 auto}
+.hr{height:1px;background:linear-gradient(90deg,transparent,var(--line-2) 30%,var(--line-2) 70%,transparent);border:0}
+.glow{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0}
+.glow.v{background:rgba(123,61,255,.35)}.glow.t{background:rgba(0,194,168,.26)}
+
+/* gradient hairline card */
+.card{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border-radius:var(--r);padding:30px;transition:.3s var(--ease);overflow:hidden}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(160deg,rgba(255,255,255,.22),rgba(255,255,255,.05) 40%,rgba(255,255,255,.03));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.card:hover{transform:translateY(-4px);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02))}
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.g3,.g2{grid-template-columns:1fr}}
+
+/* regulation strip */
+.regstrip{padding:46px 0;background:var(--ink-1)}
+.regstrip .lbl{text-align:center;font-family:'Space Mono';font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);margin-bottom:26px}
+.reg-badges{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center}
+.reg{display:inline-flex;align-items:center;gap:9px;padding:12px 22px;border-radius:100px;border:1px solid var(--line);background:rgba(255,255,255,.025);font-family:'Space Grotesk';font-weight:600;font-size:14.5px;color:var(--muted);transition:.28s var(--ease)}
+.reg:hover{border-color:rgba(123,61,255,.55);background:var(--violet-soft);transform:translateY(-2px);color:#fff}
+.reg svg{width:16px;height:16px;color:var(--teal);opacity:.85}
+.reg small{font-family:'Inter';font-weight:400;font-size:11px;color:var(--muted-2)}
+.reg-note{text-align:center;font-size:11.5px;color:var(--muted-2);margin-top:20px;font-family:'Space Mono';letter-spacing:.04em}
+
+/* stats */
+.stat{text-align:center;padding:36px 28px}
+.stat .nm{font-family:'Space Grotesk';font-size:clamp(40px,4.6vw,58px);font-weight:600;line-height:1;background:linear-gradient(160deg,#fff 30%,#B79BFF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-variant-numeric:tabular-nums}
+.stat .lab{font-size:14.5px;color:var(--muted);margin-top:14px;line-height:1.5}
+.stat .lab strong{color:#fff}
+.stat .src{font-family:'Space Mono';font-size:10px;color:var(--muted-2);margin-top:10px;letter-spacing:.04em}
+
+/* offer / deliverables */
+.offer{background:linear-gradient(180deg,var(--ink-1),var(--ink))}
+.deliv{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media(max-width:1020px){.deliv{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.deliv{grid-template-columns:1fr;gap:10px}}
+.dcard{position:relative;background:rgba(255,255,255,.028);border-radius:var(--r-s);padding:24px 20px;transition:.28s var(--ease);overflow:hidden}
+.dcard::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(160deg,rgba(255,255,255,.18),rgba(255,255,255,.04));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.dcard:hover{transform:translateY(-3px);background:rgba(123,61,255,.08)}
+.dcard .ic{width:42px;height:42px;border-radius:12px;background:var(--violet-soft);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.dcard .ic svg{width:20px;height:20px;color:var(--violet-br)}
+.dcard h4{font-size:15.5px;color:#fff;margin-bottom:6px}
+.dcard p{font-size:13px;color:var(--muted);line-height:1.5}
+@media(max-width:560px){
+  .dcard{display:flex;align-items:center;gap:16px;padding:16px 18px;text-align:left}
+  .dcard .ic{margin:0;flex:0 0 42px}
+  .dcard h4{margin-bottom:2px}
+}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:s;position:relative}
+@media(min-width:900px){.steps::before{content:"";position:absolute;top:54px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,rgba(123,61,255,.5),rgba(0,194,168,.5),transparent)}}
+@media(max-width:900px){.steps{grid-template-columns:1fr}}
+.step{position:relative;padding:32px 28px;border-radius:var(--r);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));overflow:hidden}
+.step::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(160deg,rgba(255,255,255,.2),rgba(255,255,255,.04));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.step .no{counter-increment:s;width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--violet),var(--indigo));display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk';font-weight:700;font-size:19px;color:#fff;margin:0 auto 20px;box-shadow:0 8px 24px -8px rgba(123,61,255,.7);position:relative;z-index:1}
+.step .no::before{content:"0"counter(s)}
+.step{text-align:center}
+.step h3{font-size:20px;color:#fff;margin-bottom:9px}
+.step p{font-size:14.5px;color:var(--muted)}
+.step .when{display:inline-block;font-family:'Space Mono';font-size:11px;color:var(--teal-br);letter-spacing:.07em;margin-top:16px;padding:6px 14px;border:1px solid rgba(0,194,168,.3);border-radius:100px;background:var(--teal-soft)}
+
+/* why */
+.why{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:900px){.why{grid-template-columns:1fr}}
+.whyc{display:flex;gap:18px;padding:26px;border-radius:var(--r);background:rgba(255,255,255,.025);position:relative;overflow:hidden;transition:.28s var(--ease)}
+.whyc::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.03));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.whyc:hover{background:rgba(0,194,168,.06);transform:translateY(-3px)}
+.whyc .ic{flex:0 0 46px;height:46px;border-radius:13px;background:var(--teal-soft);display:flex;align-items:center;justify-content:center}
+.whyc .ic svg{width:22px;height:22px;color:var(--teal-br)}
+.whyc h3{font-size:17.5px;color:#fff;margin-bottom:6px}
+.whyc p{font-size:14.5px;color:var(--muted)}
+
+/* teaser */
+.teaser{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;background:linear-gradient(125deg,var(--ink-2),var(--ink-1));border-radius:var(--r-lg);padding:52px;position:relative;overflow:hidden}
+.teaser::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(160deg,rgba(255,255,255,.22),rgba(255,255,255,.04) 50%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+@media(max-width:900px){.teaser{grid-template-columns:1fr;padding:34px 26px;text-align:center}}
+.teaser h2{font-size:clamp(26px,3.4vw,40px);color:#fff;margin:14px 0 14px}
+.teaser p{color:var(--muted);font-size:16px;margin-bottom:26px;max-width:46ch}
+@media(max-width:900px){.teaser p{margin-left:auto;margin-right:auto}}
+.gauge-mini{display:flex;align-items:center;justify-content:center;position:relative}
+.gauge-mini .ring{position:relative;width:236px;height:236px}
+.gauge-mini svg{transform:rotate(-90deg)}
+.gauge-mini circle.arc{transition:stroke-dasharray 1.6s var(--ease)}
+.gauge-mini .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.gauge-mini .c .v{font-family:'Space Grotesk';font-size:64px;font-weight:700;color:#fff;line-height:1;font-variant-numeric:tabular-nums}
+.gauge-mini .c .o{font-size:13px;color:var(--muted)}
+.gauge-mini .c .r{font-family:'Space Mono';font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--amber);margin-top:8px;text-transform:uppercase}
+
+/* faq */
+.faq details{position:relative;border-radius:14px;margin-bottom:12px;background:rgba(255,255,255,.025);overflow:hidden;transition:.25s}
+.faq details::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.03));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.faq details[open]{background:rgba(255,255,255,.045)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 24px;font-family:'Space Grotesk';font-weight:600;font-size:16.5px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:16px;text-align:left}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pl{flex:0 0 auto;width:28px;height:28px;border-radius:9px;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;color:var(--teal-br);font-size:17px;transition:.28s var(--ease);background:rgba(255,255,255,.03)}
+.faq details[open] summary .pl{transform:rotate(45deg);color:var(--violet-br);border-color:rgba(123,61,255,.5)}
+.faq .a{padding:0 52px 22px 24px;color:var(--muted);font-size:15px;line-height:1.62;text-align:left}
+
+/* final cta */
+.final{position:relative;text-align:center;padding:130px 28px;overflow:hidden}
+.final h2{font-size:clamp(34px,5.2vw,62px);color:#fff;letter-spacing:-.033em;max-width:840px;margin:18px auto 18px}
+.final p{color:var(--muted);font-size:17.5px;max-width:520px;margin:0 auto 40px}
+.final-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.final-cta .btn{padding:17px 32px;font-size:16px}
+.contact-meta{margin-top:38px;display:flex;gap:14px 30px;justify-content:center;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.contact-meta a{color:#fff;font-weight:500;display:inline-flex;align-items:center;gap:8px}
+.contact-meta a:hover{color:var(--teal-br)}
+.contact-meta svg{width:15px;height:15px;color:var(--teal)}
+
+/* sticky mobile CTA */
+.mobile-cta{position:fixed;left:0;right:0;bottom:0;z-index:90;display:none;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(7,10,18,.88);backdrop-filter:blur(18px);border-top:1px solid var(--line-2);transform:translateY(110%);transition:transform .34s var(--ease)}
+.mobile-cta.show{transform:none}
+.mobile-cta .btn{flex:1;padding:14px 10px;font-size:14.5px}
+.mobile-cta .btn.wa{flex:0 0 52px;padding:14px;border-radius:14px}
+@media(max-width:760px){.mobile-cta{display:flex}}
+
+/* footer */
+footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 36px}
+.foot-top{display:flex;justify-content:space-between;gap:34px;flex-wrap:wrap;margin-bottom:34px}
+.foot-top .brand{margin-bottom:16px}
+.foot-blurb{max-width:330px;color:var(--muted);font-size:14px}
+.foot-links{display:flex;gap:54px;flex-wrap:wrap}
+.foot-col h5{font-family:'Space Mono';font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2);margin-bottom:15px;font-weight:700}
+.foot-col a{display:block;color:var(--muted);font-size:14px;padding:5px 0;transition:.2s}
+.foot-col a:hover{color:#fff}
+.foot-bottom{border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted-2)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:.85s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}.d4{transition-delay:.28s}
+
+/* ============ MOBILE ============ */
+@media(max-width:900px){
+  .sec{padding:64px 0}.wrap{padding:0 20px}
+  .sec-head{margin-bottom:36px}
+  body{text-align:center}
+  .whyc{flex-direction:column;align-items:center;text-align:center}
+  .stat{padding:28px 20px}
+  .foot-top{flex-direction:column;text-align:center}
+  .foot-links{justify-content:center;gap:38px}
+  .foot-top .brand,.foot-blurb{margin-left:auto;margin-right:auto}
+  .foot-bottom{justify-content:center;text-align:center}
+  .final{padding:90px 22px 96px}
+  footer{padding-bottom:110px}
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal{transition:none;opacity:1;transform:none}
+  .hero video{display:none}
+  .btn.primary::after,.scrolldown .line,.badge-row .pulse{animation:none;display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a class="brand" href="index.html" aria-label="AEXIS home"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="mn" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#9B6BFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0B0F1A"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#mn)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</a>
+  <div class="nav-links">
+    <a href="#threat">The threat</a>
+    <a href="#audit">The audit</a>
+    <a href="#how">How it works</a>
+    <a href="sample-audit.html">Sample audit</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <div class="nav-cta-wrap">
+    <a class="btn primary sm" href="#contact">Request your audit</a>
+    <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="close" id="drawerClose" aria-label="Close menu">✕</button>
+  <div class="dlabel">AEXIS · Menu</div>
+  <a href="#threat">The threat <small>01</small></a>
+  <a href="#audit">The audit <small>02</small></a>
+  <a href="#how">How it works <small>03</small></a>
+  <a href="sample-audit.html">Sample audit <small>↗</small></a>
+  <a href="#faq">FAQ <small>04</small></a>
+  <a class="btn primary" href="#contact">Request your audit</a>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <video autoplay muted loop playsinline preload="auto" id="heroVideo" aria-hidden="true">
+    <source src="assets/codex-bg.mp4" type="video/mp4">
+  </video>
+  <div class="scrim"></div>
+  <div class="grain"></div>
+  <div class="noise"></div>
+  <div class="hero-inner">
+    <div class="badge-row"><span class="pulse"></span>AI-era cyber assurance<span class="badge-geo"> · DE · UK · SG</span></div>
+    <h1>Find out what an AI attacker would find — <span class="g">before they do.</span></h1>
+    <p class="sub">AI can break into a company in hours, not weeks. We test your business the way an AI attacker would — and hand you a clear score, a fix plan, and the proof your regulator demands.</p>
+    <div class="hero-cta">
+      <a class="btn primary" id="heroCta" href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Request your vulnerability audit</a>
+      <a class="btn ghost" href="sample-audit.html">See a sample audit<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="trust-line">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Fixed price, agreed up front</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>4–6 weeks, board-ready</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>No disruption to your systems</span>
+    </div>
+  </div>
+  <div class="scrolldown">Scroll<span class="line"></span></div>
+</header>
+
+<!-- REGULATION STRIP -->
+<div class="regstrip">
+  <div class="wrap">
+    <div class="lbl reveal">Built around the regulations that now bind you</div>
+    <div class="reg-badges">
+      <div class="reg reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>NIS2 <small>EU · DE</small></div>
+      <div class="reg reveal d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>DORA <small>EU finance</small></div>
+      <div class="reg reveal d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>ISO 27001</div>
+      <div class="reg reveal d3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>CREST</div>
+      <div class="reg reveal d4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>MAS TRM <small>Singapore</small></div>
+    </div>
+    <div class="reg-note reveal">Frameworks we align our work to — shown for context, not as endorsements.</div>
+  </div>
+</div>
+<hr class="hr">
+
+<!-- THE THREAT -->
+<section class="sec" id="threat">
+  <div class="glow v" style="width:540px;height:540px;top:-120px;right:-180px;opacity:.22"></div>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">The threat has changed</div>
+      <h2>Your defences were built for <span class="g">human</span> attackers.</h2>
+      <p class="lead">In April 2026, an AI system found thousands of critical security holes and turned them into working attacks within hours. Criminals now hold the same tools. Most companies can't yet see how exposed that leaves them.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card stat reveal"><div class="nm">Hours</div><div class="lab">AI breaks in within <strong>hours</strong> — work that took experts <strong>weeks</strong>.</div><div class="src">Anthropic “Mythos” · Apr 2026</div></div>
+      <div class="card stat reveal d1"><div class="nm num" data-c="202.4" data-pre="€" data-suf="bn">€202.4bn</div><div class="lab">Cyber damage to the German economy — <strong>every single year</strong>.</div><div class="src">Bitkom Wirtschaftsschutz 2025</div></div>
+      <div class="card stat reveal d2"><div class="nm num" data-c="97" data-suf="%">97%</div><div class="lab">of firms hit by an AI attack had <strong>no controls</strong> in place for it.</div><div class="src">IBM Cost of a Data Breach 2025</div></div>
+    </div>
+  </div>
+</section>
+<hr class="hr">
+
+<!-- THE AUDIT / OFFER -->
+<section class="sec offer" id="audit">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">The offer</div>
+      <h2>The cyberattack vulnerability audit.</h2>
+      <p class="lead">A fixed-price, 4–6 week check-up that shows exactly what an AI-powered attacker would find — and exactly how to close it. No jargon. No disruption. One board-ready answer in five parts.</p>
+    </div>
+    <div class="deliv">
+      <div class="dcard reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><h4>Exposure Score</h4><p>One clear number (0–100) your board instantly understands.</p></div></div>
+      <div class="dcard reveal d1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div><div><h4>Plain findings</h4><p>Every weak spot in plain words, ranked by real risk.</p></div></div>
+      <div class="dcard reveal d2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><div><h4>The attack story</h4><p>Step by step — how an attacker would actually get in.</p></div></div>
+      <div class="dcard reveal d3"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div><h4>90-day fix plan</h4><p>Prioritised actions: days 0–30, 31–60, 61–90.</p></div></div>
+      <div class="dcard reveal d4"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><h4>Compliance map</h4><p>Each finding mapped to NIS2 / DORA / CSA — audit-ready.</p></div></div>
+    </div>
+    <div style="text-align:center;margin-top:42px" class="reveal">
+      <a class="btn ghost" href="sample-audit.html">See exactly what you receive — open a sample audit<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+<hr class="hr">
+
+<!-- HOW IT WORKS -->
+<section class="sec" id="how">
+  <div class="glow t" style="width:480px;height:480px;bottom:-140px;left:-180px;opacity:.18"></div>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">How it works</div>
+      <h2>Three steps. <span class="g">No commitment to start.</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="no"></div><h3>Request your audit</h3><p>One message — email or WhatsApp. We reply with scope and a fixed price. No obligation, no sales marathon.</p><div class="when">Same day</div></div>
+      <div class="step reveal d1"><div class="no"></div><h3>We test like an AI attacker</h3><p>AI-native offensive tooling safely probes your real exposure — systems, identity, suppliers and your own AI use.</p><div class="when">4–6 weeks</div></div>
+      <div class="step reveal d2"><div class="no"></div><h3>You get your score &amp; plan</h3><p>A board-ready report with a clear fix plan. Then, if you want, we keep you protected and audit-ready every day.</p><div class="when">Then optional ongoing</div></div>
+    </div>
+  </div>
+</section>
+<hr class="hr">
+
+<!-- WHY AEXIS -->
+<section class="sec offer">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Why AEXIS</div>
+      <h2>Built for this exact moment.</h2>
+      <p class="lead">Big consultancies are slow and expensive. Local firms work in one country and were built for yesterday's threats. AEXIS is different on the four things that matter.</p>
+    </div>
+    <div class="why">
+      <div class="whyc reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/><circle cx="12" cy="12" r="3"/></svg></div><div><h3>Built for AI threats</h3><p>We test you the way AI now attacks — not bolted onto an old checklist.</p></div></div>
+      <div class="whyc reveal d1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 4 5.6 4 9s-1.5 6.4-4 9c-2.5-2.6-4-5.6-4-9s1.5-6.4 4-9z"/></svg></div><div><h3>One provider, three countries</h3><p>Germany, the UK and Singapore under one roof — one score, one proof pack.</p></div></div>
+      <div class="whyc reveal d2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div><div><h3>Mid-market price &amp; speed</h3><p>Premium quality at a price a mid-sized firm can sign — in weeks, not quarters.</p></div></div>
+      <div class="whyc reveal d3"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><h3>Compliance built in</h3><p>Every finding is mapped to the law, so you're audit-ready by default.</p></div></div>
+    </div>
+    <p class="reveal" style="text-align:center;color:var(--muted);font-size:14.5px;margin-top:34px;max-width:660px;margin-left:auto;margin-right:auto">Founder-led, and backed by <strong style="color:#fff">Digital Movement UK</strong> — 7 years and 300+ clients of digital delivery behind the brand.</p>
+  </div>
+</section>
+<hr class="hr">
+
+<!-- SAMPLE TEASER -->
+<section class="sec">
+  <div class="wrap">
+    <div class="teaser reveal">
+      <div>
+        <div class="eyebrow">See it for real</div>
+        <h2>A real example of what you'll receive.</h2>
+        <p>We've published a full sample audit for a fictional private bank — exposure score, findings, the step-by-step attack story, the 90-day fix plan and the compliance mapping. Exactly the format you'd get.</p>
+        <a class="btn primary" href="sample-audit.html">Open the sample audit<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="gauge-mini">
+        <div class="glow v" style="width:300px;height:300px;opacity:.22;top:-30px;left:-10px"></div>
+        <div class="ring" style="position:relative;z-index:2">
+          <svg width="236" height="236" viewBox="0 0 236 236" aria-label="Sample exposure score: 58 out of 100">
+            <circle cx="118" cy="118" r="98" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="16"/>
+            <circle class="arc" id="gaugeArc" cx="118" cy="118" r="98" fill="none" stroke="#FFB020" stroke-width="16" stroke-linecap="round" stroke-dasharray="357 616"/>
+          </svg>
+          <div class="c"><div class="v" id="gaugeNum">58</div><div class="o">/ 100</div><div class="r">Elevated exposure</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="hr">
+
+<!-- FAQ -->
+<section class="sec offer" id="faq">
+  <div class="wrap" style="max-width:800px">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Good questions</div>
+      <h2>Everything you'd want to ask.</h2>
+    </div>
+    <div class="faq">
+      <details class="reveal" open><summary>How long does the audit take?<span class="pl">+</span></summary><div class="a">Typically 4–6 weeks from kickoff to the final board-ready report, depending on the size of your estate. You get the fixed price and scope before you commit.</div></details>
+      <details class="reveal"><summary>Will it disrupt our live systems?<span class="pl">+</span></summary><div class="a">No. We test safely and non-destructively. Our goal is to find what an attacker would find, not to break anything. We agree the rules of engagement with you up front.</div></details>
+      <details class="reveal"><summary>Which laws and standards do you cover?<span class="pl">+</span></summary><div class="a">We map findings to the rules that apply to you — NIS2 and DORA in the EU, the UK regime, and Singapore's Cybersecurity Act and MAS TRM. The output is built to be audit-ready evidence.</div></details>
+      <details class="reveal"><summary>Who is this for?<span class="pl">+</span></summary><div class="a">Regulated mid-market organisations — roughly 250–5,000 staff — in finance, healthcare and critical infrastructure across Germany, the UK and Singapore. If a regulator can fine you, this is for you.</div></details>
+      <details class="reveal"><summary>What happens after the audit?<span class="pl">+</span></summary><div class="a">You own the report and fix plan outright. If you'd like, we can stay on to close the gaps and keep you protected and audit-ready every day — but there's no obligation to continue.</div></details>
+      <details class="reveal"><summary>How much does it cost?<span class="pl">+</span></summary><div class="a">A fixed price, agreed before you commit, scaled to the size of your organisation. Message us with a rough headcount and we'll come back with a clear number — no surprises.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final" id="contact">
+  <div class="glow v" style="width:640px;height:640px;top:-220px;left:50%;transform:translateX(-50%);opacity:.22"></div>
+  <div class="glow t" style="width:440px;height:440px;bottom:-200px;right:-100px;opacity:.15"></div>
+  <div class="wrap" style="position:relative;z-index:2">
+    <div class="eyebrow reveal">Find out where you stand</div>
+    <h2 class="reveal">Request your cyberattack vulnerability audit.</h2>
+    <p class="reveal">One message is all it takes. Tell us your company and rough size — we reply with scope and a fixed price. No obligation.</p>
+    <div class="final-cta reveal">
+      <a class="btn primary" id="emailCta" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Request by email</a>
+      <a class="btn teal" id="waCta" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.6L4 20l1-4.4A8.5 8.5 0 1 1 21 11.5z"/></svg>Request on WhatsApp</a>
+    </div>
+    <div class="contact-meta reveal">
+      <a id="emailPlain" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>office@digitalmovement.uk</a>
+      <a href="tel:+4917623296439"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.96.3 1.9.6 2.8a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.84.5 2.8.6a2 2 0 0 1 1.8 2.1z"/></svg>+49 176 23296439</a>
+      <span style="display:inline-flex;align-items:center;gap:8px;color:var(--muted)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;color:var(--teal)" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 4 5.6 4 9s-1.5 6.4-4 9c-2.5-2.6-4-5.6-4-9s1.5-6.4 4-9z"/></svg>Germany · United Kingdom · Singapore</span>
+    </div>
+  </div>
+</section>
+
+<!-- STICKY MOBILE CTA -->
+<div class="mobile-cta" id="mobileCta" aria-hidden="true">
+  <a class="btn primary" id="emailCtaM" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Request your audit</a>
+  <a class="btn teal wa" id="waCtaM" href="#" aria-label="Request on WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.6L4 20l1-4.4A8.5 8.5 0 1 1 21 11.5z"/></svg></a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <a class="brand" href="index.html"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="mf" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#9B6BFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0F1524"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#mf)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</a>
+        <p class="foot-blurb">Security assurance for the AI era. We make regulated mid-market firms provably resilient against AI-powered attackers — and keep proving it.</p>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <h5>Product</h5>
+          <a href="#audit">The audit</a>
+          <a href="#how">How it works</a>
+          <a href="sample-audit.html">Sample audit</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="foot-col">
+          <h5>Company</h5>
+          <a href="business-plan.html">Business plan</a>
+          <a href="pitch-deck.html">Pitch deck</a>
+          <a href="brand-identity.html">Brand</a>
+          <a href="index.html">Investor package</a>
+        </div>
+        <div class="foot-col">
+          <h5>Contact</h5>
+          <a id="emailFoot" href="#">office@digitalmovement.uk</a>
+          <a href="tel:+4917623296439">+49 176 23296439</a>
+          <a id="waFoot" href="#">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 AEXIS. Working name, pending trademark &amp; domain clearance.</div>
+      <div>Backed by Digital Movement UK · DE · UK · SG · Figures shown are illustrative.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// nav scroll state
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>40)},{passive:true});
+// drawer
+const burger=document.getElementById('burger'),drawer=document.getElementById('drawer'),dc=document.getElementById('drawerClose');
+const setDrawer=o=>{drawer.classList.toggle('open',o);drawer.setAttribute('aria-hidden',!o)};
+burger.addEventListener('click',()=>setDrawer(true));
+dc.addEventListener('click',()=>setDrawer(false));
+drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setDrawer(false)));
+addEventListener('keydown',e=>{if(e.key==='Escape')setDrawer(false)});
+// mobile video source (lighter file on small screens)
+if(matchMedia('(max-width:768px)').matches){
+  const v=document.getElementById('heroVideo');
+  v.querySelector('source').src='assets/codex-bg-mobile.m4v';v.load();v.play().catch(()=>{});
+}
+// reveals
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// counters — final value lives in markup; animate as enhancement
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function animate(el){const t=parseFloat(el.dataset.c),pre=el.dataset.pre||'',suf=el.dataset.suf||'';let st=performance.now(),dur=1500;
+  function f(n){let p=Math.min((n-st)/dur,1);p=1-Math.pow(1-p,3);let v=t*p;el.textContent=pre+(t%1?v.toFixed(1):Math.round(v))+suf;if(p<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
+if(!reduced){const co=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){animate(e.target);co.unobserve(e.target)}}),{threshold:.6});
+document.querySelectorAll('[data-c]').forEach(el=>co.observe(el));}
+// gauge animation — markup holds final state; JS animates as enhancement
+const arc=document.getElementById('gaugeArc'),gnum=document.getElementById('gaugeNum');
+if(arc&&!reduced){
+  arc.style.strokeDasharray='0 616';
+  const go=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){
+    arc.style.strokeDasharray='357 616';
+    let st=performance.now();const f=n=>{let p=Math.min((n-st)/1600,1);p=1-Math.pow(1-p,3);gnum.textContent=Math.round(58*p);if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f);
+    go.unobserve(e.target)}}),{threshold:.5});
+  go.observe(arc.closest('.gauge-mini'));
+}
+// sticky mobile CTA — show after hero, hide at final contact section
+const bar=document.getElementById('mobileCta'),hero=document.querySelector('.hero'),contact=document.getElementById('contact');
+let heroOut=false,contactIn=false;
+const upd=()=>{const show=heroOut&&!contactIn;bar.classList.toggle('show',show);bar.setAttribute('aria-hidden',!show)};
+new IntersectionObserver(es=>es.forEach(e=>{heroOut=!e.isIntersecting;upd()}),{threshold:.05}).observe(hero);
+new IntersectionObserver(es=>es.forEach(e=>{contactIn=e.isIntersecting;upd()}),{threshold:.2}).observe(contact);
+// CTA wiring — email + WhatsApp pre-filled
+const subject="Cyberattack Vulnerability Audit — Request";
+const body=["Hi AEXIS team,","","We'd like to request a cyberattack vulnerability audit.","","Company: ","Your name: ","Role: ","Country (DE / UK / SG): ","Approx. employees: ","Phone: ","","Thank you."].join("\n");
+const mailto="mailto:office@digitalmovement.uk?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
+const waText="Hi AEXIS — we'd like to request a cyberattack vulnerability audit. Company: ___, approx. employees: ___, country (DE/UK/SG): ___.";
+const wa="https://wa.me/4917682360647?text="+encodeURIComponent(waText);
+["emailCta","emailPlain","emailFoot","emailCtaM"].forEach(id=>{const e=document.getElementById(id);if(e)e.href=mailto});
+["waCta","waFoot","waCtaM"].forEach(id=>{const e=document.getElementById(id);if(e)e.href=wa});
+</script>
+</body>
+</html>

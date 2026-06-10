@@ -1,0 +1,11 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AEXIS mark">
+  <defs>
+    <linearGradient id="aexisG" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C3DFF"/>
+      <stop offset="1" stop-color="#3D1FD6"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="#0B0F17"/>
+  <path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#aexisG)"/>
+  <rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/>
+</svg>
