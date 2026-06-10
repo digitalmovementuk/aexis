@@ -87,15 +87,37 @@ a{color:var(--violet);text-decoration:none}a:hover{text-decoration:underline}
    "co co co rs rs";}
 @media(max-width:980px){.canvas{grid-template-columns:repeat(2,1fr);grid-template-areas:"kp ka" "kr vp" "cr ch" "cs cs" "co co" "rs rs"}}
 @media(max-width:620px){.canvas{grid-template-columns:1fr;grid-template-areas:"kp" "ka" "kr" "vp" "cr" "ch" "cs" "rs" "co"}}
-.block{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:.25s}
+.block{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:.25s;cursor:pointer}
 .block:hover{transform:translateY(-3px);border-color:var(--violet)}
+.block::after{content:"✎ Edit";position:absolute;top:12px;right:14px;font-family:'Space Mono';font-size:9.5px;letter-spacing:.08em;color:var(--violet-2);background:var(--violet-soft);padding:4px 9px;border-radius:100px;opacity:0;transition:.2s;font-weight:700}
+.block:hover::after{opacity:1}
+@media(hover:none){.block::after{opacity:.55}}
+.block li.more{color:var(--muted-light);font-style:italic}
+.block li.more::before{display:none}
+/* ===== editor modal ===== */
+.cmodal{position:fixed;inset:0;z-index:300;background:rgba(11,15,23,.58);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:22px;opacity:0;visibility:hidden;transition:.25s}
+.cmodal.open{opacity:1;visibility:visible}
+.cm-card{width:100%;max-width:660px;background:#fff;border-radius:20px;box-shadow:0 40px 110px -30px rgba(11,15,23,.5);display:flex;flex-direction:column;overflow:hidden;transform:translateY(14px) scale(.985);transition:.25s cubic-bezier(.2,.7,.2,1)}
+.cmodal.open .cm-card{transform:none}
+.cm-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.cm-head h3{font-size:19px;display:flex;align-items:center;gap:10px;margin:0}
+.cm-head .bnum2{font-family:'Space Mono';font-size:10px;color:var(--muted-light);font-weight:700;letter-spacing:.08em}
+.cm-x{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);font-size:17px;color:var(--ink);cursor:pointer;font-family:'Space Grotesk';transition:.2s;flex:0 0 auto}
+.cm-x:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cm-card textarea{border:0;outline:0;resize:vertical;min-height:320px;max-height:56vh;padding:20px 22px;font-family:'Inter',system-ui,sans-serif;font-size:15.5px;line-height:1.7;color:var(--ink);background:#fff;width:100%}
+.cm-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 22px;border-top:1px solid var(--line);background:var(--surface-2);flex-wrap:wrap}
+.cm-foot .st{font-family:'Space Mono';font-size:11px;color:var(--teal-2);font-weight:700}
+.cm-foot .hint{font-size:11.5px;color:var(--muted-light)}
+.cm-foot button{border:0;background:none;font-family:'Space Mono';font-size:11px;color:var(--muted);cursor:pointer;text-decoration:underline;padding:4px}
+.cm-foot button:hover{color:var(--rose)}
+@media(max-width:640px){.cmodal{padding:0;align-items:flex-end}.cm-card{max-width:none;border-radius:20px 20px 0 0;max-height:92svh}.cm-card textarea{min-height:46svh}}
 .block .bh{display:flex;align-items:center;gap:9px;margin-bottom:12px}
 .block .bi{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
 .block .bi svg{width:16px;height:16px}
 .block h3{font-size:14px;color:var(--ink);line-height:1.15}
 .block .bnum{font-family:'Space Mono';font-size:9px;color:var(--muted-light);font-weight:700;letter-spacing:.08em}
 .block ul{list-style:none;margin:0}
-.block li{font-size:12.8px;color:#2A3242;padding:5px 0;display:flex;gap:8px;align-items:flex-start;line-height:1.4}
+.block li{font-size:14px;color:#2A3242;padding:5px 0;display:flex;gap:8px;align-items:flex-start;line-height:1.45}
 .block li::before{content:"";flex:0 0 5px;height:5px;border-radius:50%;margin-top:7px}
 .block li b{color:var(--ink);font-weight:600}
 /* accent variants */
@@ -133,6 +155,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
       <a href="index.html">Overview</a>
       <a href="business-plan.html">Plan</a>
       <a href="plan-of-action.html">Strategy</a>
+      <a href="audit.html">Audit</a>
       <a href="business-canvas.html" class="cur">Canvas</a>
       <a href="sample-audit.html">Sample</a>
       <a href="financial-model.html">Revenue</a>
@@ -151,6 +174,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
   <a href="pitch-deck.html">Pitch Deck <span>13 slides</span></a>
   <a href="business-plan.html">Business Plan <span>Full case</span></a>
   <a href="plan-of-action.html">Strategy &amp; Plan of Action <span>GTM + timeline</span></a>
+  <a href="audit.html">The Audit <span>Method + deliverables</span></a>
   <a href="business-canvas.html" class="active">Business Model Canvas <span>One page</span></a>
   <a href="sample-audit.html">Sample Audit <span>Example</span></a>
   <a href="financial-model.html">Financial Model <span>3-year</span></a>
@@ -173,6 +197,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
       <span class="pill"><span class="sw" style="background:var(--violet)"></span>Create &amp; deliver</span>
       <span class="pill"><span class="sw" style="background:var(--teal)"></span>Customer &amp; revenue</span>
       <span class="pill"><span class="sw" style="background:var(--amber)"></span>Costs</span>
+      <span class="pill" style="color:var(--violet-2)">✎ Click any block to edit — changes auto-save in your browser</span>
     </div>
     <div class="canvas">
 
@@ -297,6 +322,22 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
   </div>
 </div>
 
+<!-- CANVAS EDITOR MODAL -->
+<div class="cmodal" id="cmodal" aria-hidden="true">
+  <div class="cm-card" role="dialog" aria-modal="true" aria-labelledby="cmTitle">
+    <div class="cm-head">
+      <h3 id="cmTitle"><span class="bnum2" id="cmNum"></span><span id="cmName"></span></h3>
+      <button class="cm-x" id="cmX" aria-label="Close">✕</button>
+    </div>
+    <textarea id="cmText" spellcheck="false" aria-label="Block details"></textarea>
+    <div class="cm-foot">
+      <span class="st" id="cmStatus">Auto-saves as you type</span>
+      <span class="hint">One point per line · **bold** supported</span>
+      <button id="cmReset" type="button">Reset to default</button>
+    </div>
+  </div>
+</div>
+
 <footer>
   <div class="wrap">
     <div class="brand" style="color:#fff"><svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="mf" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3DFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#11151F"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#mf)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</div>
@@ -312,6 +353,122 @@ const burger=document.getElementById('aburger'),drawer=document.getElementById('
 burger.addEventListener('click',()=>drawer.classList.add('open'));
 dc.addEventListener('click',()=>drawer.classList.remove('open'));
 drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>drawer.classList.remove('open')));
+
+/* ===== EDITABLE CANVAS ===== */
+const CANVAS_DEFAULTS={
+kp:{num:"01",name:"Key Partnerships",text:[
+"**Meta** — the paid demand engine for the MVP test",
+"**Google** — Calendar self-booking + search & AI visibility",
+"**Cyber insurers & auditors** — referral partners; they need clients de-risked",
+"**Security tooling vendors** — telemetry we integrate and resell",
+"**Digital Movement UK/AU** — agency reach, warm AU client base, SEO",
+"Later: accreditation bodies and cloud marketplaces"].join("\n")},
+ka:{num:"02",name:"Key Activities",text:[
+"Meta Ads demand generation — one campaign per market (HK · SG · AU)",
+"Landing pages + funnel build, in-house (Raoul)",
+"Discovery & sales calls (Martey)",
+"AI-threat audit delivery (Abhi + senior offshore experts)",
+"Compliance mapping & evidence packs",
+"Continuum platform build — productise the repeatable 70%",
+"Weekly metrics: cost per lead, cost per call, call→audit, price achieved"].join("\n")},
+kr:{num:"03",name:"Key Resources",text:[
+"**3 founders** — Martey (growth & sales), Raoul (brand, funnel, Meta Ads), Abhi (technical lead)",
+"Digital Movement agency + Australian client base (warm leads)",
+"In-house web + Meta Ads capability — no agency fees",
+"Audit methodology + senior offshore expert bench (~USD 2,500/mo all-in)",
+"AEXIS brand, content, and future platform IP & data"].join("\n")},
+vp:{num:"04",name:"Value Propositions",text:[
+"**Find out what an AI attacker would find — before they do**",
+"One exposure score (0–100) the board instantly understands",
+"A 90-day fix plan in plain English",
+"Audit-ready compliance evidence (NIS2 / DORA / CSA / MAS)",
+"Fixed price, 4–6 weeks, zero disruption",
+"Performed fully by senior cybersecurity experts and AI engineers",
+"One provider across markets"].join("\n")},
+cr:{num:"05",name:"Customer Relationships",text:[
+"Founder-led and high-touch — Martey takes every call",
+"Customer communication owned by Raoul",
+"Trust built through the public sample audit",
+"Land → expand: one-off audit → ongoing Shield protection",
+"No commitment to start; compliance stickiness over time"].join("\n")},
+ch:{num:"06",name:"Channels",text:[
+"**Meta Ads → dedicated landing page per market** (no instant forms)",
+"Google Calendar self-booking → scheduled sales call",
+"Digital Movement warm client base (AU)",
+"Referrals: insurers, auditors, accountants",
+"SEO + AI-search via Digital Movement — switched on for the winning market"].join("\n")},
+cs:{num:"07",name:"Customer Segments",text:[
+"**MVP test:** Hong Kong · Singapore · Australia",
+"Mid-market, roughly 250–5,000 staff",
+"Finance, healthcare, critical infrastructure",
+"Buyers: CISO, COO/CFO, Risk & Audit committee",
+"**Scale:** Germany · UK · Singapore"].join("\n")},
+co:{num:"08",name:"Cost Structure",text:[
+"**Meta ad spend** — the main cash cost of the MVP (≈€12–18k / 90 days)",
+"Founder time (sweat equity): funnel, sales, delivery leadership",
+"Senior offshore experts ~USD 2,500/mo all-in — hired only against signed contracts",
+"Tooling: domains, hosting, tracking, calendar",
+"Later: certifications, country entities, Continuum build"].join("\n")},
+rs:{num:"09",name:"Revenue Streams",text:[
+"**Signal** — one-off AI-threat audit (from €7.5k Yr 1 → €35k market) — the wedge",
+"**Shield** — recurring managed safeguarding (~€90k/yr, ~45% convert)",
+"**Continuum** — software subscription (~€30k/yr, Year 2+)",
+"MVP tests real price points per market",
+"Mix shifts: Year 1 audits lead → Year 2 recurring engine → Year 3 recurring + software dominate"].join("\n")}};
+const LSKEY=id=>"aexis-canvas-1-"+id;
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const fmt=s=>esc(s).replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>");
+const getText=id=>localStorage.getItem(LSKEY(id))??CANVAS_DEFAULTS[id].text;
+function renderPreview(id){
+  const block=document.querySelector(".block."+id);if(!block)return;
+  const ul=block.querySelector("ul");if(!ul)return;
+  const lines=getText(id).split("\n").map(l=>l.trim()).filter(Boolean);
+  const MAX=5;
+  let html=lines.slice(0,MAX).map(l=>"<li>"+fmt(l.replace(/^[-•]\s*/,""))+"</li>").join("");
+  if(lines.length>MAX)html+='<li class="more">+'+(lines.length-MAX)+' more — click to edit</li>';
+  ul.innerHTML=html;
+}
+Object.keys(CANVAS_DEFAULTS).forEach(renderPreview);
+const cmodal=document.getElementById("cmodal"),cmText=document.getElementById("cmText"),
+cmName=document.getElementById("cmName"),cmNum=document.getElementById("cmNum"),
+cmStatus=document.getElementById("cmStatus"),cmX=document.getElementById("cmX"),cmReset=document.getElementById("cmReset");
+let curId=null,saveTimer=null;
+function openEditor(id){
+  curId=id;
+  cmName.textContent=CANVAS_DEFAULTS[id].name;cmNum.textContent=CANVAS_DEFAULTS[id].num;
+  cmText.value=getText(id);
+  cmStatus.textContent=localStorage.getItem(LSKEY(id))?"Saved ✓ (your edits)":"Auto-saves as you type";
+  cmodal.classList.add("open");cmodal.setAttribute("aria-hidden","false");
+  setTimeout(()=>cmText.focus(),200);
+}
+function closeEditor(){
+  if(!curId)return;
+  cmodal.classList.remove("open");cmodal.setAttribute("aria-hidden","true");
+  renderPreview(curId);curId=null;
+}
+Object.keys(CANVAS_DEFAULTS).forEach(id=>{
+  const block=document.querySelector(".block."+id);
+  if(block)block.addEventListener("click",()=>openEditor(id));
+});
+cmText.addEventListener("input",()=>{
+  if(!curId)return;
+  clearTimeout(saveTimer);
+  cmStatus.textContent="Saving…";
+  saveTimer=setTimeout(()=>{
+    localStorage.setItem(LSKEY(curId),cmText.value);
+    const t=new Date();
+    cmStatus.textContent="Saved ✓ "+String(t.getHours()).padStart(2,"0")+":"+String(t.getMinutes()).padStart(2,"0");
+  },350);
+});
+cmReset.addEventListener("click",()=>{
+  if(!curId)return;
+  localStorage.removeItem(LSKEY(curId));
+  cmText.value=CANVAS_DEFAULTS[curId].text;
+  cmStatus.textContent="Reset to default";
+});
+cmX.addEventListener("click",closeEditor);
+cmodal.addEventListener("click",e=>{if(e.target===cmodal)closeEditor()});
+addEventListener("keydown",e=>{if(e.key==="Escape")closeEditor()});
 </script>
 </body>
 </html>

@@ -171,6 +171,26 @@ tr:hover td{background:var(--surface-2)}
 .founder.t .role{color:var(--teal-2)}.founder.a .role{color:#9a6500}
 .founder p{font-size:14px;color:var(--muted);margin:0}
 
+/* strategy pyramid */
+.pyr{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:8px}
+.pyr-row{width:100%;border-radius:14px;padding:22px 26px;display:flex;align-items:center;gap:20px;color:#fff;position:relative;box-shadow:var(--shadow)}
+.pyr-row .lvl{font-family:'Space Mono';font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.85;flex:0 0 92px}
+.pyr-row h4{font-size:18px;color:#fff;margin:0 0 3px}
+.pyr-row p{font-size:14.5px;margin:0;color:rgba(255,255,255,.85)}
+.pyr-1{width:62%;background:linear-gradient(120deg,#6B2BF6,#3D1FD6)}
+.pyr-2{width:81%;background:linear-gradient(120deg,#11151F,#1A2030)}
+.pyr-3{width:100%;background:linear-gradient(120deg,#067a6b,#0ab89e);color:#04231f}
+.pyr-3 h4{color:#04231f}.pyr-3 p{color:rgba(4,35,31,.82)}.pyr-3 .lvl{color:#04231f}
+@media(max-width:760px){.pyr-1,.pyr-2,.pyr-3{width:100%}.pyr-row{flex-direction:column;align-items:flex-start;gap:6px;text-align:left}.pyr-row .lvl{flex-basis:auto}}
+/* process steps strip */
+.pstrip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:8px;counter-reset:ps}
+@media(max-width:900px){.pstrip{grid-template-columns:1fr}}
+.pstep{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 18px;box-shadow:var(--shadow)}
+.pstep .pn{counter-increment:ps;width:30px;height:30px;border-radius:9px;background:var(--violet);color:#fff;font-family:'Space Grotesk';font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.pstep .pn::before{content:counter(ps)}
+.pstep h4{font-size:15.5px;margin:0 0 5px}
+.pstep p{font-size:13.5px;color:var(--muted);margin:0}
+.pstep .pw{font-family:'Space Mono';font-size:10px;color:var(--teal-2);font-weight:700;letter-spacing:.04em;margin-top:10px;display:block}
 .reveal{opacity:0;transform:translateY(20px);transition:.7s cubic-bezier(.2,.7,.2,1)}.reveal.in{opacity:1;transform:none}
 .note{font-family:'Space Mono';font-size:11px;color:var(--muted-light);letter-spacing:.03em;margin-top:6px}
 .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;padding:12px 22px;border-radius:100px;border:1px solid transparent;cursor:pointer}
@@ -192,6 +212,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
       <a href="index.html">Overview</a>
       <a href="business-plan.html">Plan</a>
       <a href="plan-of-action.html" class="cur">Strategy</a>
+      <a href="audit.html">Audit</a>
       <a href="business-canvas.html">Canvas</a>
       <a href="sample-audit.html">Sample</a>
       <a href="financial-model.html">Revenue</a>
@@ -210,6 +231,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
   <a href="pitch-deck.html">Pitch Deck <span>13 slides</span></a>
   <a href="business-plan.html">Business Plan <span>Full case</span></a>
   <a href="plan-of-action.html" class="active">Strategy &amp; Plan of Action <span>GTM + timeline</span></a>
+  <a href="audit.html">The Audit <span>Method + deliverables</span></a>
   <a href="business-canvas.html">Business Model Canvas <span>One page</span></a>
   <a href="sample-audit.html">Sample Audit <span>Example</span></a>
   <a href="financial-model.html">Financial Model <span>3-year</span></a>
@@ -232,17 +254,33 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
   </div>
 </header>
 
-<!-- 1 THE APPROACH -->
+<!-- 1 STRATEGY ON A PAGE -->
 <section id="approach">
   <div class="wrap">
-    <div class="eyebrow reveal">01 — The approach</div>
-    <h2 class="s reveal">A Meta-led MVP, before a single euro of build spend.</h2>
-    <p class="deck reveal">We could spend a year building. Instead, we spend 90 days <strong>finding out if people will pay</strong> — using paid ads to put a real offer in front of real buyers and measuring exactly what happens.</p>
-    <div class="kp teal reveal"><span class="lbl">Key point</span><p>We use the founders' existing assets to test demand cheaply in three markets at once, then put our money behind the one that proves itself.</p></div>
-    <div class="grid g3">
-      <div class="card reveal"><div class="n">WHY THIS WAY</div><h3>Test before we build</h3><p>No big upfront product. A simple offer, a landing page, and real ad spend tell us the truth faster than any plan.</p></div>
-      <div class="card reveal"><div class="n">WHY APAC FIRST</div><h3>We already have reach there</h3><p>Digital Movement has an Australian client base and agency capability. We start where we have warm relationships and credibility.</p></div>
-      <div class="card reveal"><div class="n">WHAT WE LEARN</div><h3>Where the money is</h3><p>Which market, which price, and which scope convert best — so we scale the winner instead of guessing.</p></div>
+    <div class="eyebrow reveal">01 — Strategy on a page</div>
+    <h2 class="s reveal">Strategy, tactics, actions.</h2>
+    <p class="deck reveal">One direction, set tactics, concrete actions this quarter. Top-down, so every action ladders to the goal.</p>
+    <div class="pyr reveal">
+      <div class="pyr-row pyr-1"><span class="lvl">Strategy</span><div><h4>Prove demand, then own the winning market.</h4><p>Become the default AI-threat audit for the regulated mid-market — starting where we already have reach.</p></div></div>
+      <div class="pyr-row pyr-2"><span class="lvl">Tactics</span><div><h4>Meta-led MVP · audit-as-wedge · offshore delivery · SEO follow-on.</h4><p>Test three markets at once with paid ads, land with a fixed-price audit, deliver lean, then compound with SEO.</p></div></div>
+      <div class="pyr-row pyr-3"><span class="lvl">Actions</span><div><h4>Launch 3 campaigns · book calls · deliver audits · score markets · decide.</h4><p>The concrete 90-day to-do list below — owned, timed, measured.</p></div></div>
+    </div>
+    <div class="kp teal reveal" style="margin-top:26px"><span class="lbl">Key point</span><p>Test demand cheaply in three markets at once using assets we already own, then put the money behind the one that proves itself.</p></div>
+  </div>
+</section>
+
+<!-- 1b THE PROCESS -->
+<section id="process">
+  <div class="wrap">
+    <div class="eyebrow reveal">02 — The process</div>
+    <h2 class="s reveal">Five steps, end to end.</h2>
+    <p class="deck reveal">From first ad to scale decision — each step has an owner and a deadline.</p>
+    <div class="pstrip reveal">
+      <div class="pstep"><div class="pn"></div><h4>Build the funnel</h4><p>3 market landing pages, Meta + tracking, booking link, audit method.</p><span class="pw">Wk 1–3 · Raoul</span></div>
+      <div class="pstep"><div class="pn"></div><h4>Run the ads</h4><p>Launch in HK · SG · AU. A/B creative and price. Watch cost per booked call.</p><span class="pw">Wk 4–9 · Raoul</span></div>
+      <div class="pstep"><div class="pn"></div><h4>Sell on calls</h4><p>Martey qualifies, presents the audit, agrees price and scope.</p><span class="pw">Wk 5–12 · Martey</span></div>
+      <div class="pstep"><div class="pn"></div><h4>Deliver audits</h4><p>Senior experts + AI engineers deliver. Refine scope from reality.</p><span class="pw">Wk 6–12 · Abhi</span></div>
+      <div class="pstep"><div class="pn"></div><h4>Score &amp; decide</h4><p>Rank the markets, pick the winner, scale or pivot.</p><span class="pw">Wk 12–14 · All</span></div>
     </div>
   </div>
 </section>
@@ -250,7 +288,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
 <!-- 2 THE MARKETS -->
 <section id="markets">
   <div class="wrap">
-    <div class="eyebrow reveal">02 — The three test markets</div>
+    <div class="eyebrow reveal">03 — The three test markets</div>
     <h2 class="s reveal">Hong Kong · Singapore · Australia.</h2>
     <p class="deck reveal">Three English-speaking, finance-heavy, regulation-driven markets — so one set of creative works across all three, and the only real variable is demand.</p>
     <div class="grid g3">
@@ -265,7 +303,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
 <!-- 3 THE FUNNEL -->
 <section id="funnel" style="background:var(--surface-2)">
   <div class="wrap">
-    <div class="eyebrow reveal">03 — The sales funnel</div>
+    <div class="eyebrow reveal">04 — The sales funnel</div>
     <h2 class="s reveal">From an ad to a paid audit — six clean steps.</h2>
     <p class="deck reveal">Deliberately simple, fully tracked, and built so every step teaches us something about demand, price and scope.</p>
     <div class="kp reveal"><span class="lbl">Why no instant form</span><p>We send people from Meta to our own landing page — not a Meta instant form. Instant forms give cheap, low-intent leads. Our page filters for real intent, tells the full story, and tracks everything properly.</p></div>
@@ -283,7 +321,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
 <!-- 4 THE TEAM -->
 <section id="team">
   <div class="wrap">
-    <div class="eyebrow reveal">04 — The founders &amp; their assets</div>
+    <div class="eyebrow reveal">05 — The founders &amp; their assets</div>
     <h2 class="s reveal">Three founders. No gaps in the funnel.</h2>
     <p class="deck reveal">Each founder owns a stage of the funnel end-to-end, and each brings a real, existing asset to the table — which is why the test costs so little.</p>
     <div class="grid g3">
@@ -294,7 +332,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
     <div class="panel reveal" style="margin-top:24px">
       <div class="pill dark" style="margin-bottom:12px">Why this team de-risks the test</div>
       <h3>The whole funnel is built and run in-house — <span class="accent">so the only real cost is ad spend.</span></h3>
-      <p style="margin-top:8px;max-width:740px">Most startups pay an agency to build the funnel and run the ads. We don't. Raoul builds the pages and runs Meta; Martey brings warm demand and closes; Abhi delivers. That keeps the MVP cheap and the learning fast.</p>
+      <p style="margin-top:8px;max-width:740px">The whole funnel is built and run in-house: Raoul builds the pages and runs Meta, Martey brings warm demand and closes, Abhi delivers. No agency fees â so the MVP stays cheap and the learning stays fast.</p>
     </div>
   </div>
 </section>
@@ -302,7 +340,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
 <!-- 5 THE TIMELINE -->
 <section id="timeline" style="background:var(--surface-2)">
   <div class="wrap">
-    <div class="eyebrow reveal">05 — The plan, step by step</div>
+    <div class="eyebrow reveal">06 — The plan, step by step</div>
     <h2 class="s reveal">90 days to a clear go / scale decision.</h2>
     <p class="deck reveal">Five phases. The build and launch overlap with the first real audits, so we are learning and earning at the same time.</p>
     <div class="phases reveal">
@@ -342,7 +380,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
 <!-- 6 WHAT WE MEASURE -->
 <section id="measure">
   <div class="wrap">
-    <div class="eyebrow reveal">06 — What we measure &amp; decide</div>
+    <div class="eyebrow reveal">07 — What we measure &amp; decide</div>
     <h2 class="s reveal">The data that picks the winning market.</h2>
     <p class="deck reveal">Every market is judged on the same numbers. The one with the best, most affordable path from ad to paid audit wins our focus.</p>
     <div class="kp reveal"><span class="lbl">The whole point</span><p>By day 90 we know — with real numbers, not opinions — which market, which price and which scope to scale.</p></div>
@@ -369,7 +407,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
 <!-- 7 BUDGET -->
 <section id="budget" style="background:var(--surface-2)">
   <div class="wrap">
-    <div class="eyebrow reveal">07 — The MVP budget</div>
+    <div class="eyebrow reveal">08 — The MVP budget</div>
     <h2 class="s reveal">Cheap to run, because we build it ourselves.</h2>
     <p class="deck reveal">The big cost in most launches — agency build and ad management — is zero for us. The spend is mostly the ad budget that buys the learning.</p>
     <table class="reveal">
@@ -384,6 +422,15 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
         <tr class="tot"><td>Total cash to a go / scale decision</td><td>—</td><td class="r">≈ €13k–20k</td></tr>
       </tbody>
     </table>
+    <div class="kp teal reveal" style="margin-top:8px"><span class="lbl">Minimum ad spend</span><p>€1,000 per market per month = €3,000/month total. Over 3 months that's €9,000 — reallocated each month toward the winner to maximise return per euro.</p></div>
+    <table class="reveal">
+      <thead><tr><th>Month</th><th>How we split the €3,000 / month</th><th>Goal</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">Month 1</td><td>Even — €1,000 each across Hong Kong · Singapore · Australia</td><td>Read all three markets</td></tr>
+        <tr><td class="mono">Month 2</td><td>Shift budget to the two best-performing markets</td><td>Double down on signal</td></tr>
+        <tr><td class="mono">Month 3</td><td>Concentrate on the single winning market</td><td>Most booked calls per €</td></tr>
+      </tbody>
+    </table>
     <p class="note reveal">Illustrative ranges, not a commitment. Audit revenue earned during Phase 2 partly offsets this spend — the test can approach self-funding if conversion is strong.</p>
   </div>
 </section>
@@ -391,7 +438,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
 <!-- 8 FROM MVP TO COMPANY -->
 <section id="bridge">
   <div class="wrap">
-    <div class="eyebrow reveal">08 — From MVP to the full company</div>
+    <div class="eyebrow reveal">09 — From MVP to the full company</div>
     <h2 class="s reveal">The test feeds straight into the bigger plan.</h2>
     <p class="deck reveal">This isn't a side project — it's how we de-risk the company in the business plan and the financial model.</p>
     <div class="grid g2">
