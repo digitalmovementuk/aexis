@@ -23,10 +23,12 @@ a{text-decoration:none;color:inherit}
 .sitenav{position:fixed;top:0;left:0;right:0;z-index:160;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;background:rgba(11,15,23,.72);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08)}
 .sitenav .brand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:700;letter-spacing:.18em;font-size:14px;color:#fff;margin:0}
 .sitenav .brand svg{width:28px;height:28px;border-radius:8px}
-.navlinks{display:flex;gap:2px;align-items:center}
-.navlinks a{font-size:13px;font-weight:500;color:var(--muted-light);padding:8px 11px;border-radius:8px}
+.navlinks{display:flex;gap:1px;align-items:center}
+.navlinks a{font-size:12.5px;font-weight:500;color:var(--muted-light);padding:7px 9px;border-radius:7px;white-space:nowrap}
 .navlinks a:hover{color:#fff;background:rgba(255,255,255,.08)}
 .navlinks a.active{color:#fff;background:rgba(255,255,255,.12)}
+.navlinks a.home{color:var(--teal)}
+.drawer a.home{color:var(--teal)}
 .burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:9px}
 .burger span{width:24px;height:2px;background:#fff;border-radius:2px}
 .drawer{position:fixed;inset:0;z-index:170;background:rgba(11,15,23,.97);backdrop-filter:blur(10px);display:flex;flex-direction:column;justify-content:center;gap:2px;padding:46px 40px;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);visibility:hidden}
@@ -36,7 +38,7 @@ a{text-decoration:none;color:inherit}
 .drawer a:hover{color:var(--teal)}.drawer a.active{color:var(--teal)}
 .drawer a span{font-family:'Space Mono';font-size:12px;color:var(--muted-light);font-weight:400}
 .drawer .close{position:absolute;top:22px;right:28px;font-size:26px;color:#fff;background:none;border:0;cursor:pointer;line-height:1;font-family:'Space Grotesk'}
-@media(max-width:980px){.navlinks{display:none}.burger{display:flex}}
+@media(max-width:1080px){.navlinks{display:none}.burger{display:flex}}
 .hero{min-height:62vh;padding-top:104px;display:flex;flex-direction:column;justify-content:center;padding:104px 7vw 64px;position:relative;overflow:hidden;color:#fff}
 .glow{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none}
 .glow.v{width:600px;height:600px;background:#5B2EFF;opacity:.4;top:-200px;right:-120px}
@@ -80,12 +82,14 @@ footer{background:var(--ink);color:var(--muted-light);padding:40px 7vw;font-size
 <nav class="sitenav">
   <a class="brand" href="index.html"><svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="mn" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3DFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0B0F17"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#mn)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</a>
   <div class="navlinks">
+    <a href="homepage.html" class="home">Homepage</a>
     <a href="index.html" class="active">Overview</a>
-    <a href="homepage.html">Homepage</a>
-    <a href="pitch-deck.html">Pitch Deck</a>
-    <a href="business-plan.html">Business Plan</a>
-    <a href="sample-audit.html">Sample Audit</a>
-    <a href="financial-model.html">Financials</a>
+    <a href="pitch-deck.html">Deck</a>
+    <a href="business-plan.html">Plan</a>
+    <a href="plan-of-action.html">Strategy</a>
+    <a href="business-canvas.html">Canvas</a>
+    <a href="sample-audit.html">Sample</a>
+    <a href="financial-model.html">Revenue</a>
     <a href="brand-identity.html">Brand</a>
     <a href="research/market-research.md">Research</a>
   </div>
@@ -94,12 +98,14 @@ footer{background:var(--ink);color:var(--muted-light);padding:40px 7vw;font-size
 <div class="drawer" id="drawer">
   <button class="close" id="drawerClose" aria-label="Close menu">✕ Close</button>
   <div class="dlabel">AEXIS · Investor Package</div>
+  <a href="homepage.html" class="home">Homepage <span>Live sales funnel ↗</span></a>
   <a href="index.html" class="active">Overview <span>Home</span></a>
-  <a href="homepage.html">Homepage <span>Live sales funnel</span></a>
   <a href="pitch-deck.html">Pitch Deck <span>13 slides</span></a>
   <a href="business-plan.html">Business Plan <span>Full case</span></a>
-  <a href="sample-audit.html">Sample Audit <span>Example deliverable</span></a>
-  <a href="financial-model.html">Financial Model <span>3-year</span></a>
+  <a href="plan-of-action.html">Strategy &amp; Plan of Action <span>GTM + timeline</span></a>
+  <a href="business-canvas.html">Business Model Canvas <span>One page</span></a>
+  <a href="sample-audit.html">Sample Audit <span>Example</span></a>
+  <a href="financial-model.html">Financials &amp; Revenue <span>Years 1–3</span></a>
   <a href="brand-identity.html">Brand System <span>Design</span></a>
   <a href="research/market-research.md">Research <span>Sourced</span></a>
 </div>
@@ -109,12 +115,12 @@ footer{background:var(--ink);color:var(--muted-light);padding:40px 7vw;font-size
     <div class="brand"><svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="mh" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3DFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0B0F17"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#mh)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</div>
     <div class="eyebrow">Investor Package · Confidential · June 2026</div>
     <h1>Security assurance for the <span class="g">AI era</span>.</h1>
-    <p>An AI-threat-native cyber-assurance company for the regulated mid-market in Germany, the United Kingdom and Singapore. Everything an investor needs, in one place.</p>
+    <p>An AI-threat-native cyber-assurance company for the regulated mid-market — proven first through a lean, Meta-led MVP across Hong Kong, Singapore and Australia. Everything an investor needs, in one place.</p>
     <div class="kpis">
       <div><span>€9.0M</span><small>Year-3 revenue</small></div>
-      <div><span>€8.2M</span><small>Year-3 recurring (ARR)</small></div>
-      <div><span>€2.5M</span><small>Seed raise</small></div>
-      <div><span>3</span><small>Markets · DE · UK · SG</small></div>
+      <div><span>Profitable</span><small>From Year 1, not Year 3</small></div>
+      <div><span>$2,500</span><small>Offshore expert / month</small></div>
+      <div><span>HK·SG·AU</span><small>Meta-led MVP markets</small></div>
     </div>
   </div>
 </header>
@@ -153,6 +159,24 @@ footer{background:var(--ink);color:var(--muted-light);padding:40px 7vw;font-size
         <div class="arrow">→</div>
       </a>
 
+      <a class="doc" href="plan-of-action.html">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l3-4 3 2 4-6"/><circle cx="20" cy="5" r="1.6"/></svg></div>
+        <div>
+          <h3>Strategy &amp; Plan of Action <span class="tag t">Go-to-market</span></h3>
+          <p>The Meta-led MVP across Hong Kong, Singapore &amp; Australia — funnel, founder roles, 90-day timeline, decision gates and budget.</p>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a class="doc" href="business-canvas.html">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10M15 10v10"/></svg></div>
+        <div>
+          <h3>Business Model Canvas</h3>
+          <p>The whole company on one page — the nine building blocks, filled in.</p>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
       <a class="doc" href="sample-audit.html">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
         <div>
@@ -165,8 +189,8 @@ footer{background:var(--ink);color:var(--muted-light);padding:40px 7vw;font-size
       <a class="doc" href="financial-model.html">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 15l4-5 3 3 5-7"/></svg></div>
         <div>
-          <h3>Financial Model <span class="tag t">+ CSV</span></h3>
-          <p>3-year revenue build, P&amp;L, runway, unit economics and sensitivity — with every assumption stated.</p>
+          <h3>Financials &amp; Revenue Strategy</h3>
+          <p>The three revenue streams across Years 1–3 — and the lean, offshore model that's profitable from the first contract.</p>
         </div>
         <div class="arrow">→</div>
       </a>

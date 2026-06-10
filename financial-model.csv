@@ -1,62 +1,35 @@
-AEXIS 3-Year Financial Model (EUR '000) — figures are plan-stage estimates,,,
+AEXIS Financials & Revenue Strategy (EUR '000) — plan-stage estimates,,,
 ,,,
 REVENUE BUILD,Year 1,Year 2,Year 3
-Signal — AI-Threat Readiness Audits,630,1710,3200
-  Audits delivered (count),18,45,80
-  Average audit price (EUR),35000,38000,40000
-Shield — Managed Safeguarding (recognised),360,1540,4300
-  Active retainers at year end (count),8,30,70
-  Average retainer ACV (EUR),90000,90000,90000
-  Audit-to-retainer conversion,45%,45%,45%
-Continuum — Platform (recognised),10,250,1500
-  Paying subscriptions at year end (count),2,15,60
-  Average subscription (EUR),30000,30000,32000
+Signal — AI-Threat Readiness Audits (one-off),630,1710,3200
+Shield — Managed Safeguarding (recurring),360,1540,4300
+Continuum — Platform (software subscription),10,250,1500
 TOTAL REVENUE,1000,3500,9000
 ,,,
-PROFIT & LOSS,Year 1,Year 2,Year 3
+PROFIT & LOSS (lean offshore model),Year 1,Year 2,Year 3
 Total revenue,1000,3500,9000
-Cost of service delivery (staff/subcontract/cloud),-600,-1650,-3800
-Gross profit,400,1850,5200
-Gross margin %,40%,53%,58%
-Research & Development (Continuum),-450,-700,-1100
-Sales & Marketing,-350,-800,-1700
-General & Administrative,-400,-600,-1000
-Total operating expenses,-1200,-2100,-3800
-EBITDA,-800,-250,1400
-EBITDA margin %,-80%,-7%,16%
+Delivery (offshore experts + cloud),-230,-770,-2050
+Sales & marketing (Meta + funnel),-140,-450,-1150
+Product (Continuum build),-60,-330,-700
+G&A (founders / ops / entities),-220,-560,-1500
+EBITDA,350,1390,3600
+EBITDA margin %,35%,40%,40%
+Delivery experts (avg / offshore),~5,~16,~42
 ,,,
-RECURRING REVENUE (ARR at year end),Year 1,Year 2,Year 3
-Shield retainers ARR,720,2700,6300
-Continuum platform ARR,60,450,1920
-Total exit ARR,780,3150,8220
+KEY ASSUMPTIONS,Value,,
+Senior cybersecurity expert (Indonesia) all-in,USD 2500 / month,,
+Hiring model,Against signed contracts (variable cost),,
+Funnel build & Meta ads,In-house — founders / sweat equity,,
+Avg audit price (Signal),~EUR 35k,,
+Avg retainer ACV (Shield),~EUR 90k / year,,
+Audit-to-retainer conversion,~45%,,
+Profitability,From Year 1 — no loss-making years,,
 ,,,
-HEADCOUNT (FTE),Year 1,Year 2,Year 3
-Average FTE,9,16,26
-End-of-year FTE,10,20,32
+REVENUE STRATEGY (Years 1-3),Focus,,
+Year 1,Signal audits lead; begin converting to Shield; Continuum as internal tooling,,
+Year 2,Shield recurring becomes the engine; open Continuum to existing customers,,
+Year 3,Recurring + software dominate; Signal is the steady acquisition channel,,
 ,,,
-CASH & RUNWAY (EUR '000),Year 1,Year 2,Year 3
-Opening cash (seed raise 2500),2500,1600,1150
-Net cash flow (EBITDA less working capital/capex),-900,-450,1200
-Closing cash,1600,1150,2350
-,,,
-UNIT ECONOMICS (targets by Year 3),Value,,
-Blended gross margin,~58%,,
-CAC payback,<12 months,,
-Net revenue retention (NRR),>=115%,,
-LTV/CAC,>=4x,,
-Rule of 40 (growth% + EBITDA margin%),>150,,
-,,,
-MARKET SIZING (EUR),Value,,
-TAM — total cyber spend DE+UK+SG (2026),~30-33bn,,
-SAM — AI-threat assurance + managed security + compliance (regulated mid-market),~4.5bn,,
-SOM — AEXIS Year 3 (~0.2% of SAM),9.0M,,
-SOM — AEXIS Year 5 line of sight (~0.6% of SAM),25-30M,,
-,,,
-THE ASK,Value,,
-Minimum capital (lean floor),EUR 1.7M,,
-Hard floor (do not start below),EUR 1.5M,,
-Seed raise (recommended),EUR 2.5M,,
-Safety + speed buffer (raise minus minimum),EUR 0.8M,,
-Runway to EBITDA breakeven,~30 months,,
-Use: Team 55% / Product 20% / GTM 15% / Ops+buffer 10%,,,
-Target dilution,~20-25%,,
+CAPITAL,Value,,
+Raise,Optional accelerator — not required for survival,,
+Use of optional capital,Scale Meta in winning market / offshore bench / SEO via Digital Movement / Continuum build,,

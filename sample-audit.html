@@ -35,6 +35,9 @@ a{color:var(--violet);text-decoration:none}a:hover{text-decoration:underline}
 .navlinks a{font-size:13px;font-weight:500;color:var(--muted);padding:8px 11px;border-radius:8px}
 .navlinks a:hover{color:var(--ink);background:var(--surface-2);text-decoration:none}
 .navlinks a.active{color:var(--violet);background:var(--violet-soft)}
+.navlinks a.home{color:#067a6b;font-weight:600}
+.navlinks a.home:hover{background:var(--teal-soft)}
+.drawer a.home{color:var(--teal)}
 .burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:9px}
 .burger span{width:24px;height:2px;background:var(--ink);border-radius:2px}
 .drawer{position:fixed;inset:0;z-index:170;background:rgba(11,15,23,.97);backdrop-filter:blur(10px);display:flex;flex-direction:column;justify-content:center;gap:2px;padding:46px 40px;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);visibility:hidden}
@@ -45,7 +48,7 @@ a{color:var(--violet);text-decoration:none}a:hover{text-decoration:underline}
 .drawer a.active{color:var(--teal)}
 .drawer a span{font-family:'Space Mono';font-size:12px;color:var(--muted-light);font-weight:400}
 .drawer .close{position:absolute;top:22px;right:28px;font-size:26px;color:#fff;background:none;border:0;cursor:pointer;line-height:1;font-family:'Space Grotesk'}
-@media(max-width:980px){.navlinks{display:none}.burger{display:flex}}
+@media(max-width:1080px){.navlinks{display:none}.burger{display:flex}}
 
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px}
 section{padding:62px 0;border-bottom:1px solid var(--line)}
@@ -153,24 +156,30 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
 <nav class="sitenav">
   <a class="brand" href="index.html"><svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="m1" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3DFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0B0F17"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#m1)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</a>
   <div class="navlinks">
+    <a href="homepage.html" class="home">Homepage</a>
     <a href="index.html">Overview</a>
-    <a href="pitch-deck.html">Pitch Deck</a>
-    <a href="business-plan.html">Business Plan</a>
-    <a href="sample-audit.html" class="active">Sample Audit</a>
-    <a href="financial-model.html">Financials</a>
+    <a href="pitch-deck.html">Deck</a>
+    <a href="business-plan.html">Plan</a>
+    <a href="plan-of-action.html">Strategy</a>
+    <a href="business-canvas.html">Canvas</a>
+    <a href="sample-audit.html" class="active">Sample</a>
+    <a href="financial-model.html">Revenue</a>
     <a href="brand-identity.html">Brand</a>
     <a href="research/market-research.md">Research</a>
   </div>
   <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="drawer" id="drawer">
-  <button class="close" id="drawerClose" aria-label="Close menu">✕ Close</button>
-  <div class="dlabel">AEXIS · Investor Package</div>
+  <button class="close" id="drawerClose" aria-label="Close menu">&#10005; Close</button>
+  <div class="dlabel">AEXIS &middot; Investor Package</div>
+  <a href="homepage.html" class="home">Homepage <span>Live sales funnel &#8599;</span></a>
   <a href="index.html">Overview <span>Home</span></a>
   <a href="pitch-deck.html">Pitch Deck <span>13 slides</span></a>
   <a href="business-plan.html">Business Plan <span>Full case</span></a>
-  <a href="sample-audit.html" class="active">Sample Audit <span>Example deliverable</span></a>
-  <a href="financial-model.html">Financial Model <span>3-year</span></a>
+  <a href="plan-of-action.html">Strategy &amp; Plan of Action <span>GTM + timeline</span></a>
+  <a href="business-canvas.html">Business Model Canvas <span>One page</span></a>
+  <a href="sample-audit.html" class="active">Sample Audit <span>Example</span></a>
+  <a href="financial-model.html">Revenue Strategy <span>Years 1&#8211;3</span></a>
   <a href="brand-identity.html">Brand System <span>Design</span></a>
   <a href="research/market-research.md">Research <span>Sourced</span></a>
 </div>

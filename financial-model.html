@@ -3,98 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AEXIS — Financial Model</title>
+<title>AEXIS — Financials & Revenue Strategy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#0B0F17;--ink-2:#11151F;--ink-3:#1A2030;
-  --surface:#FFFFFF;--surface-2:#F4F6FA;--line:#E2E6EE;
+  --surface:#FFFFFF;--surface-2:#F4F6FA;--surface-3:#EAEEF5;--line:#E2E6EE;
   --muted:#5A6473;--muted-light:#9AA3B2;
   --violet:#6B2BF6;--violet-2:#3D1FD6;--violet-soft:#EFE9FF;
-  --teal:#00C2A8;--teal-soft:#E0F7F3;--amber:#FFB020;--rose:#FF4D6D;
-  --maxw:1080px;--r:16px;--shadow:0 1px 2px rgba(11,15,23,.04),0 12px 32px -12px rgba(11,15,23,.12);
+  --teal:#00C2A8;--teal-2:#067a6b;--teal-soft:#E0F7F3;--amber:#FFB020;--amber-soft:#FFF4E0;
+  --maxw:1080px;--r:16px;--r-lg:24px;--shadow:0 1px 2px rgba(11,15,23,.04),0 12px 32px -12px rgba(11,15,23,.12);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--surface);line-height:1.6}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--surface);line-height:1.65;-webkit-font-smoothing:antialiased;font-size:16px}
 h1,h2,h3,h4{font-family:'Space Grotesk';letter-spacing:-.02em;line-height:1.1;font-weight:600}
 .mono{font-family:'Space Mono',monospace}
 a{color:var(--violet);text-decoration:none}a:hover{text-decoration:underline}
 #bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--violet),var(--teal));z-index:200;transition:width .1s}
 .brand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:700;letter-spacing:.18em;font-size:14px}
 .brand svg{width:28px;height:28px;border-radius:8px}
-.sitenav{position:fixed;top:0;left:0;right:0;z-index:160;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.sitenav{position:fixed;top:0;left:0;right:0;z-index:160;display:flex;align-items:center;justify-content:space-between;padding:12px 26px;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .sitenav .brand{color:var(--ink)}.sitenav a.brand:hover{text-decoration:none}
-.navlinks{display:flex;gap:2px;align-items:center}
-.navlinks a{font-size:13px;font-weight:500;color:var(--muted);padding:8px 11px;border-radius:8px}
+.navlinks{display:flex;gap:1px;align-items:center}
+.navlinks a{font-size:12.5px;font-weight:500;color:var(--muted);padding:7px 9px;border-radius:7px;white-space:nowrap}
 .navlinks a:hover{color:var(--ink);background:var(--surface-2);text-decoration:none}
 .navlinks a.active{color:var(--violet);background:var(--violet-soft)}
+.navlinks a.home{color:var(--teal-2);font-weight:600}.navlinks a.home:hover{background:var(--teal-soft)}
 .burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:9px}
 .burger span{width:24px;height:2px;background:var(--ink);border-radius:2px}
-.drawer{position:fixed;inset:0;z-index:170;background:rgba(11,15,23,.97);backdrop-filter:blur(10px);display:flex;flex-direction:column;justify-content:center;gap:2px;padding:46px 40px;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);visibility:hidden}
+.drawer{position:fixed;inset:0;z-index:170;background:rgba(11,15,23,.97);backdrop-filter:blur(10px);display:flex;flex-direction:column;justify-content:center;gap:2px;padding:42px 38px;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);visibility:hidden;overflow-y:auto}
 .drawer.open{transform:none;visibility:visible}
-.drawer .dlabel{font-family:'Space Mono';font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
-.drawer a{color:#fff;font-family:'Space Grotesk';font-size:23px;font-weight:600;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1);letter-spacing:-.01em;display:flex;justify-content:space-between;align-items:center}
-.drawer a:hover{color:var(--teal);text-decoration:none}.drawer a.active{color:var(--teal)}
-.drawer a span{font-family:'Space Mono';font-size:12px;color:var(--muted-light);font-weight:400}
-.drawer .close{position:absolute;top:22px;right:28px;font-size:26px;color:#fff;background:none;border:0;cursor:pointer;line-height:1;font-family:'Space Grotesk'}
-@media(max-width:980px){.navlinks{display:none}.burger{display:flex}}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px}
-section{padding:74px 0;border-bottom:1px solid var(--line)}
+.drawer .dlabel{font-family:'Space Mono';font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.drawer a{color:#fff;font-family:'Space Grotesk';font-size:21px;font-weight:600;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1);letter-spacing:-.01em;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.drawer a:hover{color:var(--teal);text-decoration:none}.drawer a.active{color:var(--teal)}.drawer a.home{color:var(--teal)}
+.drawer a span{font-family:'Space Mono';font-size:11px;color:var(--muted-light);font-weight:400}
+.drawer .close{position:absolute;top:20px;right:26px;font-size:24px;color:#fff;background:none;border:0;cursor:pointer;font-family:'Space Grotesk'}
+@media(max-width:1080px){.navlinks{display:none}.burger{display:flex}}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+section{padding:72px 0;border-bottom:1px solid var(--line)}
 .eyebrow{font-family:'Space Mono';font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--violet);font-weight:700}
-h2.s{font-size:clamp(25px,3.4vw,36px);margin:10px 0 6px}
-.deck{color:var(--muted);font-size:18px;max-width:680px;margin-bottom:30px}
-.hero{background:var(--ink);color:#fff;padding:130px 0 70px;position:relative;overflow:hidden;border:none}
-.hero h1{font-size:clamp(34px,5.5vw,62px);color:#fff;font-weight:700;letter-spacing:-.03em;margin:14px 0}
-.hero p{color:#AEB6C6;font-size:19px;max-width:600px}
+h2.s{font-size:clamp(26px,3.6vw,40px);margin:10px 0 6px}
+.deck{color:var(--muted);font-size:18px;max-width:680px;margin-bottom:24px}
+p{margin-bottom:14px}section p,section li{font-size:16px;color:#2A3242}
+strong{color:var(--ink);font-weight:600}
+ul{margin:0 0 14px 0;list-style:none}
+li.b{display:flex;gap:12px;padding:8px 0;align-items:flex-start}
+li.b::before{content:"";flex:0 0 8px;height:8px;border-radius:50%;background:var(--violet);margin-top:10px}
+li.b b{color:var(--ink)}
+.kp{display:flex;gap:16px;align-items:flex-start;background:var(--violet-soft);border-left:4px solid var(--violet);border-radius:0 14px 14px 0;padding:18px 22px;margin:0 0 28px}
+.kp.teal{background:var(--teal-soft);border-color:var(--teal)}
+.kp .lbl{font-family:'Space Mono';font-size:10px;letter-spacing:.13em;font-weight:700;color:var(--violet-2);text-transform:uppercase;flex:0 0 auto;margin-top:5px}
+.kp.teal .lbl{color:var(--teal-2)}
+.kp p{margin:0;font-family:'Space Grotesk';font-weight:500;font-size:19px;color:var(--ink);line-height:1.38}
+.hero{background:var(--ink);color:#fff;padding:124px 0 64px;position:relative;overflow:hidden;border:none}
+.hero .wrap{position:relative;z-index:2}
 .hero .tag{font-family:'Space Mono';letter-spacing:.2em;color:var(--teal);font-size:12.5px;text-transform:uppercase}
+.hero h1{font-size:clamp(33px,5vw,56px);font-weight:700;color:#fff;letter-spacing:-.03em;margin:14px 0}
+.hero h1 .g{background:linear-gradient(90deg,#9B6BFF,#00C2A8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#C2C9D6;font-size:18px;max-width:640px}
+.hero .kv{display:flex;gap:34px;flex-wrap:wrap;margin-top:34px}
+.hero .kv span{display:block;font-family:'Space Grotesk';font-size:26px;font-weight:600;color:#fff}
+.hero .kv small{color:var(--muted-light);font-size:12px}
 .glow{position:absolute;border-radius:50%;filter:blur(95px)}
 .glow.v{width:500px;height:500px;background:#5B2EFF;opacity:.4;top:-160px;right:-100px}
 .grid{display:grid;gap:18px}
 .g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
-@media(max-width:920px){.g3,.g2,.g4{grid-template-columns:1fr}}
-.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--shadow)}
-.card h3{font-size:16px;margin-bottom:7px}.card p{font-size:14px;color:var(--muted);margin:0}
-.card .n{font-family:'Space Mono';font-size:10.5px;color:var(--violet);font-weight:700;letter-spacing:.1em}
+@media(max-width:900px){.g3,.g2,.g4{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card h3{font-size:18px;margin-bottom:8px}.card p{font-size:14.5px;color:var(--muted);margin:0}
+.card .n{font-family:'Space Mono';font-size:11px;color:var(--violet);font-weight:700;letter-spacing:.1em}
 .stat .num{font-family:'Space Grotesk';font-size:34px;font-weight:600;line-height:1}
-.stat .lab{font-size:13px;color:var(--muted);margin-top:7px}
-table{width:100%;border-collapse:collapse;font-size:14.5px;margin:6px 0 14px;background:#fff}
+.stat .lab{font-size:13.5px;color:var(--muted);margin-top:8px}
+.stream{border-top:4px solid var(--violet)}.stream.t{border-color:var(--teal)}.stream.a{border-color:var(--amber)}
+.stream .tagm{font-family:'Space Mono';font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--violet-2)}
+.stream.t .tagm{color:var(--teal-2)}.stream.a .tagm{color:#9a6500}
+.stream h3{font-size:20px;margin:8px 0 4px}.stream .role{font-size:13px;color:var(--muted);margin-bottom:12px;font-weight:600}
+.stream .price{font-family:'Space Grotesk';font-weight:600;font-size:15px;color:var(--ink);margin-top:10px}
+.panel{background:var(--ink);color:#fff;border-radius:var(--r-lg);padding:38px;position:relative;overflow:hidden}
+.panel h3{color:#fff;font-size:22px;margin-bottom:10px}.panel p{color:#C2C9D6;margin:0}.panel .accent{color:var(--teal)}
+.pill{display:inline-flex;align-items:center;gap:7px;font-family:'Space Mono';font-size:10.5px;letter-spacing:.06em;padding:6px 12px;border-radius:100px;text-transform:uppercase;font-weight:700}
+.pill.dark{background:var(--ink-3);color:#fff}.pill.v{background:var(--violet-soft);color:var(--violet-2)}.pill.t{background:var(--teal-soft);color:var(--teal-2)}
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin:8px 0 14px;background:#fff}
 th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line)}
 th{font-family:'Space Mono';font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:700}
 td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
 tr:hover td{background:var(--surface-2)}
-.sub-row td:first-child{padding-left:28px;color:var(--muted);font-size:13px}
 .rev-row td{font-weight:700;border-top:2px solid var(--ink);background:#fbfbfd}
 .tot td{font-weight:700;border-top:2px solid var(--ink);background:var(--surface-2)}
-.pos{color:#067a6b;font-weight:700}.neg{color:#c0173a}
-.panel{background:var(--ink);color:#fff;border-radius:24px;padding:38px;overflow:hidden}
-.panel h3{color:#fff;font-size:22px;margin-bottom:8px}.panel p{color:#AEB6C6}
-.pill{display:inline-flex;align-items:center;gap:7px;font-family:'Space Mono';font-size:10.5px;letter-spacing:.06em;padding:6px 12px;border-radius:100px;text-transform:uppercase;font-weight:700}
-.pill.v{background:var(--violet-soft);color:var(--violet-2)}.pill.dark{background:var(--ink-3);color:#fff}
-.note{font-family:'Space Mono';font-size:11px;color:var(--muted-light);letter-spacing:.02em;margin-top:6px}
-/* revenue bars */
-.chart{display:flex;align-items:flex-end;gap:34px;height:300px;padding:24px 10px 0;border-bottom:2px solid var(--line);margin-top:10px}
-.col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:0}
-.bar{width:78%;border-radius:8px 8px 0 0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:var(--shadow)}
-.seg{width:100%}
-.seg.sig{background:var(--ink)}
-.seg.shi{background:var(--violet)}
-.seg.con{background:var(--teal)}
-.col .yr{font-family:'Space Mono';font-size:12px;color:var(--muted);margin-top:12px;font-weight:700}
-.col .val{font-family:'Space Grotesk';font-weight:600;font-size:18px;margin-top:4px}
+.pos{color:#067a6b;font-weight:700}
+.mix{display:flex;align-items:flex-end;gap:30px;height:260px;padding:20px 8px 0;border-bottom:2px solid var(--line);margin-top:8px}
+.mixcol{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.mixbar{width:74%;border-radius:8px 8px 0 0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:var(--shadow)}
+.seg{width:100%;display:flex;align-items:center;justify-content:center;font-family:'Space Mono';font-size:9px;color:#fff;font-weight:700}
+.seg.sig{background:var(--ink)}.seg.shi{background:var(--violet)}.seg.con{background:var(--teal)}
+.mixcol .yr{font-family:'Space Mono';font-size:12px;color:var(--muted);margin-top:12px;font-weight:700}
+.mixcol .cap{font-size:12px;color:var(--muted);margin-top:4px;text-align:center;max-width:150px}
 .legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:18px;font-size:13px;color:var(--muted)}
-.legend span{display:inline-flex;align-items:center;gap:7px}
-.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
-.reveal{opacity:0;transform:translateY(20px);transition:.7s cubic-bezier(.2,.7,.2,1)}.reveal.in{opacity:1;transform:none}
+.legend span{display:inline-flex;align-items:center;gap:7px}.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.note{font-family:'Space Mono';font-size:11px;color:var(--muted-light);letter-spacing:.03em;margin-top:6px}
+.reveal{opacity:0;transform:translateY(18px);transition:.7s cubic-bezier(.2,.7,.2,1)}.reveal.in{opacity:1;transform:none}
 .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;padding:12px 22px;border-radius:100px;border:1px solid transparent;cursor:pointer}
 .btn.p{background:var(--violet);color:#fff}.btn.p:hover{background:var(--violet-2);text-decoration:none}
-.btn.g{background:transparent;border-color:rgba(255,255,255,.25);color:#fff}
-.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.btn.g{background:transparent;border-color:var(--line);color:var(--ink)}.btn.g:hover{border-color:var(--ink);text-decoration:none}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
 footer{background:var(--ink);color:#AEB6C6;padding:46px 0;font-size:13px;border:none}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center}
-@media(max-width:920px){section{padding:54px 0}.wrap{padding:0 20px}body{text-align:center}.deck{margin:0 auto 26px}.chart{gap:14px}.cta{justify-content:center}}
+@media(max-width:1080px){section{padding:54px 0}.wrap{padding:0 20px}body{text-align:center}.deck{margin-left:auto;margin-right:auto}.cta,.hero .kv{justify-content:center}.kp,li.b{text-align:left}ul{display:inline-block;text-align:left}.mix{gap:14px}table{text-align:left}}
 </style>
 </head>
 <body>
@@ -102,24 +119,30 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
 <nav class="sitenav">
   <a class="brand" href="index.html"><svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="m1" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3DFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0B0F17"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#m1)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</a>
   <div class="navlinks">
+    <a href="homepage.html" class="home">Homepage</a>
     <a href="index.html">Overview</a>
-    <a href="pitch-deck.html">Pitch Deck</a>
-    <a href="business-plan.html">Business Plan</a>
-    <a href="sample-audit.html">Sample Audit</a>
-    <a href="financial-model.html" class="active">Financials</a>
+    <a href="pitch-deck.html">Deck</a>
+    <a href="business-plan.html">Plan</a>
+    <a href="plan-of-action.html">Strategy</a>
+    <a href="business-canvas.html">Canvas</a>
+    <a href="sample-audit.html">Sample</a>
+    <a href="financial-model.html" class="active">Revenue</a>
     <a href="brand-identity.html">Brand</a>
     <a href="research/market-research.md">Research</a>
   </div>
   <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="drawer" id="drawer">
-  <button class="close" id="drawerClose" aria-label="Close menu">✕ Close</button>
+  <button class="close" id="drawerClose" aria-label="Close menu">✕</button>
   <div class="dlabel">AEXIS · Investor Package</div>
+  <a href="homepage.html" class="home">Homepage <span>Live sales funnel ↗</span></a>
   <a href="index.html">Overview <span>Home</span></a>
   <a href="pitch-deck.html">Pitch Deck <span>13 slides</span></a>
   <a href="business-plan.html">Business Plan <span>Full case</span></a>
-  <a href="sample-audit.html">Sample Audit <span>Example deliverable</span></a>
-  <a href="financial-model.html" class="active">Financial Model <span>3-year</span></a>
+  <a href="plan-of-action.html">Strategy &amp; Plan of Action <span>GTM + timeline</span></a>
+  <a href="business-canvas.html">Business Model Canvas <span>One page</span></a>
+  <a href="sample-audit.html">Sample Audit <span>Example</span></a>
+  <a href="financial-model.html" class="active">Financials &amp; Revenue <span>Years 1–3</span></a>
   <a href="brand-identity.html">Brand System <span>Design</span></a>
   <a href="research/market-research.md">Research <span>Sourced</span></a>
 </div>
@@ -127,188 +150,115 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
 <header class="hero">
   <div class="glow v"></div>
   <div class="wrap">
-    <div class="tag">3-Year Financial Model · EUR · plan-stage estimates</div>
-    <h1>The numbers behind the plan.</h1>
-    <p>Built bottom-up from audit volume, conversion and retainer economics. Every figure here reconciles to the business plan and the downloadable CSV. Assumptions are stated, not hidden.</p>
-    <div class="cta"><a class="btn p" href="financial-model.csv" download>Download CSV ↓</a><a class="btn g" href="business-plan.html">Read the plan</a></div>
+    <div class="tag">Financials &amp; Revenue Strategy · Years 1–3</div>
+    <h1>Profitable from <span class="g">the first contract</span>.</h1>
+    <p>Three revenue streams, near-zero fixed costs, and delivery by senior experts at a fraction of Western rates. The result: no loss-making years to fund — the business pays for itself.</p>
+    <div class="kv">
+      <div><span>Year 1</span><small>Profitable, not loss-making</small></div>
+      <div><span>~40%+</span><small>Target EBITDA margin</small></div>
+      <div><span>$2,500</span><small>All-in cost of a senior expert / mo</small></div>
+    </div>
   </div>
 </header>
 
-<!-- HEADLINE -->
-<section>
+<!-- 1 THE STREAMS -->
+<section id="streams">
   <div class="wrap">
-    <div class="grid g4">
-      <div class="card stat reveal"><div class="n">REVENUE · YEAR 3</div><div class="num">€9.0M</div><div class="lab">From €1.0M in Year 1 — 3× then 2.6×</div></div>
-      <div class="card stat reveal"><div class="n">EXIT ARR · YEAR 3</div><div class="num" style="color:var(--violet)">€8.2M</div><div class="lab">Recurring (retainers + platform)</div></div>
-      <div class="card stat reveal"><div class="n">EBITDA · YEAR 3</div><div class="num pos">+€1.4M</div><div class="lab">Profitable; 16% margin</div></div>
-      <div class="card stat reveal"><div class="n">SEED RAISE</div><div class="num" style="color:var(--teal)">€2.5M</div><div class="lab">~30 months runway</div></div>
+    <div class="eyebrow reveal">01 — The three revenue streams</div>
+    <h2 class="s reveal">Land with a project. Grow into a relationship. Scale with software.</h2>
+    <p class="deck reveal">Each stream does a different job. Together they turn a single audit into a long, expanding customer relationship.</p>
+    <div class="grid g3">
+      <div class="card stream reveal"><div class="tagm">Stream 1 · Land</div><h3>Signal — the audit</h3><div class="role">One-off project revenue</div><p>The paid AI-threat vulnerability audit. Opens the door, builds trust, and produces the data behind everything after it.</p><div class="price">~€35k per audit</div></div>
+      <div class="card stream t reveal"><div class="tagm">Stream 2 · Expand</div><h3>Shield — managed safeguarding</h3><div class="role">Recurring revenue</div><p>The audit becomes an ongoing relationship — continuous protection and always-current compliance evidence. The sticky core.</p><div class="price">~€90k / year · ~45% convert</div></div>
+      <div class="card stream a reveal"><div class="tagm">Stream 3 · Scale</div><h3>Continuum — the platform</h3><div class="role">Software subscription</div><p>The repeatable parts of delivery become software, so revenue stops being tied to people's time.</p><div class="price">~€30k / year</div></div>
     </div>
   </div>
 </section>
 
-<!-- ASSUMPTIONS -->
-<section id="assumptions" style="background:var(--surface-2)">
+<!-- 2 THE COST ENGINE -->
+<section id="engine" style="background:var(--surface-2)">
   <div class="wrap">
-    <div class="eyebrow reveal">01 — Core assumptions</div>
-    <h2 class="s reveal">The handful of drivers everything rests on.</h2>
-    <p class="deck reveal">Deliberately few, deliberately conservative. Change these and the model moves — see the sensitivity section.</p>
-    <div class="grid g4">
-      <div class="card reveal"><div class="n">WEDGE</div><h3>€35k audit</h3><p>Average AI-Threat Readiness Audit fee, rising to €40k by Year 3.</p></div>
-      <div class="card reveal"><div class="n">CONVERSION</div><h3>45%</h3><p>Of audit clients convert to a Shield retainer.</p></div>
-      <div class="card reveal"><div class="n">RECURRING ACV</div><h3>€90k/yr</h3><p>Average Shield managed-safeguarding contract.</p></div>
-      <div class="card reveal"><div class="n">PLATFORM</div><h3>€30k/yr</h3><p>Average Continuum subscription (Year 2+).</p></div>
-      <div class="card reveal"><div class="n">AUDIT VOLUME</div><h3>18 → 45 → 80</h3><p>Audits delivered per year, founder-led then team-led.</p></div>
-      <div class="card reveal"><div class="n">GROSS MARGIN</div><h3>40 → 58%</h3><p>Rises as Continuum (software margin) mixes in.</p></div>
-      <div class="card reveal"><div class="n">RETENTION</div><h3>≥115% NRR</h3><p>Retainer uplift + Continuum cross-sell; modest churn.</p></div>
-      <div class="card reveal"><div class="n">FX</div><h3>£1.17 · $0.92</h3><p>EUR-equivalents for UK/SG figures (illustrative).</p></div>
+    <div class="eyebrow reveal">02 — Why there is no loss to fund</div>
+    <h2 class="s reveal">Near-zero fixed cost. We only spend when we earn.</h2>
+    <p class="deck reveal">Most startups burn for years before profit. AEXIS doesn't — because the cost base is variable and the delivery talent is world-class but far cheaper.</p>
+    <div class="kp teal reveal"><span class="lbl">The unlock</span><p>The founders build and run the funnel themselves, and we hire a senior cybersecurity expert — all-in for about <strong>USD 2,500 a month</strong> in Indonesia — only once a contract is signed.</p></div>
+    <div class="grid g3">
+      <div class="card reveal"><div class="n">NO UPFRONT BURN</div><h3>Hire against contracts</h3><p>Delivery capacity is added only when a paid engagement exists. Cost follows revenue, never leads it.</p></div>
+      <div class="card reveal"><div class="n">WORLD-CLASS, OFFSHORE</div><h3>~$2,500/mo per expert</h3><p>A senior cybersecurity expert in Indonesia, all-in, costs a fraction of a UK/EU hire — without compromising on skill.</p></div>
+      <div class="card reveal"><div class="n">FOUNDERS BUILD IT</div><h3>Funnel = sweat equity</h3><p>Raoul builds the pages + runs Meta; Martey sells; Abhi leads delivery. The expensive parts cost founder time, not cash.</p></div>
     </div>
   </div>
 </section>
 
-<!-- REVENUE BUILD -->
-<section id="revenue">
+<!-- 3 THE P&L -->
+<section id="pnl">
   <div class="wrap">
-    <div class="eyebrow reveal">02 — Revenue build</div>
-    <h2 class="s reveal">Three streams, sequenced.</h2>
-    <p class="deck reveal">Audits land the customer and fund acquisition; retainers build the recurring base; the platform adds margin and a software multiple.</p>
-    <div class="chart reveal">
-      <div class="col">
-        <div class="bar" style="height:33px"><div class="seg con" style="height:1px"></div><div class="seg shi" style="height:12px"></div><div class="seg sig" style="height:21px"></div></div>
-        <div class="yr">YEAR 1</div><div class="val">€1.0M</div>
-      </div>
-      <div class="col">
-        <div class="bar" style="height:117px"><div class="seg con" style="height:8px"></div><div class="seg shi" style="height:51px"></div><div class="seg sig" style="height:58px"></div></div>
-        <div class="yr">YEAR 2</div><div class="val">€3.5M</div>
-      </div>
-      <div class="col">
-        <div class="bar" style="height:300px"><div class="seg con" style="height:50px"></div><div class="seg shi" style="height:143px"></div><div class="seg sig" style="height:107px"></div></div>
-        <div class="yr">YEAR 3</div><div class="val">€9.0M</div>
-      </div>
-    </div>
-    <div class="legend reveal">
-      <span><i style="background:var(--ink)"></i>Signal — audits</span>
-      <span><i style="background:var(--violet)"></i>Shield — retainers (recurring)</span>
-      <span><i style="background:var(--teal)"></i>Continuum — platform (recurring)</span>
-    </div>
-    <table class="reveal" style="margin-top:30px">
-      <thead><tr><th>Revenue (€'000)</th><th class="r">Year 1</th><th class="r">Year 2</th><th class="r">Year 3</th></tr></thead>
+    <div class="eyebrow reveal">03 — The numbers</div>
+    <h2 class="s reveal">Three years, profitable in every one.</h2>
+    <p class="deck reveal">Built bottom-up from audit volume, conversion and the lean offshore delivery cost. Figures are plan-stage estimates.</p>
+    <table class="reveal">
+      <thead><tr><th>€'000</th><th class="r">Year 1</th><th class="r">Year 2</th><th class="r">Year 3</th></tr></thead>
       <tbody>
         <tr><td>Signal — audits</td><td class="r">630</td><td class="r">1,710</td><td class="r">3,200</td></tr>
-        <tr class="sub-row"><td>audits delivered · avg price</td><td class="r">18 · €35k</td><td class="r">45 · €38k</td><td class="r">80 · €40k</td></tr>
-        <tr><td>Shield — retainers</td><td class="r">360</td><td class="r">1,540</td><td class="r">4,300</td></tr>
-        <tr class="sub-row"><td>active retainers (year-end)</td><td class="r">8</td><td class="r">30</td><td class="r">70</td></tr>
-        <tr><td>Continuum — platform</td><td class="r">10</td><td class="r">250</td><td class="r">1,500</td></tr>
-        <tr class="sub-row"><td>paying subscriptions (year-end)</td><td class="r">2</td><td class="r">15</td><td class="r">60</td></tr>
+        <tr><td>Shield — recurring</td><td class="r">360</td><td class="r">1,540</td><td class="r">4,300</td></tr>
+        <tr><td>Continuum — software</td><td class="r">10</td><td class="r">250</td><td class="r">1,500</td></tr>
         <tr class="rev-row"><td>Total revenue</td><td class="r">1,000</td><td class="r">3,500</td><td class="r">9,000</td></tr>
+        <tr><td>Delivery (offshore experts + cloud)</td><td class="r">(230)</td><td class="r">(770)</td><td class="r">(2,050)</td></tr>
+        <tr><td>Sales &amp; marketing (Meta + funnel)</td><td class="r">(140)</td><td class="r">(450)</td><td class="r">(1,150)</td></tr>
+        <tr><td>Product (Continuum build)</td><td class="r">(60)</td><td class="r">(330)</td><td class="r">(700)</td></tr>
+        <tr><td>G&amp;A (founders, ops, entities)</td><td class="r">(220)</td><td class="r">(560)</td><td class="r">(1,500)</td></tr>
+        <tr class="tot"><td>EBITDA</td><td class="r pos">+350</td><td class="r pos">+1,390</td><td class="r pos">+3,600</td></tr>
+        <tr><td>EBITDA margin</td><td class="r">35%</td><td class="r">40%</td><td class="r">40%</td></tr>
+        <tr><td>Delivery experts (avg, offshore)</td><td class="r">~5</td><td class="r">~16</td><td class="r">~42</td></tr>
       </tbody>
     </table>
+    <p class="note reveal">Delivery cost reflects senior offshore experts at ~USD 2,500/mo all-in, added against signed contracts. No loss-making year to finance.</p>
   </div>
 </section>
 
-<!-- P&L -->
-<section id="pnl" style="background:var(--surface-2)">
+<!-- 4 MIX SHIFT -->
+<section id="mix" style="background:var(--surface-2)">
   <div class="wrap">
-    <div class="eyebrow reveal">03 — Profit &amp; loss</div>
-    <h2 class="s reveal">Invest two years. Profitable in the third.</h2>
-    <table class="reveal">
-      <thead><tr><th>€'000</th><th class="r">Year 1</th><th class="r">Year 2</th><th class="r">Year 3</th></tr></thead>
-      <tbody>
-        <tr><td>Total revenue</td><td class="r">1,000</td><td class="r">3,500</td><td class="r">9,000</td></tr>
-        <tr><td>Cost of service delivery</td><td class="r">(600)</td><td class="r">(1,650)</td><td class="r">(3,800)</td></tr>
-        <tr class="rev-row"><td>Gross profit</td><td class="r">400</td><td class="r">1,850</td><td class="r">5,200</td></tr>
-        <tr class="sub-row"><td>gross margin</td><td class="r">40%</td><td class="r">53%</td><td class="r">58%</td></tr>
-        <tr><td>R&amp;D (Continuum)</td><td class="r">(450)</td><td class="r">(700)</td><td class="r">(1,100)</td></tr>
-        <tr><td>Sales &amp; marketing</td><td class="r">(350)</td><td class="r">(800)</td><td class="r">(1,700)</td></tr>
-        <tr><td>General &amp; admin</td><td class="r">(400)</td><td class="r">(600)</td><td class="r">(1,000)</td></tr>
-        <tr class="tot"><td>EBITDA</td><td class="r neg">(800)</td><td class="r neg">(250)</td><td class="r pos">+1,400</td></tr>
-        <tr class="sub-row"><td>EBITDA margin</td><td class="r">(80%)</td><td class="r">(7%)</td><td class="r">16%</td></tr>
-      </tbody>
-    </table>
-    <div class="grid g3" style="margin-top:14px">
-      <div class="card stat reveal"><div class="n">AVG FTE</div><div class="num">9 → 26</div><div class="lab">End-of-year: 10 → 20 → 32. AI-leveraged delivery keeps the team lean.</div></div>
-      <div class="card stat reveal"><div class="n">REV / FTE · YR 3</div><div class="num">~€345k</div><div class="lab">Above classical-MDR benchmarks — the AI-native delivery advantage.</div></div>
-      <div class="card stat reveal"><div class="n">PEAK BURN</div><div class="num">Year 1</div><div class="lab">−€800k EBITDA; narrows to −€250k in Yr 2, turns positive in Yr 3.</div></div>
+    <div class="eyebrow reveal">04 — The revenue mix shifts toward recurring</div>
+    <h2 class="s reveal">Each year, more of the revenue repeats.</h2>
+    <p class="deck reveal">The strategy in a picture: revenue moves from one-off audits toward recurring protection and software.</p>
+    <div class="mix reveal">
+      <div class="mixcol"><div class="mixbar" style="height:110px"><div class="seg con" style="height:5%"></div><div class="seg shi" style="height:31%">Shield</div><div class="seg sig" style="height:64%">Signal</div></div><div class="yr">YEAR 1</div><div class="cap">Mostly one-off audits</div></div>
+      <div class="mixcol"><div class="mixbar" style="height:190px"><div class="seg con" style="height:9%">Cont.</div><div class="seg shi" style="height:47%">Shield</div><div class="seg sig" style="height:44%">Signal</div></div><div class="yr">YEAR 2</div><div class="cap">Recurring becomes the engine</div></div>
+      <div class="mixcol"><div class="mixbar" style="height:260px"><div class="seg con" style="height:18%">Continuum</div><div class="seg shi" style="height:54%">Shield</div><div class="seg sig" style="height:28%">Signal</div></div><div class="yr">YEAR 3</div><div class="cap">Recurring + software dominate</div></div>
     </div>
+    <div class="legend reveal"><span><i style="background:var(--ink)"></i>Signal — one-off</span><span><i style="background:var(--violet)"></i>Shield — recurring</span><span><i style="background:var(--teal)"></i>Continuum — software</span></div>
   </div>
 </section>
 
-<!-- RUNWAY -->
-<section id="runway">
+<!-- 5 CAPITAL -->
+<section id="capital">
   <div class="wrap">
-    <div class="eyebrow reveal">04 — Cash &amp; runway</div>
-    <h2 class="s reveal">€2.5M never drops below ~€1.1M. That's the buffer.</h2>
-    <p class="deck reveal">Cumulative operating burn over the two investment years is ~€1.05M. We raise €2.5M to cover that, working-capital drag, accreditation/entity setup, and a comfortable safety margin into profitability.</p>
-    <table class="reveal">
-      <thead><tr><th>€'000</th><th class="r">Year 1</th><th class="r">Year 2</th><th class="r">Year 3</th></tr></thead>
-      <tbody>
-        <tr><td>Opening cash</td><td class="r">2,500</td><td class="r">1,600</td><td class="r">1,150</td></tr>
-        <tr><td>Net cash flow (EBITDA − WC/capex)</td><td class="r neg">(900)</td><td class="r neg">(450)</td><td class="r pos">+1,200</td></tr>
-        <tr class="tot"><td>Closing cash</td><td class="r">1,600</td><td class="r">1,150</td><td class="r">2,350</td></tr>
-      </tbody>
-    </table>
-    <div class="grid g3" style="margin-top:8px">
-      <div class="card stat reveal" style="border-color:#f0d28a"><div class="n">MINIMUM CAPITAL</div><div class="num" style="color:#9a6500">€1.7M</div><div class="lab">The lean floor — reaches break-even with little margin for error</div></div>
-      <div class="card stat reveal" style="border-color:var(--violet)"><div class="n">WE ARE RAISING</div><div class="num" style="color:var(--violet)">€2.5M</div><div class="lab">Floor + buffer + acceleration; ~30 months runway</div></div>
-      <div class="card stat reveal"><div class="n">SAFETY &amp; SPEED BUFFER</div><div class="num" style="color:var(--teal)">€0.8M</div><div class="lab">The difference — de-risks timing and brings Singapore + software sooner</div></div>
+    <div class="eyebrow reveal">05 — Capital</div>
+    <h2 class="s reveal">Capital-light by design. A raise is optional, not survival.</h2>
+    <div class="kp reveal"><span class="lbl">Key point</span><p>Because we're profitable from the first contract, we don't need outside money to survive. Any capital simply pours fuel on the market that's already proven to convert.</p></div>
+    <div class="grid g2">
+      <div class="card reveal"><div class="n">BOOTSTRAP PATH</div><h3>€0 raised — self-funding</h3><p style="color:var(--muted)">The Meta MVP plus offshore delivery can fund its own growth. Slower, but fully founder-owned and de-risked.</p></div>
+      <div class="card reveal"><div class="n">OPTIONAL ACCELERATOR</div><h3>A small raise to go faster</h3><p style="color:var(--muted)">Once the MVP names the winning market, an optional raise scales Meta spend, the offshore delivery bench, and the Continuum platform — to capture the market before anyone else.</p></div>
     </div>
-    <div class="panel reveal" style="margin-top:14px">
-      <div class="pill dark" style="margin-bottom:10px">Why €2.5M, not less</div>
-      <p style="margin:0;max-width:760px">Minimum viable need is ~€1.7M (see the dedicated section in the business plan). We raise €2.5M to (1) hold a full safety margin past breakeven, (2) absorb services receivables timing, (3) fund three-country entities and accreditations (ISO 27001, CREST/CHECK-equivalent — themselves a competitive moat), and (4) accelerate the Continuum build so the software margin arrives sooner. <span style="color:var(--teal)">Buffer is de-risking, not padding.</span></p>
+    <div class="cta reveal">
+      <a class="btn p" href="business-plan.html">See the full business plan →</a>
+      <a class="btn g" href="plan-of-action.html">How we test it (plan of action)</a>
+      <a class="btn g" href="business-canvas.html">Business Model Canvas</a>
     </div>
-  </div>
-</section>
-
-<!-- UNIT ECONOMICS -->
-<section id="unit" style="background:var(--surface-2)">
-  <div class="wrap">
-    <div class="eyebrow reveal">05 — Unit economics</div>
-    <h2 class="s reveal">The audit pre-pays the cost of winning the retainer.</h2>
-    <div class="grid g4">
-      <div class="card stat reveal"><div class="n">CAC PAYBACK</div><div class="num">&lt;12mo</div><div class="lab">Signal is profitable on its own, so retainer acquisition is effectively pre-funded.</div></div>
-      <div class="card stat reveal"><div class="n">LTV / CAC</div><div class="num">≥4×</div><div class="lab">Retainer gross ~€50k/yr × multi-year life vs. low effective CAC.</div></div>
-      <div class="card stat reveal"><div class="n">NRR</div><div class="num">≥115%</div><div class="lab">Retainer uplift + Continuum cross-sell outpace churn.</div></div>
-      <div class="card stat reveal"><div class="n">RULE OF 40</div><div class="num pos">&gt;150</div><div class="lab">Yr 3 growth (~157%) + EBITDA margin (16%) — well above 40.</div></div>
-    </div>
-    <table class="reveal" style="margin-top:18px">
-      <thead><tr><th>Per-unit economics</th><th class="r">Audit (Signal)</th><th class="r">Retainer (Shield)</th><th class="r">Platform (Continuum)</th></tr></thead>
-      <tbody>
-        <tr><td>Average value</td><td class="r">€35k one-off</td><td class="r">€90k / year</td><td class="r">€30k / year</td></tr>
-        <tr><td>Gross margin</td><td class="r">~50%</td><td class="r">~55%</td><td class="r">~80%</td></tr>
-        <tr><td>Role</td><td class="r">Wedge / acquisition</td><td class="r">Recurring core</td><td class="r">Margin + multiple</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- SENSITIVITY -->
-<section id="sens">
-  <div class="wrap">
-    <div class="eyebrow reveal">06 — Sensitivity</div>
-    <h2 class="s reveal">Even the bear case is a real company.</h2>
-    <p class="deck reveal">The model's two most important levers are audit volume and audit→retainer conversion. Here's Year-3 revenue across a reasonable range.</p>
-    <table class="reveal">
-      <thead><tr><th>Year-3 scenario</th><th class="r">Audits/yr</th><th class="r">Conversion</th><th class="r">Year-3 revenue</th><th class="r">Year-3 EBITDA</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Bear</strong></td><td class="r">55</td><td class="r">35%</td><td class="r">~€5.8M</td><td class="r">~€0 (breakeven)</td></tr>
-        <tr><td><strong>Base</strong></td><td class="r">80</td><td class="r">45%</td><td class="r">€9.0M</td><td class="r pos">+€1.4M</td></tr>
-        <tr><td><strong>Bull</strong></td><td class="r">105</td><td class="r">55%</td><td class="r">~€12.5M</td><td class="r pos">~+€2.6M</td></tr>
-      </tbody>
-    </table>
-    <p class="note reveal">Bear/Bull hold pricing and cost structure constant and flex only volume + conversion. The bear case still reaches cash-flow breakeven on a multi-million ARR base — the downside is "smaller", not "broken".</p>
-    <div class="cta reveal" style="margin-top:20px"><a class="btn p" href="financial-model.csv" download>Download the model (CSV) ↓</a><a class="btn g" href="business-plan.html" style="border-color:var(--line);color:var(--ink)">Back to business plan</a></div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
     <div class="brand" style="color:#fff"><svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="mf" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3DFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#11151F"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#mf)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</div>
-    <div style="font-family:'Space Mono';font-size:11px;color:var(--muted-light)">Plan-stage estimates · not a forecast or guarantee · assumptions stated above · © 2026</div>
+    <div style="font-family:'Space Mono';font-size:11px;color:var(--muted-light)">Financials &amp; Revenue Strategy · Plan-stage estimates · Profitable from Year 1 · © 2026</div>
   </div>
 </footer>
 <script>
 const bar=document.getElementById('bar');
 addEventListener('scroll',()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'});
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.1});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.08});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 const burger=document.getElementById('burger'),drawer=document.getElementById('drawer'),dc=document.getElementById('drawerClose');
 burger.addEventListener('click',()=>drawer.classList.add('open'));
