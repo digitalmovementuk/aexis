@@ -147,26 +147,13 @@ section{position:relative}
 @media(max-width:900px){.g3,.g2{grid-template-columns:1fr}}
 
 /* regulation strip */
-.regstrip{padding:46px 0;background:var(--ink-1)}
-.regstrip .lbl{text-align:center;font-family:'Space Mono';font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);margin-bottom:26px}
-.reg-badges{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center}
-.reg{display:inline-flex;align-items:center;gap:9px;padding:12px 22px;border-radius:100px;border:1px solid var(--line);background:rgba(255,255,255,.025);font-family:'Space Grotesk';font-weight:600;font-size:14.5px;color:var(--muted);transition:.28s var(--ease)}
-.reg:hover{border-color:rgba(123,61,255,.55);background:var(--violet-soft);transform:translateY(-2px);color:#fff}
-.reg svg{width:16px;height:16px;color:var(--teal);opacity:.85}
-.reg small{font-family:'Inter';font-weight:400;font-size:11px;color:var(--muted-2)}
-.reg-note{text-align:center;font-size:11.5px;color:var(--muted-2);margin-top:20px;font-family:'Space Mono';letter-spacing:.04em}
 
 /* stats */
-.stat{text-align:center;padding:36px 28px}
-.stat .nm{font-family:'Space Grotesk';font-size:clamp(40px,4.6vw,58px);font-weight:600;line-height:1;background:linear-gradient(160deg,#fff 30%,#B79BFF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-variant-numeric:tabular-nums}
-.stat .lab{font-size:14.5px;color:var(--muted);margin-top:14px;line-height:1.5}
-.stat .lab strong{color:#fff}
-.stat .src{font-family:'Space Mono';font-size:10px;color:var(--muted-2);margin-top:10px;letter-spacing:.04em}
 
 /* offer / deliverables */
 .offer{background:linear-gradient(180deg,var(--ink-1),var(--ink))}
-.deliv{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-@media(max-width:1020px){.deliv{grid-template-columns:repeat(2,1fr)}}
+.deliv{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:1020px){.deliv{grid-template-columns:1fr}}
 @media(max-width:560px){.deliv{grid-template-columns:1fr;gap:10px}}
 .dcard{position:relative;background:rgba(255,255,255,.028);border-radius:var(--r-s);padding:24px 20px;transition:.28s var(--ease);overflow:hidden}
 .dcard::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(160deg,rgba(255,255,255,.18),rgba(255,255,255,.04));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
@@ -195,15 +182,7 @@ section{position:relative}
 .step .when{display:inline-block;font-family:'Space Mono';font-size:11px;color:var(--teal-br);letter-spacing:.07em;margin-top:16px;padding:6px 14px;border:1px solid rgba(0,194,168,.3);border-radius:100px;background:var(--teal-soft)}
 
 /* why */
-.why{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 @media(max-width:900px){.why{grid-template-columns:1fr}}
-.whyc{display:flex;gap:18px;padding:26px;border-radius:var(--r);background:rgba(255,255,255,.025);position:relative;overflow:hidden;transition:.28s var(--ease)}
-.whyc::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.03));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
-.whyc:hover{background:rgba(0,194,168,.06);transform:translateY(-3px)}
-.whyc .ic{flex:0 0 46px;height:46px;border-radius:13px;background:var(--teal-soft);display:flex;align-items:center;justify-content:center}
-.whyc .ic svg{width:22px;height:22px;color:var(--teal-br)}
-.whyc h3{font-size:17.5px;color:#fff;margin-bottom:6px}
-.whyc p{font-size:14.5px;color:var(--muted)}
 
 /* teaser */
 .teaser{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;background:linear-gradient(125deg,var(--ink-2),var(--ink-1));border-radius:var(--r-lg);padding:52px;position:relative;overflow:hidden}
@@ -270,8 +249,6 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
   .sec{padding:64px 0}.wrap{padding:0 20px}
   .sec-head{margin-bottom:36px}
   body{text-align:center}
-  .whyc{flex-direction:column;align-items:center;text-align:center}
-  .stat{padding:28px 20px}
   .foot-top{flex-direction:column;text-align:center}
   .foot-links{justify-content:center;gap:38px}
   .foot-top .brand,.foot-blurb{margin-left:auto;margin-right:auto}
@@ -313,7 +290,6 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
 <nav class="nav" id="nav">
   <a class="brand" href="index.html" aria-label="AEXIS home"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="mn" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#9B6BFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0B0F1A"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#mn)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg></a>
   <div class="nav-links">
-    <a href="#threat">The threat</a>
     <a href="#audit">The audit</a>
     <a href="#how">How it works</a>
     <a href="sample-audit.html">Sample audit</a>
@@ -327,11 +303,10 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
 <div class="drawer" id="drawer" aria-hidden="true">
   <button class="close" id="drawerClose" aria-label="Close menu">✕</button>
   <div class="dlabel">AEXIS · Menu</div>
-  <a href="#threat">The threat <small>01</small></a>
-  <a href="#audit">The audit <small>02</small></a>
-  <a href="#how">How it works <small>03</small></a>
+  <a href="#audit">The audit <small>01</small></a>
+  <a href="#how">How it works <small>02</small></a>
   <a href="sample-audit.html">Sample audit <small>↗</small></a>
-  <a href="#faq">FAQ <small>04</small></a>
+  <a href="#faq">FAQ <small>03</small></a>
   <div class="dlabel" style="margin-top:20px">Investor package</div>
   <a href="index.html">Overview <small>↗</small></a>
   <a href="business-plan.html">Business plan <small>↗</small></a>
@@ -354,72 +329,36 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
   <div class="noise"></div>
   <div class="hero-inner">
     <div class="badge-row"><span class="pulse"></span>AI-era cyber assurance<span class="badge-geo"> · DE · UK · SG</span></div>
-    <h1>Find out what an AI attacker would find — <span class="g">before they do.</span></h1>
-    <p class="sub">AI can break into a company in hours, not weeks. We test your business the way an AI attacker would — and hand you a clear score, a fix plan, and the proof your regulator demands.</p>
+    <h1>Find out what an AI attacker would find. <span class="g">Before they do.</span></h1>
+    <p class="sub">We attack your company the way real hackers now do — safely. Then we show you exactly what to fix.</p>
     <div class="hero-cta">
       <a class="btn primary" id="heroCta" href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Request your vulnerability audit</a>
       <a class="btn ghost" href="sample-audit.html">See a sample audit<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
     <div class="trust-line">
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Fixed price, agreed up front</span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>4–6 weeks, board-ready</span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>No disruption to your systems</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Fixed price</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Done in 4–6 weeks</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Zero disruption</span>
     </div>
   </div>
   <div class="scrolldown">Scroll<span class="line"></span></div>
 </header>
 
-<!-- REGULATION STRIP -->
-<div class="regstrip">
-  <div class="wrap">
-    <div class="lbl reveal">Built around the regulations that now bind you</div>
-    <div class="reg-badges">
-      <div class="reg reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>NIS2 <small>EU · DE</small></div>
-      <div class="reg reveal d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>DORA <small>EU finance</small></div>
-      <div class="reg reveal d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>ISO 27001</div>
-      <div class="reg reveal d3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>CREST</div>
-      <div class="reg reveal d4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>MAS TRM <small>Singapore</small></div>
-    </div>
-    <div class="reg-note reveal">Frameworks we align our work to — shown for context, not as endorsements.</div>
-  </div>
-</div>
-<hr class="hr">
-
-<!-- THE THREAT -->
-<section class="sec" id="threat">
-  <div class="glow v" style="width:540px;height:540px;top:-120px;right:-180px;opacity:.22"></div>
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">The threat has changed</div>
-      <h2>Your defences were built for <span class="g">human</span> attackers.</h2>
-      <p class="lead">In April 2026, an AI system found thousands of critical security holes and turned them into working attacks within hours. Criminals now hold the same tools. Most companies can't yet see how exposed that leaves them.</p>
-    </div>
-    <div class="grid g3">
-      <div class="card stat reveal"><div class="nm">Hours</div><div class="lab">AI breaks in within <strong>hours</strong> — work that took experts <strong>weeks</strong>.</div><div class="src">Anthropic “Mythos” · Apr 2026</div></div>
-      <div class="card stat reveal d1"><div class="nm num" data-c="202.4" data-pre="€" data-suf="bn">€202.4bn</div><div class="lab">Cyber damage to the German economy — <strong>every single year</strong>.</div><div class="src">Bitkom Wirtschaftsschutz 2025</div></div>
-      <div class="card stat reveal d2"><div class="nm num" data-c="97" data-suf="%">97%</div><div class="lab">of firms hit by an AI attack had <strong>no controls</strong> in place for it.</div><div class="src">IBM Cost of a Data Breach 2025</div></div>
-    </div>
-  </div>
-</section>
-<hr class="hr">
-
 <!-- THE AUDIT / OFFER -->
 <section class="sec offer" id="audit">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="eyebrow">The offer</div>
-      <h2>The cyberattack vulnerability audit.</h2>
-      <p class="lead">A fixed-price, 4–6 week check-up that shows exactly what an AI-powered attacker would find — and exactly how to close it. No jargon. No disruption. One board-ready answer in five parts.</p>
+      <div class="eyebrow">What you get</div>
+      <h2>One audit. Three answers.</h2>
+      <p class="lead">Fixed price. 4–6 weeks. Plain English.</p>
     </div>
     <div class="deliv">
-      <div class="dcard reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><h4>Exposure Score</h4><p>One clear number (0–100) your board instantly understands.</p></div></div>
-      <div class="dcard reveal d1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div><div><h4>Plain findings</h4><p>Every weak spot in plain words, ranked by real risk.</p></div></div>
-      <div class="dcard reveal d2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><div><h4>The attack story</h4><p>Step by step — how an attacker would actually get in.</p></div></div>
-      <div class="dcard reveal d3"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div><h4>90-day fix plan</h4><p>Prioritised actions: days 0–30, 31–60, 61–90.</p></div></div>
-      <div class="dcard reveal d4"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><h4>Compliance map</h4><p>Each finding mapped to NIS2 / DORA / CSA — audit-ready.</p></div></div>
+      <div class="dcard reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><h4>How exposed are we?</h4><p>One score, 0 to 100. Everyone gets it.</p></div></div>
+      <div class="dcard reveal d1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div><h4>What do we fix first?</h4><p>A 90-day fix list. Most urgent first.</p></div></div>
+      <div class="dcard reveal d2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><h4>Can we prove it?</h4><p>Proof for your board and regulator.</p></div></div>
     </div>
     <div style="text-align:center;margin-top:42px" class="reveal">
-      <a class="btn ghost" href="sample-audit.html">See exactly what you receive — open a sample audit<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn ghost" href="sample-audit.html">See a sample audit<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </div>
 </section>
@@ -434,29 +373,10 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
       <h2>Three steps. <span class="g">No commitment to start.</span></h2>
     </div>
     <div class="steps">
-      <div class="step reveal"><div class="no"></div><h3>Request your audit</h3><p>One message — email or WhatsApp. We reply with scope and a fixed price. No obligation, no sales marathon.</p><div class="when">Same day</div></div>
-      <div class="step reveal d1"><div class="no"></div><h3>We test like an AI attacker</h3><p>AI-native offensive tooling safely probes your real exposure — systems, identity, suppliers and your own AI use.</p><div class="when">4–6 weeks</div></div>
-      <div class="step reveal d2"><div class="no"></div><h3>You get your score &amp; plan</h3><p>A board-ready report with a clear fix plan. Then, if you want, we keep you protected and audit-ready every day.</p><div class="when">Then optional ongoing</div></div>
+      <div class="step reveal"><div class="no"></div><h3>Send one message</h3><p>Email or WhatsApp. We reply with a fixed price. No obligation.</p><div class="when">Same day</div></div>
+      <div class="step reveal d1"><div class="no"></div><h3>We test your defences</h3><p>Safely, the way a real attacker would. Nothing breaks.</p><div class="when">4–6 weeks</div></div>
+      <div class="step reveal d2"><div class="no"></div><h3>You get your answers</h3><p>Your score, your report, your fix plan. Done.</p><div class="when">Board-ready</div></div>
     </div>
-  </div>
-</section>
-<hr class="hr">
-
-<!-- WHY AEXIS -->
-<section class="sec offer">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Why AEXIS</div>
-      <h2>Built for this exact moment.</h2>
-      <p class="lead">Big consultancies are slow and expensive. Local firms work in one country and were built for yesterday's threats. AEXIS is different on the four things that matter.</p>
-    </div>
-    <div class="why">
-      <div class="whyc reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/><circle cx="12" cy="12" r="3"/></svg></div><div><h3>Built for AI threats</h3><p>We test you the way AI now attacks — not bolted onto an old checklist.</p></div></div>
-      <div class="whyc reveal d1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 4 5.6 4 9s-1.5 6.4-4 9c-2.5-2.6-4-5.6-4-9s1.5-6.4 4-9z"/></svg></div><div><h3>One provider, three countries</h3><p>Germany, the UK and Singapore under one roof — one score, one proof pack.</p></div></div>
-      <div class="whyc reveal d2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div><div><h3>Mid-market price &amp; speed</h3><p>Premium quality at a price a mid-sized firm can sign — in weeks, not quarters.</p></div></div>
-      <div class="whyc reveal d3"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><h3>Compliance built in</h3><p>Every finding is mapped to the law, so you're audit-ready by default.</p></div></div>
-    </div>
-    <p class="reveal" style="text-align:center;color:var(--muted);font-size:14.5px;margin-top:34px;max-width:660px;margin-left:auto;margin-right:auto">Founder-led, and backed by <strong style="color:#fff">Digital Movement UK</strong> — 7 years and 300+ clients of digital delivery behind the brand.</p>
   </div>
 </section>
 <hr class="hr">
@@ -467,8 +387,8 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
     <div class="teaser reveal">
       <div>
         <div class="eyebrow">See it for real</div>
-        <h2>A real example of what you'll receive.</h2>
-        <p>We've published a full sample audit for a fictional private bank — exposure score, findings, the step-by-step attack story, the 90-day fix plan and the compliance mapping. Exactly the format you'd get.</p>
+        <h2>See exactly what you'll get.</h2>
+        <p>This is the real report format — shown for a fictional bank. Your score, your findings, your fix plan.</p>
         <a class="btn primary" href="sample-audit.html">Open the sample audit<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       <div class="gauge-mini">
@@ -491,15 +411,13 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
   <div class="wrap" style="max-width:800px">
     <div class="sec-head reveal">
       <div class="eyebrow">Good questions</div>
-      <h2>Everything you'd want to ask.</h2>
+      <h2>Quick answers.</h2>
     </div>
     <div class="faq">
-      <details class="reveal" open><summary>How long does the audit take?<span class="pl">+</span></summary><div class="a">Typically 4–6 weeks from kickoff to the final board-ready report, depending on the size of your estate. You get the fixed price and scope before you commit.</div></details>
-      <details class="reveal"><summary>Will it disrupt our live systems?<span class="pl">+</span></summary><div class="a">No. We test safely and non-destructively. Our goal is to find what an attacker would find, not to break anything. We agree the rules of engagement with you up front.</div></details>
-      <details class="reveal"><summary>Which laws and standards do you cover?<span class="pl">+</span></summary><div class="a">We map findings to the rules that apply to you — NIS2 and DORA in the EU, the UK regime, and Singapore's Cybersecurity Act and MAS TRM. The output is built to be audit-ready evidence.</div></details>
-      <details class="reveal"><summary>Who is this for?<span class="pl">+</span></summary><div class="a">Regulated mid-market organisations — roughly 250–5,000 staff — in finance, healthcare and critical infrastructure across Germany, the UK and Singapore. If a regulator can fine you, this is for you.</div></details>
-      <details class="reveal"><summary>What happens after the audit?<span class="pl">+</span></summary><div class="a">You own the report and fix plan outright. If you'd like, we can stay on to close the gaps and keep you protected and audit-ready every day — but there's no obligation to continue.</div></details>
-      <details class="reveal"><summary>How much does it cost?<span class="pl">+</span></summary><div class="a">A fixed price, agreed before you commit, scaled to the size of your organisation. Message us with a rough headcount and we'll come back with a clear number — no surprises.</div></details>
+      <details class="reveal" open><summary>How long does it take?<span class="pl">+</span></summary><div class="a">4–6 weeks. You get the fixed price before you commit.</div></details>
+      <details class="reveal"><summary>Will it disrupt our systems?<span class="pl">+</span></summary><div class="a">No. We test safely. Nothing breaks, nothing slows down.</div></details>
+      <details class="reveal"><summary>Who is this for?<span class="pl">+</span></summary><div class="a">Companies with 250–5,000 staff — especially finance, healthcare and infrastructure.</div></details>
+      <details class="reveal"><summary>How much does it cost?<span class="pl">+</span></summary><div class="a">A fixed price, based on your company size. Message us — we reply with a clear number.</div></details>
     </div>
   </div>
 </section>
@@ -511,7 +429,7 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
   <div class="wrap" style="position:relative;z-index:2">
     <div class="eyebrow reveal">Find out where you stand</div>
     <h2 class="reveal">Request your cyberattack vulnerability audit.</h2>
-    <p class="reveal">One message is all it takes. Tell us your company and rough size — we reply with scope and a fixed price. No obligation.</p>
+    <p class="reveal">Send one message. Get a fixed price back. No obligation.</p>
     <div class="final-cta reveal">
       <a class="btn primary" id="emailCta" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Request by email</a>
       <a class="btn teal" id="waCta" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.6L4 20l1-4.4A8.5 8.5 0 1 1 21 11.5z"/></svg>Request on WhatsApp</a>
@@ -536,7 +454,7 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
     <div class="foot-top">
       <div>
         <a class="brand" href="index.html"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="mf" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#9B6BFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0F1524"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#mf)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</a>
-        <p class="foot-blurb">Security assurance for the AI era. We make regulated mid-market firms provably resilient against AI-powered attackers — and keep proving it.</p>
+        <p class="foot-blurb">We find your weak spots, help you fix them, and give you the proof.</p>
       </div>
       <div class="foot-links">
         <div class="foot-col">
