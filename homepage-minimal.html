@@ -12,7 +12,7 @@
 <style>
 :root{
   --ink:#070A12;--ink-1:#0B1018;--line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.18);
-  --text:#EDF0F7;--muted:#9BA6BA;--violet:#7B3DFF;--violet-br:#A98BFF;--indigo:#3D1FD6;--teal:#00C2A8;--teal-br:#3FE9CE;
+  --text:#EDF0F7;--muted:#9BA6BA;--violet:#7B3DFF;--violet-br:#A98BFF;--indigo:#3D1FD6;--teal:#00C2A8;--teal-br:#3FE9CE;--rose:#FF5470;
   --maxw:1060px;--ease:cubic-bezier(.2,.7,.2,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -59,6 +59,11 @@ img,video,svg{display:block;max-width:100%}
 .trust{margin-top:38px;display:flex;gap:10px 24px;justify-content:center;flex-wrap:wrap;color:var(--muted);font-size:14.5px}
 .trust span{display:inline-flex;align-items:center;gap:8px}
 .trust svg{width:15px;height:15px;color:var(--teal)}
+.stakes{padding:96px 0;border-top:1px solid var(--line);background:var(--ink-1)}
+.stakes .num{font-family:'Space Grotesk';font-size:clamp(36px,4.2vw,50px);font-weight:600;line-height:1;margin-bottom:10px;background:linear-gradient(100deg,#fff,#B79BFF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stakes .it{border-top-color:var(--rose,#FF4D6D)}
+.stakes .it p{color:#CDD4E2;font-size:15.5px}
+.stakes .src{font-family:'Space Mono';font-size:10px;color:var(--muted);margin-top:10px;letter-spacing:.03em}
 
 /* one minimal strip */
 .strip{padding:100px 0;border-top:1px solid var(--line)}
@@ -107,7 +112,7 @@ footer a{color:var(--muted)}footer a:hover{color:#fff}
   <div class="in">
     <div class="eyebrow"><span class="dot"></span>AI-era cyber assurance</div>
     <h1>Find out what an AI attacker would find. <span class="g">Before they do.</span></h1>
-    <p class="sub">We test your company the way a real attacker would — safely — then show you exactly what to fix.</p>
+    <p class="sub">An AI attacker could already be inside — through a leaked staff password, an unpatched server, or a supplier left wide open. Most companies can't see it. We find it first, safely, and show you exactly what to fix.</p>
     <div class="cta">
       <a class="btn primary" id="heroCta" href="#contact">Request your audit</a>
       <a class="btn ghost" href="sample-audit.html">See a sample</a>
@@ -120,11 +125,25 @@ footer a{color:var(--muted)}footer a:hover{color:#fff}
   </div>
 </header>
 
+<section class="stakes">
+  <div class="wrap">
+    <div class="lead">
+      <h2>What's at stake</h2>
+      <p>You can't fix what you can't see — and the cost of being wrong keeps climbing.</p>
+    </div>
+    <div class="three">
+      <div class="it"><div class="num">Hours</div><p>AI now breaks into a company in hours — work that used to take experts weeks.</p><div class="src">Anthropic “Mythos”, 2026</div></div>
+      <div class="it"><div class="num">$4.4M</div><p>The average cost of a single data breach.</p><div class="src">IBM, 2025</div></div>
+      <div class="it"><div class="num">10%</div><p>The maximum fine — of your turnover — and the board is personally on the hook.</p><div class="src">DORA / NIS2</div></div>
+    </div>
+  </div>
+</section>
+
 <section class="strip">
   <div class="wrap">
     <div class="lead">
-      <h2>One audit. Three answers.</h2>
-      <p>Fixed price. Four to six weeks. One clear report.</p>
+      <h2>What the audit tells you</h2>
+      <p>The fastest way to see where you really stand — and what to do about it.</p>
     </div>
     <div class="three">
       <div class="it"><h3>How exposed are we?</h3><p>One score, 0 to 100. Everyone understands it.</p></div>
