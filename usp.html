@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AEXIS — Why We Win (USP)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0F17;--ink-2:#11151F;--ink-3:#1A2030;
+  --surface:#FFFFFF;--surface-2:#F4F6FA;--surface-3:#EAEEF5;--line:#E2E6EE;
+  --muted:#5A6473;--muted-light:#9AA3B2;
+  --violet:#6B2BF6;--violet-2:#3D1FD6;--violet-soft:#EFE9FF;
+  --teal:#00C2A8;--teal-2:#067a6b;--teal-soft:#E0F7F3;--amber:#FFB020;--amber-soft:#FFF4E0;--rose:#FF4D6D;
+  --maxw:1100px;--r:16px;--r-lg:24px;--shadow:0 1px 2px rgba(11,15,23,.04),0 12px 32px -12px rgba(11,15,23,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--surface);line-height:1.65;-webkit-font-smoothing:antialiased;font-size:16px}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;letter-spacing:-.02em;line-height:1.1;font-weight:600}
+.mono{font-family:'Space Mono',monospace}
+a{color:var(--violet);text-decoration:none}a:hover{text-decoration:underline}
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--violet),var(--teal));z-index:200;transition:width .1s}
+/* ===== OVERARCHING AEXIS SITE BAR (identical on every page) ===== */
+.aexisbar{position:fixed;top:0;left:0;right:0;z-index:120;background:#fff;border-bottom:1px solid rgba(11,15,23,.08);box-shadow:0 8px 28px -22px rgba(11,15,23,.35);display:flex;justify-content:center;padding:9px 16px}
+.aexisbar.is-scrolled{box-shadow:0 10px 30px -18px rgba(11,15,23,.3)}
+.aexisbar .pill{width:100%;max-width:1280px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px}
+.aexisbar .abrand{display:flex;align-items:center;gap:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.2em;font-size:12.5px;color:#0B0F17;white-space:nowrap;text-decoration:none}
+.aexisbar .abrand:hover{text-decoration:none}
+.aexisbar .abrand svg{width:27px;height:27px;border-radius:8px}
+.aexisbar .alinks{display:flex;gap:5px;align-items:center;justify-content:center}
+.aexisbar .alinks a{font-family:'Inter',system-ui,sans-serif;font-size:12.5px;font-weight:500;line-height:1;color:#fff;background:#11151F;padding:8px 13px;border-radius:100px;transition:.22s cubic-bezier(.2,.7,.2,1);white-space:nowrap;text-decoration:none}
+.aexisbar .alinks a:hover{background:#6B2BF6;transform:translateY(-1px);text-decoration:none}
+.aexisbar .alinks a.cur{background:#00C2A8;color:#04241f;font-weight:600}
+.aexisbar .aburger{display:none;width:42px;height:42px;border-radius:100px;border:0;background:#11151F;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer}
+.aexisbar .aburger span{width:18px;height:2px;background:#fff;border-radius:2px}
+@media(max-width:1080px){.aexisbar .alinks{display:none}.aexisbar .aburger{display:flex}}
+.drawer{position:fixed;inset:0;z-index:170;background:rgba(11,15,23,.97);backdrop-filter:blur(10px);display:flex;flex-direction:column;justify-content:center;gap:2px;padding:42px 38px;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);visibility:hidden;overflow-y:auto}
+.drawer.open{transform:none;visibility:visible}
+.drawer .dlabel{font-family:'Space Mono';font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.drawer a{color:#fff;font-family:'Space Grotesk';font-size:21px;font-weight:600;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1);letter-spacing:-.01em;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.drawer a:hover{color:var(--teal);text-decoration:none}.drawer a.cur{color:var(--teal)}.drawer a.home{color:var(--teal)}
+.drawer a span{font-family:'Space Mono';font-size:11px;color:var(--muted-light);font-weight:400}
+.drawer .close{position:absolute;top:20px;right:26px;font-size:24px;color:#fff;background:none;border:0;cursor:pointer;font-family:'Space Grotesk'}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+section{padding:72px 0;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:'Space Mono';font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--violet);font-weight:700}
+h2.s{font-size:clamp(26px,3.6vw,40px);margin:10px 0 6px}
+.deck{color:var(--muted);font-size:18px;max-width:680px;margin-bottom:24px}
+p{margin-bottom:14px}section p,section li{font-size:16px;color:#2A3242}
+strong{color:var(--ink);font-weight:600}
+.kp{display:flex;gap:16px;align-items:flex-start;background:var(--violet-soft);border-left:4px solid var(--violet);border-radius:0 14px 14px 0;padding:20px 24px;margin:0 0 28px}
+.kp.teal{background:var(--teal-soft);border-color:var(--teal)}
+.kp .lbl{font-family:'Space Mono';font-size:10px;letter-spacing:.13em;font-weight:700;color:var(--violet-2);text-transform:uppercase;flex:0 0 auto;margin-top:6px}
+.kp.teal .lbl{color:var(--teal-2)}
+.kp p{margin:0;font-family:'Space Grotesk';font-weight:500;font-size:21px;color:var(--ink);line-height:1.36}
+.hero{background:var(--ink);color:#fff;padding:128px 0 70px;position:relative;overflow:hidden;border:none}
+.hero .wrap{position:relative;z-index:2}
+.hero .tag{font-family:'Space Mono';letter-spacing:.2em;color:var(--teal);font-size:12.5px;text-transform:uppercase}
+.hero h1{font-size:clamp(34px,5.2vw,58px);font-weight:700;color:#fff;letter-spacing:-.03em;margin:14px 0}
+.hero h1 .g{background:linear-gradient(90deg,#9B6BFF,#00C2A8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#C2C9D6;font-size:19px;max-width:660px}
+.glow{position:absolute;border-radius:50%;filter:blur(95px)}
+.glow.v{width:500px;height:500px;background:#5B2EFF;opacity:.4;top:-160px;right:-100px}
+.glow.t{width:380px;height:380px;background:#00C2A8;opacity:.2;bottom:-160px;left:-120px}
+/* usp cards */
+.usp{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:840px){.usp{grid-template-columns:1fr}}
+.ucard{position:relative;border:1px solid var(--line);border-radius:var(--r);padding:26px;background:#fff;box-shadow:var(--shadow);transition:.25s}
+.ucard:hover{transform:translateY(-3px);border-color:var(--violet)}
+.ucard .no{font-family:'Space Mono';font-size:11px;color:var(--violet-2);font-weight:700;letter-spacing:.1em}
+.ucard h3{font-size:20px;margin:8px 0 8px;color:var(--ink)}
+.ucard p{font-size:14.5px;color:var(--muted);margin:0}
+.ucard .pf{font-family:'Space Mono';font-size:11px;color:var(--teal-2);font-weight:700;margin-top:12px;display:inline-flex;align-items:center;gap:7px}
+.ucard.lead{grid-column:1 / -1;background:linear-gradient(120deg,var(--ink),var(--ink-2));border:0;color:#fff}
+.ucard.lead h3{color:#fff;font-size:23px}.ucard.lead p{color:#C2C9D6;font-size:15.5px}.ucard.lead .no{color:var(--teal-br,#3FE9CE)}
+/* comparison */
+table{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0 12px;background:#fff}
+th,td{text-align:left;padding:12px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-family:'Space Mono';font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700}
+th.ax,td.ax{background:var(--violet-soft)}
+th.ax{color:var(--violet-2)}
+td.c{text-align:center;font-weight:700}
+.yes{color:#067a6b}.no{color:#c0173a}.mid{color:#9a6500}
+td:first-child{font-weight:600;color:var(--ink)}
+.note{font-family:'Space Mono';font-size:11px;color:var(--muted-light);letter-spacing:.03em;margin-top:6px}
+.reveal{opacity:0;transform:translateY(18px);transition:.7s cubic-bezier(.2,.7,.2,1)}.reveal.in{opacity:1;transform:none}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;padding:12px 22px;border-radius:100px;border:1px solid transparent;cursor:pointer}
+.btn.p{background:var(--violet);color:#fff}.btn.p:hover{background:var(--violet-2);text-decoration:none}
+.btn.g{background:transparent;border-color:var(--line);color:var(--ink)}.btn.g:hover{border-color:var(--ink);text-decoration:none}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.panel{background:var(--ink);color:#fff;border-radius:var(--r-lg);padding:38px;position:relative;overflow:hidden}
+.panel h3{color:#fff;font-size:23px;margin-bottom:10px}.panel p{color:#C2C9D6;margin:0}.panel .accent{color:var(--teal)}
+.pill{display:inline-flex;align-items:center;gap:7px;font-family:'Space Mono';font-size:10.5px;letter-spacing:.06em;padding:6px 12px;border-radius:100px;text-transform:uppercase;font-weight:700;background:var(--ink-3);color:#fff}
+footer{background:var(--ink);color:#AEB6C6;padding:46px 0;font-size:13px;border:none}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center}
+.fbrand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:700;letter-spacing:.18em;font-size:14px;color:#fff}
+.fbrand svg{width:28px;height:28px;border-radius:8px}
+@media(max-width:1080px){section{padding:54px 0}.wrap{padding:0 20px}.cmp-wrap{overflow-x:auto}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div class="aexisbar" id="aexisbar">
+  <div class="pill">
+    <a class="abrand" href="index.html" aria-label="AEXIS"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="mab" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#9B6BFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0B0F1A"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#mab)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</a>
+    <nav class="alinks" aria-label="AEXIS site">
+      <a href="homepage.html">Homepage</a>
+      <a href="index.html">Overview</a>
+      <a href="usp.html" class="cur">USP</a>
+      <a href="business-plan.html">Plan</a>
+      <a href="plan-of-action.html">Strategy</a>
+      <a href="audit.html">Audit</a>
+      <a href="business-canvas.html">Canvas</a>
+      <a href="sample-audit.html">Sample</a>
+      <a href="financial-model.html">Revenue</a>
+      <a href="brand-identity.html">Brand</a>
+      <a href="pitch-deck.html">Deck</a>
+      <a href="research/market-research.md">Research</a>
+    </nav>
+    <button class="aburger" id="aburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</div>
+<div class="drawer" id="drawer">
+  <button class="close" id="drawerClose" aria-label="Close menu">✕ Close</button>
+  <div class="dlabel">AEXIS · Investor Package</div>
+  <a href="homepage.html" class="home">Homepage <span>Live sales funnel ↗</span></a>
+  <a href="index.html">Overview <span>Home</span></a>
+  <a href="usp.html" class="cur">Why We Win <span>USP</span></a>
+  <a href="business-plan.html">Business Plan <span>Full case</span></a>
+  <a href="plan-of-action.html">Strategy &amp; Plan of Action <span>go-to-market + timeline</span></a>
+  <a href="audit.html">The Audit <span>Method + deliverables</span></a>
+  <a href="business-canvas.html">Business Model Canvas <span>One page</span></a>
+  <a href="sample-audit.html">Sample Audit <span>Example report</span></a>
+  <a href="financial-model.html">Financials &amp; Revenue <span>Years 1–3</span></a>
+  <a href="brand-identity.html">Brand System <span>Design</span></a>
+  <a href="pitch-deck.html">Pitch Deck <span>13 slides</span></a>
+  <a href="research/market-research.md">Research <span>Sourced</span></a>
+</div>
+
+<header class="hero">
+  <div class="glow v"></div><div class="glow t"></div>
+  <div class="wrap">
+    <div class="tag">Why We Win · Unique Selling Proposition</div>
+    <h1>Everyone covers one corner.<br>We cover the <span class="g">whole picture</span>.</h1>
+    <p>Six things make AEXIS the obvious choice for a regulated mid-market firm in the AI era — and no competitor combines them.</p>
+  </div>
+</header>
+
+<!-- 1 THE USPs -->
+<section id="usps">
+  <div class="wrap">
+    <div class="eyebrow reveal">01 — What makes us different</div>
+    <h2 class="s reveal">Six reasons to pick AEXIS.</h2>
+    <p class="deck reveal">Each is a real, defensible edge — with the proof point that backs it.</p>
+    <div class="usp">
+      <div class="ucard lead reveal">
+        <div class="no">THE ONE-LINER</div>
+        <h3>The only AI-era cyber audit built for the mid-market — that you never hand the keys to.</h3>
+        <p>AI-native testing, board-and-team deliverables, compliance built in, across markets, at a price the mid-market can sign — and we earn access in stages, so you never expose your systems to a stranger.</p>
+      </div>
+      <div class="ucard reveal"><div class="no">USP 01</div><h3>AI-native, not bolted on</h3><p>We attack the way AI now attacks — senior experts directing AI engineers at machine speed. Rivals run yesterday's manual checklist against today's threat.</p><span class="pf">✓ Built on the Mythos-era threat model</span></div>
+      <div class="ucard reveal"><div class="no">USP 02</div><h3>You never hand over the keys</h3><p>We start with a free outside-in snapshot (zero access), then earn access in stages — least-privilege, read-only, revocable, fully logged. The #1 objection, removed.</p><span class="pf">✓ Free snapshot → scoped → deep</span></div>
+      <div class="ucard reveal"><div class="no">USP 03</div><h3>For the board <em>and</em> the security team</h3><p>One exposure score and a decision for the board; a full findings register and worklist for the team. Same truth, two altitudes.</p><span class="pf">✓ Two readers, one report</span></div>
+      <div class="ucard reveal"><div class="no">USP 04</div><h3>Mid-market price &amp; speed</h3><p>Fixed price, 4–6 weeks, from €7,500 to start. The Big-4 are priced and paced for the enterprise; we're built for the firms they ignore.</p><span class="pf">✓ Fast, fixed, affordable</span></div>
+      <div class="ucard reveal"><div class="no">USP 05</div><h3>One provider, many markets</h3><p>Germany, the UK and Singapore (APAC test live) under one roof — one score, one compliance pack across jurisdictions. No stitching together local vendors.</p><span class="pf">✓ Cross-border, single vendor</span></div>
+      <div class="ucard reveal"><div class="no">USP 06</div><h3>Compliance built in</h3><p>Every finding mapped to NIS2 / DORA / CSA / MAS as it's produced — audit-ready evidence by default, not a separate project.</p><span class="pf">✓ Evidence as a product</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 VS ALTERNATIVES -->
+<section id="vs" style="background:var(--surface-2)">
+  <div class="wrap">
+    <div class="eyebrow reveal">02 — Versus the alternatives</div>
+    <h2 class="s reveal">No one else ticks every box.</h2>
+    <p class="deck reveal">The honest head-to-head a buyer makes in their head.</p>
+    <div class="cmp-wrap reveal">
+    <table>
+      <thead><tr><th>What matters to a mid-market buyer</th><th class="c">Big-4 / Accenture</th><th class="c">Local pure-play</th><th class="c">AI-tool startup</th><th class="c ax">AEXIS</th></tr></thead>
+      <tbody>
+        <tr><td>Built for AI-era attacks</td><td class="c mid">~</td><td class="c no">✕</td><td class="c yes">✓</td><td class="c ax yes">✓</td></tr>
+        <tr><td>Mid-market price &amp; speed</td><td class="c no">✕</td><td class="c yes">✓</td><td class="c mid">~</td><td class="c ax yes">✓</td></tr>
+        <tr><td>No "hand over the keys" barrier</td><td class="c no">✕</td><td class="c no">✕</td><td class="c mid">~</td><td class="c ax yes">✓</td></tr>
+        <tr><td>Board <em>and</em> technical deliverables</td><td class="c mid">~</td><td class="c mid">~</td><td class="c no">✕</td><td class="c ax yes">✓</td></tr>
+        <tr><td>One provider across DE · UK · SG</td><td class="c yes">✓</td><td class="c no">✕</td><td class="c no">✕</td><td class="c ax yes">✓</td></tr>
+        <tr><td>Compliance evidence built in</td><td class="c yes">✓</td><td class="c mid">~</td><td class="c no">✕</td><td class="c ax yes">✓</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note reveal">✓ strong · ~ partial · ✕ weak / not offered. Big firms win on brand and breadth but lose on price, speed and the AI-native model; local firms are single-country and classical; AI-tool vendors secure the AI stack, not the whole estate.</p>
+    <div class="panel reveal" style="margin-top:24px">
+      <span class="pill" style="margin-bottom:12px">The edge</span>
+      <h3>Doing all of it at once is the defensible position.</h3>
+      <p style="margin-top:8px;max-width:760px">Any one edge can be copied. <span class="accent">All six together — AI-native + mid-market + access-light + dual-audience + cross-border + compliance-built-in — is what no incumbent can quickly assemble.</span> That overlap is where AEXIS lives.</p>
+    </div>
+    <div class="cta reveal">
+      <a class="btn p" href="business-plan.html">See the full business case →</a>
+      <a class="btn g" href="audit.html">How the audit works</a>
+      <a class="btn g" href="homepage.html">The live homepage</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fbrand"><svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="mf" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3DFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#11151F"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#mf)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</div>
+    <div style="font-family:'Space Mono';font-size:11px;color:var(--muted-light)">Why We Win · Unique Selling Proposition · © 2026</div>
+  </div>
+</footer>
+<script>
+const bar=document.getElementById('bar');
+addEventListener('scroll',()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';document.getElementById('aexisbar').classList.toggle('is-scrolled',scrollY>20)});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const aburger=document.getElementById('aburger'),drawer=document.getElementById('drawer'),dc=document.getElementById('drawerClose');
+aburger.addEventListener('click',()=>drawer.classList.add('open'));
+dc.addEventListener('click',()=>drawer.classList.remove('open'));
+drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>drawer.classList.remove('open')));
+addEventListener('keydown',e=>{if(e.key==='Escape')drawer.classList.remove('open')});
+</script>
+</body>
+</html>
