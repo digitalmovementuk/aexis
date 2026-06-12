@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AEXIS — Sales Funnel &amp; Conversion Paths</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0F17;--ink-2:#11151F;--ink-3:#1A2030;
+  --surface:#FFFFFF;--surface-2:#F4F6FA;--surface-3:#EAEEF5;--line:#E2E6EE;
+  --muted:#5A6473;--muted-light:#9AA3B2;
+  --violet:#6B2BF6;--violet-2:#3D1FD6;--violet-soft:#EFE9FF;
+  --teal:#00C2A8;--teal-2:#067a6b;--teal-soft:#E0F7F3;--amber:#FFB020;--amber-soft:#FFF4E0;--amber-2:#9a6500;--rose:#FF4D6D;--rose-soft:#FFEEF1;
+  --maxw:1080px;--r:16px;--r-lg:24px;--shadow:0 1px 2px rgba(11,15,23,.04),0 12px 32px -12px rgba(11,15,23,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--surface);line-height:1.65;-webkit-font-smoothing:antialiased;font-size:16.5px}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;letter-spacing:-.02em;line-height:1.1;font-weight:600}
+.mono{font-family:'Space Mono',monospace}
+a{color:var(--violet);text-decoration:none}a:hover{text-decoration:underline}
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--violet),var(--teal));z-index:200;transition:width .1s}
+/* ===== OVERARCHING AEXIS SITE BAR (identical on every page) ===== */
+.aexisbar{position:fixed;top:0;left:0;right:0;z-index:120;background:#fff;border-bottom:1px solid rgba(11,15,23,.08);box-shadow:0 8px 28px -22px rgba(11,15,23,.35);display:flex;justify-content:center;padding:9px 16px}
+.aexisbar.is-scrolled{box-shadow:0 10px 30px -18px rgba(11,15,23,.3)}
+.aexisbar .pill{width:100%;max-width:1280px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px}
+.aexisbar .abrand{display:flex;align-items:center;gap:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.2em;font-size:12.5px;color:#0B0F17;white-space:nowrap;text-decoration:none}
+.aexisbar .abrand:hover{text-decoration:none}
+.aexisbar .abrand svg{width:27px;height:27px;border-radius:8px}
+.aexisbar .alinks{display:flex;gap:4px;align-items:center;justify-content:center}
+.aexisbar .alinks a{font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:500;line-height:1;color:#fff;background:#11151F;padding:8px 10px;border-radius:100px;transition:.22s cubic-bezier(.2,.7,.2,1);white-space:nowrap;text-decoration:none}
+.aexisbar .alinks a:hover{background:#6B2BF6;transform:translateY(-1px);text-decoration:none}
+.aexisbar .alinks a.cur{background:#00C2A8;color:#04241f;font-weight:600}
+.aexisbar .aburger{display:none;width:42px;height:42px;border-radius:100px;border:0;background:#11151F;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer}
+.aexisbar .aburger span{width:18px;height:2px;background:#fff;border-radius:2px}
+@media(max-width:1080px){.aexisbar .alinks{display:none}.aexisbar .aburger{display:flex}}
+.drawer{position:fixed;inset:0;z-index:170;background:rgba(11,15,23,.97);backdrop-filter:blur(10px);display:flex;flex-direction:column;justify-content:center;gap:2px;padding:42px 38px;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);visibility:hidden;overflow-y:auto}
+.drawer.open{transform:none;visibility:visible}
+.drawer .dlabel{font-family:'Space Mono';font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.drawer a{color:#fff;font-family:'Space Grotesk';font-size:21px;font-weight:600;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1);letter-spacing:-.01em;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.drawer a:hover{color:var(--teal);text-decoration:none}.drawer a.cur{color:var(--teal)}.drawer a.home{color:var(--teal)}
+.drawer a span{font-family:'Space Mono';font-size:11px;color:var(--muted-light);font-weight:400}
+.drawer .close{position:absolute;top:20px;right:26px;font-size:24px;color:#fff;background:none;border:0;cursor:pointer;font-family:'Space Grotesk'}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+section{padding:64px 0;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:'Space Mono';font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--violet);font-weight:700}
+h2.s{font-size:clamp(24px,3.2vw,34px);margin:10px 0 8px}
+.deck{color:var(--muted);font-size:17.5px;max-width:720px;margin-bottom:22px}
+p{margin-bottom:14px}section p,section li{font-size:16px;color:#2A3242}
+strong{color:var(--ink);font-weight:600}
+ul{margin:0 0 16px 22px}
+li{padding:4px 0}
+.quote{border-left:4px solid var(--teal);background:var(--teal-soft);border-radius:0 14px 14px 0;padding:16px 20px;margin:0 0 22px;font-style:italic;color:#1d4a43;font-size:16px}
+.kp{display:flex;gap:16px;align-items:flex-start;background:var(--violet-soft);border-left:4px solid var(--violet);border-radius:0 14px 14px 0;padding:16px 20px;margin:18px 0}
+.kp.teal{background:var(--teal-soft);border-color:var(--teal)}
+.kp .lbl{font-family:'Space Mono';font-size:10px;letter-spacing:.13em;font-weight:700;color:var(--violet-2);text-transform:uppercase;flex:0 0 auto;margin-top:5px}
+.kp.teal .lbl{color:var(--teal-2)}
+.kp p{margin:0;font-family:'Space Grotesk';font-weight:500;font-size:18px;color:var(--ink);line-height:1.4}
+.hero{background:var(--ink);color:#fff;padding:124px 0 66px;position:relative;overflow:hidden;border:none}
+.hero .wrap{position:relative;z-index:2}
+.hero .tag{font-family:'Space Mono';letter-spacing:.2em;color:var(--teal);font-size:12.5px;text-transform:uppercase}
+.hero h1{font-size:clamp(32px,4.8vw,54px);font-weight:700;color:#fff;letter-spacing:-.03em;margin:14px 0}
+.hero h1 .g{background:linear-gradient(90deg,#9B6BFF,#00C2A8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#C2C9D6;font-size:18.5px;max-width:700px;line-height:1.55}
+.glow{position:absolute;border-radius:50%;filter:blur(95px)}
+.glow.v{width:500px;height:500px;background:#5B2EFF;opacity:.4;top:-160px;right:-100px}
+.glow.t{width:360px;height:360px;background:#00C2A8;opacity:.2;bottom:-150px;left:-120px}
+/* funnel */
+.funnel{display:flex;flex-direction:column;gap:0;margin-top:10px;max-width:860px}
+.fs{display:flex;gap:18px;align-items:flex-start;position:relative;padding-bottom:22px}
+.fs:not(:last-child)::after{content:"";position:absolute;left:23px;top:50px;bottom:-2px;width:2px;background:linear-gradient(var(--violet),var(--teal));opacity:.35}
+.fs .no{flex:0 0 48px;height:48px;border-radius:13px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk';font-weight:700;z-index:1}
+.fs .bd{flex:1;padding-top:2px}
+.fs h4{font-size:17.5px;margin-bottom:3px}
+.fs p{font-size:14.5px;color:var(--muted);margin:0}
+.fs .own{font-family:'Space Mono';font-size:10.5px;color:var(--teal-2);font-weight:700;letter-spacing:.05em;margin-top:7px;display:inline-block;background:var(--teal-soft);padding:4px 10px;border-radius:100px}
+.fs .kpi{font-family:'Space Mono';font-size:10.5px;color:var(--violet-2);font-weight:700;letter-spacing:.05em;margin:7px 0 0 8px;display:inline-block;background:var(--violet-soft);padding:4px 10px;border-radius:100px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}.g4{grid-template-columns:repeat(2,1fr)}
+@media(max-width:860px){.g2,.g4{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow)}
+.card h3{font-size:17px;margin-bottom:7px}.card p{font-size:14.5px;color:var(--muted);margin:0}
+.card .n{font-family:'Space Mono';font-size:10.5px;color:var(--violet);font-weight:700;letter-spacing:.08em}
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin:10px 0 14px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:'Space Mono';font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:700}
+td:first-child{font-weight:600;color:var(--ink)}
+tr:last-child td{border-bottom:0}
+.note{font-family:'Space Mono';font-size:11px;color:var(--muted-light);letter-spacing:.03em}
+.panel{background:var(--ink);color:#fff;border-radius:var(--r-lg);padding:32px;position:relative;overflow:hidden;margin-top:8px}
+.panel h3{color:#fff;font-size:20px;margin-bottom:10px}.panel p{color:#C2C9D6;margin:0;font-size:15.5px}.panel .accent{color:var(--teal)}
+.reveal{opacity:0;transform:translateY(16px);transition:.6s cubic-bezier(.2,.7,.2,1)}.reveal.in{opacity:1;transform:none}
+footer{background:var(--ink);color:#AEB6C6;padding:44px 0;font-size:13px;border:none}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center}
+.fbrand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:700;letter-spacing:.18em;font-size:14px;color:#fff}
+.fbrand svg{width:28px;height:28px;border-radius:8px}
+@media(max-width:1080px){section{padding:48px 0}.wrap{padding:0 20px}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div class="aexisbar" id="aexisbar">
+  <div class="pill">
+    <a class="abrand" href="index.html" aria-label="AEXIS"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="mab" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#9B6BFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0B0F1A"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#mab)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</a>
+    <nav class="alinks" aria-label="AEXIS site">
+      <a href="homepage.html">Landing page</a>
+      <a href="index.html">Overview</a>
+      <a href="usp.html">USP</a>
+      <a href="business-plan.html">Plan</a>
+      <a href="sales-funnel.html" class="cur">Sales funnel</a>
+      <a href="staff.html">Staff</a>
+      <a href="audit.html">Audit</a>
+      <a href="business-canvas.html">Canvas</a>
+      <a href="sample-audit.html">Sample</a>
+      <a href="financial-model.html">Revenue</a>
+      <a href="brand-identity.html">Brand</a>
+      <a href="pitch-deck.html">Deck</a>
+      <a href="qa.html">Q&amp;A</a>
+      <a href="research/market-research.md">Research</a>
+    </nav>
+    <button class="aburger" id="aburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</div>
+<div class="drawer" id="drawer">
+  <button class="close" id="drawerClose" aria-label="Close menu">✕ Close</button>
+  <div class="dlabel">AEXIS · Investor Package</div>
+  <a href="homepage.html" class="home">Landing page <span>Live funnel ↗</span></a>
+  <a href="index.html">Overview <span>Home</span></a>
+  <a href="usp.html">Why We Win <span>USP</span></a>
+  <a href="business-plan.html">The Plan <span>Full pitch</span></a>
+  <a href="sales-funnel.html" class="cur">Sales Funnel <span>Conversion paths</span></a>
+  <a href="staff.html">Staff <span>Who delivers</span></a>
+  <a href="audit.html">The Audit <span>Method</span></a>
+  <a href="business-canvas.html">Business Model Canvas <span>One page</span></a>
+  <a href="sample-audit.html">Sample Audit <span>Example</span></a>
+  <a href="financial-model.html">Financials &amp; Revenue <span>Years 1–3</span></a>
+  <a href="brand-identity.html">Brand System <span>Design</span></a>
+  <a href="pitch-deck.html">Pitch Deck <span>Slides</span></a>
+  <a href="qa.html">Founder Q&amp;A <span>Catalogue</span></a>
+  <a href="research/market-research.md">Research <span>Sourced</span></a>
+</div>
+
+<header class="hero">
+  <div class="glow v"></div><div class="glow t"></div>
+  <div class="wrap">
+    <div class="tag">Sales Funnel · AEXIS</div>
+    <h1>The sales funnel — and whether it beats <span class="g">launching DM instead</span>.</h1>
+    <p>Every stage from ad to recurring revenue, the conversion numbers we'll measure, and the honest comparison Martey asked for: is an AEXIS client worth more than a digital-marketing client in the same market?</p>
+  </div>
+</header>
+
+<!-- 0 THE QUESTION -->
+<section id="question">
+  <div class="wrap">
+    <div class="eyebrow reveal">01 — The question this tab answers</div>
+    <h2 class="s reveal">Is AEXIS worth a new operation — or should DM just enter these markets?</h2>
+    <div class="quote reveal">"Any form of security would need to be ongoing, so a subscription based model could work. I'm intrigued as to what the value is for the services we'd be targeting — because if it's not equal to what we can offer digital marketing for, it would make more sense for me to launch into those markets with DM instead of undertaking a whole new operation." — Martey, 12 Jun 2026</div>
+    <p class="reveal">Right instinct on both counts: security <strong>is</strong> ongoing (that's Shield), and the opportunity-cost question is the correct one to ask before committing. This tab lays out the funnel, the conversion paths, and the value comparison — so the decision is made on numbers, not enthusiasm.</p>
+  </div>
+</section>
+
+<!-- 1 FUNNEL -->
+<section id="funnel" style="background:var(--surface-2)">
+  <div class="wrap">
+    <div class="eyebrow reveal">02 — The funnel, stage by stage</div>
+    <h2 class="s reveal">From Meta ad to recurring revenue in seven stages.</h2>
+    <div class="funnel reveal">
+      <div class="fs"><div class="no">1</div><div class="bd"><h4>Meta ads — one campaign per market</h4><p>Localised campaigns in Germany, the UK and Singapore. A/B creative, message and audience. €1,000 per market per month.</p><span class="own">Owner: Raoul</span><span class="kpi">Measure: cost per click</span></div></div>
+      <div class="fs"><div class="no">2</div><div class="bd"><h4>Dedicated landing page per market</h4><p>One job: turn the click into a booked call. Pain-led hero, one CTA, sample report as proof.</p><span class="own">Owner: Raoul</span><span class="kpi">Measure: visit → booking rate</span></div></div>
+      <div class="fs"><div class="no">3</div><div class="bd"><h4>Self-booked appointment</h4><p>The lead schedules their own call straight from the landing page — no form-and-wait, no friction.</p><span class="own">Owner: funnel (automatic)</span><span class="kpi">Measure: bookings · show rate</span></div></div>
+      <div class="fs"><div class="no">4</div><div class="bd"><h4>Sales call</h4><p>Martey takes the call as sales lead: scope the need, quote the fixed entry price, close the audit.</p><span class="own">Owner: Martey</span><span class="kpi">Measure: call → signed audit</span></div></div>
+      <div class="fs"><div class="no">5</div><div class="bd"><h4>The audit (Signal)</h4><p>Handoff to Abhishek and the delivery bench. 4–6 weeks, fixed price €7.5–9.5k entry. The audit itself is the best sales asset for what follows.</p><span class="own">Owner: Abhishek</span><span class="kpi">Measure: delivery time · client satisfaction</span></div></div>
+      <div class="fs"><div class="no">6</div><div class="bd"><h4>Shield conversion — the subscription</h4><p>The audit ends with a fix plan that needs ongoing protection. Plan assumption: ~45% of audit clients convert to the monthly retainer (~€90k/yr).</p><span class="own">Owner: Martey + Raoul</span><span class="kpi">Measure: audit → retainer %</span></div></div>
+      <div class="fs"><div class="no">7</div><div class="bd"><h4>Scale the winner with SEO</h4><p>After ~3–4 months we pick the winning market and run a full SEO campaign through Digital Movement — organic leads feeding the same funnel.</p><span class="own">Owner: Raoul + DM</span><span class="kpi">Measure: organic leads · cost per audit</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 CONVERSION PATH -->
+<section id="conversion">
+  <div class="wrap">
+    <div class="eyebrow reveal">03 — Conversion paths &amp; decision gates</div>
+    <h2 class="s reveal">What we measure at each step, and when we decide.</h2>
+    <p class="deck reveal">The MVP is a measurement machine: every stage has one number, and after 90 days the numbers pick the market.</p>
+    <table class="reveal">
+      <thead><tr><th>Path step</th><th>The number</th><th>What it tells us</th></tr></thead>
+      <tbody>
+        <tr><td>Ad → landing page</td><td>Cost per click, per market</td><td>Which market's pain message bites</td></tr>
+        <tr><td>Landing → booked call</td><td>Booking rate</td><td>Whether the page converts (and at what cost per call)</td></tr>
+        <tr><td>Booked → showed</td><td>Show rate</td><td>Lead quality per market</td></tr>
+        <tr><td>Call → signed audit</td><td>Close rate · price acceptance</td><td>Whether €7.5–9.5k entry is the right wedge</td></tr>
+        <tr><td>Audit → Shield</td><td>Retainer conversion %</td><td>The number the whole model stands on (plan: ~45%)</td></tr>
+      </tbody>
+    </table>
+    <div class="kp reveal"><span class="lbl">Decision gate</span><p>Month 3–4: review all five numbers per market → pick the winner → set the real price and scope → reallocate the full budget and start SEO there.</p></div>
+    <p class="note reveal">Conversion paths beyond ads: the audit report itself (every reader is a warm lead), referral channels (insurers, accountants, auditors who require proof), and DM's existing AU client base for warm intros.</p>
+  </div>
+</section>
+
+<!-- 3 VALUE COMPARISON -->
+<section id="value" style="background:var(--surface-2)">
+  <div class="wrap">
+    <div class="eyebrow reveal">04 — Value per client: AEXIS vs digital marketing</div>
+    <h2 class="s reveal">What one won client is worth — the comparison Martey asked for.</h2>
+    <p class="reveal">Plan-stage arithmetic for one closed audit client in Year 1 (entry pricing):</p>
+    <table class="reveal">
+      <thead><tr><th>Component</th><th>Value</th><th>Basis</th></tr></thead>
+      <tbody>
+        <tr><td>The audit (Signal)</td><td>€7,500–9,500 one-off</td><td>Year-1 entry price</td></tr>
+        <tr><td>Shield retainer</td><td>~€90,000 / year ≈ €7,500 / month</td><td>Plan assumption, scaled to client size</td></tr>
+        <tr><td>Chance of converting</td><td>~45%</td><td>Plan assumption — the MVP tests it</td></tr>
+        <tr><td><strong>Expected first-year value per audit won</strong></td><td><strong>≈ €48,000</strong></td><td>€7.5k + 45% × €90k</td></tr>
+      </tbody>
+    </table>
+    <p class="reveal">And the retainer <strong>renews</strong> — a converted client is ~€90k <em>per year</em>, with Continuum software revenue on top from Year 2. So the honest comparison for Martey is: <strong>one AEXIS Shield client ≈ €7,500/month recurring. How many DM retainers equal that — and how long do they take to win and keep?</strong> Run your own AU retainer numbers against that line; that's the decision.</p>
+    <div class="grid g2">
+      <div class="card reveal"><div class="n">WHY THE BUDGET IS FORCED</div><h3>Security spend is mandatory; marketing is discretionary</h3><p>NIS2, DORA, CSA and MAS make defence a legal requirement with board liability. A cyber audit is bought from the compliance budget — it survives downturns that cut marketing first.</p></div>
+      <div class="card reveal"><div class="n">PRICING POWER</div><h3>A €30bn market the mid-tier can't buy from</h3><p>The Big-4 price out the mid-market; local firms sell yesterday's manual testing. The buyer has budget and few good options — the opposite of the crowded agency market.</p></div>
+    </div>
+    <div class="kp teal reveal"><span class="lbl">Honest caveat</span><p>These are plan assumptions, not results. The MVP exists to produce the real numbers in 90 days for ~€9k of ad spend — the cheapest possible way to answer this question with data instead of opinion.</p></div>
+  </div>
+</section>
+
+<!-- 4 NOT A WHOLE NEW OPERATION -->
+<section id="operation">
+  <div class="wrap">
+    <div class="eyebrow reveal">05 — "A whole new operation"? Mostly not</div>
+    <h2 class="s reveal">The sales side is DM's playbook. Only delivery is new — and it's hired, not built.</h2>
+    <div class="grid g2">
+      <div class="card reveal"><div class="n">ALREADY OURS — DM SKILLS</div><h3>Meta ads · landing pages · SEO · sales calls</h3><p>Stages 1–4 and 7 of the funnel are exactly what DM does every day. Raoul builds, Martey sells. Zero new capability needed.</p></div>
+      <div class="card reveal"><div class="n">GENUINELY NEW — DELIVERY</div><h3>The security bench</h3><p>Senior offshore specialists (~USD 2,500/mo all-in) hired only against signed contracts, led by Abhishek. This is precisely what the Indian team can scope — see the <a href="staff.html">Staff tab</a>.</p></div>
+    </div>
+    <p class="reveal" style="margin-top:16px">And it's <strong>not either/or</strong>: the scale phase literally <em>is</em> DM entering the winning market — with a productised, regulation-forced, recurring offer to sell instead of (or alongside) agency retainers. AEXIS gives the DM machine a second product with a compliance budget behind it.</p>
+  </div>
+</section>
+
+<!-- 5 FOUR LENSES -->
+<section id="lenses" style="background:var(--surface-2)">
+  <div class="wrap">
+    <div class="eyebrow reveal">06 — Competition · market · sales · business development</div>
+    <h2 class="s reveal">The four commercial lenses, one screen each.</h2>
+    <div class="grid g4">
+      <div class="card reveal"><div class="n">COMPETITION</div><h3>A thin middle, and we sit in it</h3><p>Big-4 too expensive and slow for the mid-market; local pure-plays single-country and manual; AI-tool startups secure only the AI stack. Nobody combines AI-native testing + mid-market price + compliance evidence — the <a href="usp.html">USP tab</a> has the head-to-head.</p></div>
+      <div class="card reveal"><div class="n">MARKET</div><h3>~€30bn, growing, regulation-forced</h3><p>Germany: the biggest economy, ~$150bn/yr cyber damage to mid-sized firms. UK: 2,600+ relevant firms, new cyber law incoming. Singapore: fastest-growing, strictly regulated. Demand is created by law, not by persuasion.</p></div>
+      <div class="card reveal"><div class="n">SALES</div><h3>Short cycle by design</h3><p>Fixed entry price under the procurement-approval threshold, self-booked calls, fixed 4–6-week delivery. The audit is a low-commitment first yes; the regulation deadline does the urgency for us.</p></div>
+      <div class="card reveal"><div class="n">BUSINESS DEVELOPMENT</div><h3>Every audit opens three doors</h3><p>The fix plan sells Shield; the report creates referrals (insurers, auditors, accountants who demand proof); the delivery data trains Continuum. Plus DM AU's warm client base as the first referral channel.</p></div>
+    </div>
+    <div class="panel reveal" style="margin-top:22px">
+      <h3>The bottom line for Martey</h3>
+      <p>Same funnel skills you already have, a second product with a <span class="accent">mandatory budget</span> behind it, a client value of <span class="accent">~€48k expected in year one</span> (plan), recurring after that — and a 90-day, €9k test that produces the real numbers before anyone commits to a "whole new operation."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 TEN MILLION -->
+<section id="tenmillion">
+  <div class="wrap">
+    <div class="eyebrow reveal">07 — The question behind the question</div>
+    <h2 class="s reveal">What it takes to be worth €10 million.</h2>
+    <div class="quote reveal">"What do we need to become a €10M-valued company, realistically?" — the question behind the DM-vs-AEXIS comparison.</div>
+    <p class="reveal">Service and security businesses are valued two main ways — and the plan already maps onto both. Rule-of-thumb multiples (validate with an advisor at the time): security/managed services trade at roughly <strong>6–10× EBITDA</strong>, recurring security revenue at roughly <strong>2–4× ARR</strong>, software meaningfully higher.</p>
+    <table class="reveal">
+      <thead><tr><th>Route to €10M</th><th>What it requires</th><th>Where the plan stands</th></tr></thead>
+      <tbody>
+        <tr><td>Profit route — ~7× EBITDA</td><td>~€1.4M EBITDA</td><td>The plan's Year 2: €3.5M revenue, €1.39M EBITDA (40% margin)</td></tr>
+        <tr><td>Recurring route — ~2–3× ARR</td><td>~€3.5–5M recurring revenue</td><td>Plan Year 3: Shield €4.3M + Continuum €1.5M recurring</td></tr>
+      </tbody>
+    </table>
+    <p class="reveal">Translated into things we can actually count (plan-stage figures from the <a href="financial-model.html">Revenue tab</a>):</p>
+    <ul class="reveal">
+      <li><strong>~17 Shield retainers</strong> (~€90k each) plus <strong>~85 audits a year</strong> at ~€20k Year-2 pricing — in one winning market, fed by this funnel.</li>
+      <li><strong>~16 delivery experts</strong> offshore, hired against signed contracts — delivery stays variable-cost, margin holds.</li>
+      <li><strong>The funnel running on SEO</strong>, not just paid ads — DM's machine making lead flow compounding instead of bought.</li>
+      <li><strong>Audit→Shield conversion holding ~45%</strong> — the single number the valuation stands on; the MVP's job is to prove it.</li>
+    </ul>
+    <div class="grid g2">
+      <div class="card reveal"><div class="n">VALUATION LEVER 1</div><h3>Recurring share</h3><p>One-off audit revenue is valued like an agency; Shield ARR is valued 2–4×. Every point of audit→retainer conversion moves the multiple, not just the revenue.</p></div>
+      <div class="card reveal"><div class="n">VALUATION LEVER 2</div><h3>Software share</h3><p>Continuum re-rates the company from "services" toward "software" multiples — the same revenue is worth more. That's why it's built from Year 1 as internal tooling.</p></div>
+      <div class="card reveal"><div class="n">VALUATION LEVER 3</div><h3>Founder-independence</h3><p>A buyer pays for a machine, not for three founders. Playbooks, the delivery bench and the automated funnel are what make the multiple stick.</p></div>
+      <div class="card reveal"><div class="n">VALUATION LEVER 4</div><h3>Growth rate</h3><p>3.5× year-on-year growth (plan Y1→Y2) is what pushes a services multiple to the top of its range — and what no mature agency book can show.</p></div>
+    </div>
+    <div class="kp reveal"><span class="lbl">Realistically</span><p>€10M is the plan's Year-2/Year-3 shape: ~€1.4M EBITDA or ~€4M recurring. Gate #1 is the 90-day MVP — if the funnel numbers hold, the rest is execution, not invention.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fbrand"><svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="mf" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3DFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#11151F"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#mf)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</div>
+    <div style="font-family:'Space Mono';font-size:11px;color:var(--muted-light)">Sales Funnel &amp; Conversion Paths · © 2026</div>
+  </div>
+</footer>
+<script>
+const bar=document.getElementById('bar');
+addEventListener('scroll',()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';document.getElementById('aexisbar').classList.toggle('is-scrolled',scrollY>20)});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.06});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const aburger=document.getElementById('aburger'),drawer=document.getElementById('drawer'),dc=document.getElementById('drawerClose');
+aburger.addEventListener('click',()=>drawer.classList.add('open'));
+dc.addEventListener('click',()=>drawer.classList.remove('open'));
+drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>drawer.classList.remove('open')));
+addEventListener('keydown',e=>{if(e.key==='Escape')drawer.classList.remove('open')});
+</script>
+</body>
+</html>
