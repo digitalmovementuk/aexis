@@ -21,7 +21,7 @@
   --violet:#7B3DFF;--violet-br:#A98BFF;--indigo:#3D1FD6;--violet-soft:rgba(123,61,255,.13);
   --teal:#00C2A8;--teal-br:#3FE9CE;--teal-soft:rgba(0,194,168,.12);
   --amber:#FFB020;--rose:#FF4D6D;
-  --maxw:1140px;
+  --maxw:1320px;
   --r-s:12px;--r:18px;--r-lg:28px;
   --s1:8px;--s2:16px;--s3:24px;--s4:40px;--s5:64px;--s6:104px;
   --fs-hero:clamp(44px,6.6vw,88px);
@@ -129,7 +129,7 @@ img,video,svg{display:block;max-width:100%}
 /* ============ SECTION SYSTEM ============ */
 section{position:relative}
 .sec{padding:var(--s6) 0}
-.sec-head{max-width:720px;margin:0 auto var(--s5);text-align:center}
+.sec-head{max-width:780px;margin:0 auto var(--s5);text-align:center}
 .sec h2{font-size:var(--fs-h2);color:#fff;margin:16px 0 14px}
 .sec h2 .g{background:linear-gradient(100deg,var(--violet-br),var(--teal-br));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .sec .lead{font-size:var(--fs-lead);color:var(--muted);line-height:1.62;max-width:640px;margin:0 auto}
@@ -209,6 +209,29 @@ section{position:relative}
 .faq details[open] summary .pl{transform:rotate(45deg);color:var(--violet-br);border-color:rgba(123,61,255,.5)}
 .faq .a{padding:0 56px 24px 26px;color:var(--muted);font-size:16.5px;line-height:1.65;text-align:left}
 
+/* light sections */
+.sec.light{background:#F4F6FB}
+.sec.light h2,.sec.light h4{color:#0B0F17}
+.sec.light .lead,.sec.light p{color:#5A6473}
+.sec.light .eyebrow{color:#067a6b}
+.sec.light .eyebrow::before{background:linear-gradient(90deg,transparent,#067a6b)}
+.sec.light .eyebrow::after{background:linear-gradient(90deg,#067a6b,transparent)}
+.sec.light .dcard{background:#fff;box-shadow:0 1px 2px rgba(11,15,23,.05),0 14px 34px -16px rgba(11,15,23,.16)}
+.sec.light .dcard::before{background:linear-gradient(160deg,rgba(11,15,23,.14),rgba(11,15,23,.04))}
+.sec.light .dcard:hover{background:#fff;box-shadow:0 4px 10px rgba(11,15,23,.06),0 22px 44px -16px rgba(11,15,23,.22)}
+.sec.light .dcard h4{color:#0B0F17}
+.sec.light .dcard p{color:#5A6473}
+.sec.light .dcard .ic{background:#EFE9FF}
+.sec.light .dcard .ic svg{color:#3D1FD6}
+.sec.light .btn.ghost{background:transparent;border-color:#0B0F17;color:#0B0F17;backdrop-filter:none}
+.sec.light .btn.ghost:hover{background:#0B0F17;color:#fff}
+.sec.light .faq details{background:#fff;box-shadow:0 1px 2px rgba(11,15,23,.05),0 12px 28px -16px rgba(11,15,23,.14)}
+.sec.light .faq details::before{background:linear-gradient(160deg,rgba(11,15,23,.12),rgba(11,15,23,.03))}
+.sec.light .faq details[open]{background:#fff}
+.sec.light .faq summary{color:#0B0F17}
+.sec.light .faq summary .pl{border-color:#D8DEE9;background:#F4F6FB;color:#067a6b}
+.sec.light .faq .a{color:#5A6473}
+
 /* final cta */
 .final{position:relative;text-align:center;padding:130px 28px;overflow:hidden}
 .final h2{font-size:clamp(34px,5.2vw,62px);color:#fff;letter-spacing:-.033em;max-width:840px;margin:18px auto 18px}
@@ -221,11 +244,14 @@ section{position:relative}
 .contact-meta svg{width:15px;height:15px;color:var(--teal)}
 
 /* sticky mobile CTA */
-.mobile-cta{position:fixed;left:0;right:0;bottom:0;z-index:90;display:none;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(7,10,18,.88);backdrop-filter:blur(18px);border-top:1px solid var(--line-2);transform:translateY(110%);transition:transform .34s var(--ease)}
+.mobile-cta{position:fixed;left:0;right:0;bottom:0;z-index:90;display:flex;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(7,10,18,.88);backdrop-filter:blur(18px);border-top:1px solid var(--line-2);transform:translateY(110%);transition:transform .34s var(--ease)}
 .mobile-cta.show{transform:none}
 .mobile-cta .btn{flex:1;padding:15px 10px;font-size:16px}
 .mobile-cta .btn.wa{flex:0 0 52px;padding:14px;border-radius:14px}
-@media(max-width:760px){.mobile-cta{display:flex}}
+@keyframes ctapulse{0%,100%{box-shadow:0 10px 30px -10px rgba(123,61,255,.6)}50%{box-shadow:0 14px 48px -6px rgba(123,61,255,1)}}
+.mobile-cta .btn.primary{animation:ctapulse 2.8s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.mobile-cta .btn.primary{animation:none}}
+@media(min-width:761px){.mobile-cta{justify-content:center;gap:12px}.mobile-cta .btn{flex:0 0 auto;min-width:360px}.mobile-cta .btn.wa{min-width:0;flex:0 0 auto}}
 
 /* footer */
 footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 36px}
@@ -270,7 +296,7 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
   <div class="pill">
     <a class="abrand" href="index.html" aria-label="AEXIS"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="mab" x1="14" y1="12" x2="50" y2="50" gradientUnits="userSpaceOnUse"><stop stop-color="#9B6BFF"/><stop offset="1" stop-color="#3D1FD6"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0B0F1A"/><path d="M32 15 L49 47 H40.5 L32 30.5 L23.5 47 H15 Z" fill="url(#mab)"/><rect x="25.5" y="35" width="13" height="4.2" rx="2.1" fill="#00C2A8"/></svg>AEXIS</a>
     <nav class="alinks" aria-label="AEXIS site">
-      <a href="homepage.html" class="cur">Landing</a>
+      <a href="homepage.html" class="cur">Landing page</a>
       <a href="index.html">Overview</a>
       <a href="usp.html">USP</a>
       <a href="business-plan.html">Plan</a>
@@ -297,7 +323,6 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
     <a href="#faq">FAQ</a>
   </div>
   <div class="nav-cta-wrap">
-    <a class="btn primary sm" href="#contact">Request your audit</a>
     <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -331,11 +356,10 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
   <div class="noise"></div>
   <div class="hero-inner">
     <div class="badge-row"><span class="pulse"></span>AI-era cyber assurance<span class="badge-geo"> · DE · UK · SG</span></div>
-    <h1>Find out what an AI attacker would find. <span class="g">Before they do.</span></h1>
-    <p class="sub">We attack your company the way real hackers now do — safely. Then we show you exactly what to fix.</p>
+    <h1>AI attackers find gaps you can't see — in hours. <span class="g">Find yours first.</span></h1>
+    <p class="sub">One gap is all it takes. We attack your company the way real hackers now do — safely — and show you exactly what to fix.</p>
     <div class="hero-cta">
       <a class="btn primary" id="heroCta" href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Request your vulnerability audit</a>
-      <a class="btn ghost" href="sample-audit.html">See a sample audit<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
     <p style="margin-top:16px;font-size:14px;color:var(--muted)">No obligation · fixed price up front · reply within one business day.</p>
     <div class="trust-line">
@@ -348,21 +372,21 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
 </header>
 
 <!-- STAKES / PAIN -->
-<section class="sec" id="stakes">
+<section class="sec" id="stakes" style="padding:84px 0">
   <div class="wrap">
-    <div class="sec-head reveal"><div class="eyebrow">Why it can't wait</div><h2>What a cyberattack would cost you</h2><p class="lead">A breach is fast, expensive, and now lands on the board.</p></div>
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:30px 26px;max-width:920px;margin:10px auto 0">
-      <div class="reveal" style="flex:1 1 230px;max-width:280px;text-align:center;border-top:2px solid var(--rose);padding-top:22px">
-        <div style="font-family:'Space Grotesk';font-size:clamp(34px,4vw,46px);font-weight:600;color:#fff;line-height:1">Hours</div>
-        <p style="color:var(--muted);font-size:14.5px;margin-top:9px">AI now breaks into a company in hours — work that used to take weeks.</p>
+    <div class="sec-head reveal" style="margin-bottom:34px"><div class="eyebrow">Why it can't wait</div><h2>What a cyberattack costs</h2></div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:34px 30px;max-width:1140px;margin:0 auto">
+      <div class="reveal" style="flex:1 1 230px;max-width:290px;text-align:center;border-top:2px solid var(--rose);padding-top:24px">
+        <div style="font-family:'Space Grotesk';font-size:clamp(44px,5vw,62px);font-weight:600;color:#fff;line-height:1">Hours</div>
+        <p style="color:var(--muted);font-size:15px;margin-top:8px">for AI to break in</p>
       </div>
-      <div class="reveal" style="flex:1 1 230px;max-width:280px;text-align:center;border-top:2px solid var(--rose);padding-top:22px">
-        <div style="font-family:'Space Grotesk';font-size:clamp(34px,4vw,46px);font-weight:600;color:#fff;line-height:1">$4.4M</div>
-        <p style="color:var(--muted);font-size:14.5px;margin-top:9px">The average cost of a single data breach.</p>
+      <div class="reveal" style="flex:1 1 230px;max-width:290px;text-align:center;border-top:2px solid var(--rose);padding-top:24px">
+        <div style="font-family:'Space Grotesk';font-size:clamp(44px,5vw,62px);font-weight:600;color:#fff;line-height:1">$4.4M</div>
+        <p style="color:var(--muted);font-size:15px;margin-top:8px">average cost of one breach</p>
       </div>
-      <div class="reveal" style="flex:1 1 230px;max-width:280px;text-align:center;border-top:2px solid var(--rose);padding-top:22px">
-        <div style="font-family:'Space Grotesk';font-size:clamp(34px,4vw,46px);font-weight:600;color:#fff;line-height:1">10%</div>
-        <p style="color:var(--muted);font-size:14.5px;margin-top:9px">The maximum fine — of turnover — and the board is personally liable.</p>
+      <div class="reveal" style="flex:1 1 230px;max-width:290px;text-align:center;border-top:2px solid var(--rose);padding-top:24px">
+        <div style="font-family:'Space Grotesk';font-size:clamp(44px,5vw,62px);font-weight:600;color:#fff;line-height:1">10%</div>
+        <p style="color:var(--muted);font-size:15px;margin-top:8px">of turnover — the maximum fine</p>
       </div>
     </div>
   </div>
@@ -370,19 +394,19 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
 <hr class="hr">
 
 <!-- THE AUDIT / OFFER -->
-<section class="sec offer" id="audit">
+<section class="sec light" id="audit">
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="eyebrow">What you get</div>
-      <h2>What the audit tells you</h2>
+      <h2>What the audit will reveal</h2>
       <p class="lead">Fixed price. 4–6 weeks. One clear report.</p>
     </div>
     <div class="deliv">
-      <div class="dcard reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><h4>How exposed are we?</h4><p>One score, 0 to 100. Everyone gets it.</p></div></div>
-      <div class="dcard reveal d1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div><h4>What do we fix first?</h4><p>A 90-day fix list. Most urgent first.</p></div></div>
-      <div class="dcard reveal d2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><h4>Can we prove it?</h4><p>Proof for your board and regulator.</p></div></div>
+      <div class="dcard reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><h4>Your exposure score</h4><p>One number, 0–100 — how easy you are to break into.</p></div></div>
+      <div class="dcard reveal d1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div><h4>Your fix list</h4><p>What to fix first — a clear 90-day plan.</p></div></div>
+      <div class="dcard reveal d2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><h4>Your proof</h4><p>Evidence for your board and regulator.</p></div></div>
     </div>
-    <p class="reveal" style="text-align:center;margin-top:36px;font-size:17px;color:var(--muted)">Every audit is performed fully by <strong style="color:#fff">senior cybersecurity experts</strong> and <strong style="color:#fff">AI engineers</strong>.</p>
+    <p class="reveal" style="text-align:center;margin-top:36px;font-size:17px;color:var(--muted)">Every audit is performed fully by <strong style="color:#0B0F17">senior cybersecurity experts</strong> and <strong style="color:#0B0F17">AI engineers</strong>.</p>
     <div style="text-align:center;margin-top:24px" class="reveal">
       <a class="btn ghost" href="sample-audit.html">See a sample audit<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
@@ -396,7 +420,8 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="eyebrow">How it works</div>
-      <h2>Three steps. <span class="g">No commitment to start.</span></h2>
+      <h2>How the audit works: <span class="g">three steps</span></h2>
+      <p class="lead">No commitment to start — the first step is one message.</p>
     </div>
     <div class="steps">
       <div class="step reveal"><div class="no"></div><h3>Send one message</h3><p>Email or WhatsApp. We reply with a fixed price. No obligation.</p><div class="when">Same day</div></div>
@@ -413,7 +438,7 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
     <div class="teaser reveal">
       <div>
         <div class="eyebrow">See it for real</div>
-        <h2>See exactly what you'll get.</h2>
+        <h2>Your report — see a real sample</h2>
         <p>This is the real report format — shown for a fictional bank. Your score, your findings, your fix plan.</p>
         <a class="btn primary" href="sample-audit.html">Open the sample audit<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
@@ -436,7 +461,7 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
 <section class="sec" id="inside">
   <div class="wrap">
     <div class="sec-head reveal"><div class="eyebrow">Inside the audit</div><h2>What we test, and how</h2><p class="lead">Senior cybersecurity experts and AI engineers test your whole estate — safely, in 4–6 weeks.</p></div>
-    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:840px;margin:0 auto 26px">
+    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:1020px;margin:0 auto 26px">
       <span style="font-family:'Space Mono';font-size:13px;color:var(--text);background:rgba(255,255,255,.05);border:1px solid var(--line-2);padding:10px 16px;border-radius:100px">External attack surface</span>
       <span style="font-family:'Space Mono';font-size:13px;color:var(--text);background:rgba(255,255,255,.05);border:1px solid var(--line-2);padding:10px 16px;border-radius:100px">Identity &amp; access</span>
       <span style="font-family:'Space Mono';font-size:13px;color:var(--text);background:rgba(255,255,255,.05);border:1px solid var(--line-2);padding:10px 16px;border-radius:100px">Email &amp; people</span>
@@ -451,8 +476,8 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
 <hr class="hr">
 
 <!-- FAQ -->
-<section class="sec offer" id="faq">
-  <div class="wrap" style="max-width:800px">
+<section class="sec light" id="faq">
+  <div class="wrap" style="max-width:940px">
     <div class="sec-head reveal">
       <div class="eyebrow">Good questions</div>
       <h2>Common questions</h2>
@@ -473,7 +498,7 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
 <section class="sec" id="founders">
   <div class="wrap">
     <div class="sec-head reveal"><div class="eyebrow">Who's behind it</div><h2>Meet the founders</h2><p class="lead">Three senior professionals — strategy, technical and digital.</p></div>
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:36px 26px;max-width:900px;margin:8px auto 0">
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:40px 30px;max-width:1100px;margin:8px auto 0">
       <div class="reveal" style="flex:1 1 220px;max-width:262px;text-align:center">
         <img src="assets/founder-raoul.jpg" alt="Raoul — co-founder, digital and entrepreneur" width="160" height="160" loading="lazy" style="width:160px;height:160px;border-radius:50%;object-fit:cover;filter:grayscale(1) contrast(1.03);border:1px solid var(--line-2);background:#0d1119">
         <h3 style="font-family:'Space Grotesk';font-size:21px;color:#fff;margin:16px 0 2px">Raoul</h3>
@@ -517,7 +542,7 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:60px 0 3
 </section>
 
 <!-- STICKY MOBILE CTA -->
-<div class="mobile-cta" id="mobileCta" aria-hidden="true">
+<div class="mobile-cta" id="mobileCta">
   <a class="btn primary" id="emailCtaM" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Request your audit</a>
   <a class="btn teal wa" id="waCtaM" href="#" aria-label="Request on WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.6L4 20l1-4.4A8.5 8.5 0 1 1 21 11.5z"/></svg></a>
 </div>
